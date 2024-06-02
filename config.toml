@@ -1,4 +1,4 @@
-baseURL = "https://josh-moreton.github.io/rwxt.-website"
+baseURL = "https://rwxt.org"
 title = "rwxt"
 languageCode = "en-us"
 defaultContentLanguage = "en"
@@ -94,7 +94,7 @@ body = "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidun
 [[params.three.feature]]
 icon = "solid fa-code"
 title = "Foo bar"
-body = "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat."
+body = "Augue consectetur sded interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat."
 
 [[params.three.feature]]
 icon = "solid fa-headphones-alt"
