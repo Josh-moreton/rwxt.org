@@ -109,7 +109,7 @@ body = "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidun
 [[params.three.feature]]
 icon = "fa-flag"
 title = "Nothing important"
-body = "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat."
+body = "Auguce consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat."
 
 [params.cta]
 enable = false
