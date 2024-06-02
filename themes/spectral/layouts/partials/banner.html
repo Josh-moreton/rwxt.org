@@ -1,0 +1,16 @@
+<section id="banner">
+  <div class="inner">
+    <h2>{{ .Site.Params.fancytitle | safeHTML }}</h2>
+    <p>{{ .Site.Params.description | safeHTML }}</p>
+    {{ if and .Site.Params.startbuttonText .Site.Params.startbuttonLink }}
+    <ul class="actions special">
+      <li>
+        <a href="#contact" class="button primary"
+          >{{ .Site.Params.StartbuttonText }}</a
+        >
+      </li>
+    </ul>
+    {{ end }}
+  </div>
+  <a href="#one" class="more scrolly">{{ i18n "learnmore" }}</a>
+</section>
