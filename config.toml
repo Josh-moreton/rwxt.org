@@ -4,7 +4,7 @@ languageCode = "en-us"
 defaultContentLanguage = "en"
 paginate = "7"
 theme = "spectral"
-#googleAnalytics = "G-XXXXXXXXXX"
+googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
 fancyTitle = "Joshua Moreton" # title for frontpage, may include image
