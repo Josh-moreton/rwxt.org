@@ -2,6 +2,8 @@
   <div class="inner">
     <h2>{{ .Site.Params.fancytitle | safeHTML }}</h2>
     <p>{{ .Site.Params.description | safeHTML }}</p>
+    <p>{{ .Site.Params.description2 | safeHTML }}</p>
+    <p>{{ .Site.Params.description3 | safeHTML }}</p>
     {{ if and .Site.Params.startbuttonText .Site.Params.startbuttonLink }}
     <ul class="actions special">
       <li>

@@ -9,7 +9,10 @@ googleAnalytics = "G-T5VYH6J8WD"
 [params]
 fancyTitle = "Joshua Moreton" # title for frontpage, may include image
 copyright = "Josh Moreton"
-description = 'Cyber Security leader, board advisor, and mentor<br />keen photographer, web designer, and runner<br />all-round nerd'
+description = 'Cyber Security leader, board advisor, and mentor.'
+description2 = 'Keen photographer, web designer, and runner.'
+description3 = 'All-round nerd.'
+
 startbuttonText = "Contact me"
 startbuttonLink = "#"
 body_is_markdown = true
