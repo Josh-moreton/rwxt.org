@@ -1,6 +1,6 @@
 +++
-aliases = ["posts", "articles", "blog", "showcase", "docs"]
-title = "Posts"
-author = "Hugo Authors"
+aliases = ["clients", "clientwork", "blog", "showcase", "docs"]
+title = "Clients"
+author = "Josh Moreton"
 tags = ["index"]
 +++

@@ -1,46 +1,53 @@
 +++
-author = "Hugo Authors"
-title = "Emoji Support"
-date = "2019-03-05"
-description = "Guide to emoji usage in Hugo"
+author = "Josh Moreton"
+title = "Wilkie & Gillan"
+date = "2024-04-05"
+description = "Building a new brand from scratch"
 tags = [
-    "emoji",
+    "wilkieandgillan",
 ]
 +++
 
-Emoji can be enabled in a Hugo project in a number of ways. 
-<!--more-->
-The [`emojify`](https://gohugo.io/functions/emojify/) function can be called directly in templates or [Inline Shortcodes](https://gohugo.io/templates/shortcode-templates/#inline-shortcodes). 
+# Wilkie & Gillan: Transforming Spaces with Precision and Care
 
-To enable emoji globally, set `enableEmoji` to `true` in your site's [configuration](https://gohugo.io/getting-started/configuration/) and then you can type emoji shorthand codes directly in content files; e.g.
+## Understanding the Client's Vision
 
-<p><span class="nowrap"><span class="emojify">🙈</span> <code>:see_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙉</span> <code>:hear_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙊</span> <code>:speak_no_evil:</code></span></p>
-<br>
+When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services. Based in Edinburgh, they had a solid reputation for delivering exceptional bathroom and kitchen renovations, but their existing website and branding didn't do justice to their craftsmanship or their client-centric approach.
 
-The [Emoji cheat sheet](http://www.emoji-cheat-sheet.com/) is a useful reference for emoji shorthand codes.
+### The Initial Consultation
 
-***
+During our initial consultation, it was clear that Jack and Euan wanted a website that not only highlighted their portfolio but also conveyed their dedication to quality and customer satisfaction. They shared their desire for a sleek, modern design that would appeal to homeowners looking for premium renovation services. They also needed a platform that would allow potential clients to easily request consultations and view detailed examples of their work.
 
-**N.B.** The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.
+### Crafting the Perfect Solution
 
-{{< highlight html >}}
-.emoji {
-  font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
-}
-{{< /highlight >}}
+**1. Website Design and Development**
 
-{{< css.inline >}}
-<style>
-.emojify {
-	font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
-	font-size: 2rem;
-	vertical-align: middle;
-}
-@media screen and (max-width:650px) {
-  .nowrap {
-    display: block;
-    margin: 25px 0;
-  }
-}
-</style>
-{{< /css.inline >}}
+I started by designing a clean, user-friendly website that emphasised Wilkie & Gillan's strengths. The homepage features a welcoming introduction to their services and a compelling call-to-action for consultations. High-quality images of their recent projects were essential to visually demonstrate their expertise, so I created a dynamic portfolio section showcasing their best work.
+
+**2. Branding and Logo Design**
+
+Wilkie & Gillan needed a brand identity that reflected their professionalism and attention to detail. I designed a new logo that embodied the elegance and precision of their work, ensuring it was versatile for both digital and print use.
+
+**3. Copywriting**
+
+To resonate with potential clients, the website copy needed to be warm, friendly, and professional. I crafted content that highlighted Jack and Euan's dedication to client satisfaction, their meticulous approach to each project, and their extensive experience. Testimonials from satisfied clients were prominently featured to build trust and credibility.
+
+**4. Business Email Setup**
+
+A professional email setup was crucial for their business communications. I created custom email addresses that aligned with their domain, ensuring they had a polished and cohesive digital presence.
+
+### The Results
+
+The new Wilkie & Gillan website has been a game-changer for their business. The modern design and intuitive navigation have made it easier for clients to explore their services and get inspired by their past projects. The website's consultation request form has streamlined their client intake process, resulting in more qualified leads and better project planning.
+
+Jack and Euan have received numerous compliments on the new site, and their enhanced online presence has led to a noticeable increase in client inquiries. The branding and professional email setup have further solidified their reputation as top-tier renovation experts in Edinburgh.
+
+### Conclusion
+
+Working with Wilkie & Gillan was a rewarding experience. Seeing their business grow and thrive with a polished, professional website has been incredibly satisfying. Jack and Euan's commitment to excellence and client satisfaction is truly inspiring, and I'm honoured to have played a part in their success.
+
+If you're looking to elevate your business's digital presence, I'm here to help. Whether it's designing a stunning website, crafting compelling copy, or creating a cohesive brand identity, let's work together to bring your vision to life.
+
+---
+
+For more information on how I can assist your business, feel free to [get in touch](https://www.rwxt.org/contact) today!
