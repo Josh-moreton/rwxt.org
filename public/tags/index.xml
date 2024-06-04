@@ -9,6 +9,13 @@
     <lastBuildDate>Fri, 05 Apr 2024 10:21:32 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Gr8</title>
+      <link>http://localhost:1313/tags/gr8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/gr8/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Index</title>
       <link>http://localhost:1313/tags/index/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -20,48 +27,6 @@
       <link>http://localhost:1313/tags/wilkieandgillan/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/wilkieandgillan/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Css</title>
-      <link>http://localhost:1313/tags/css/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/css/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Html</title>
-      <link>http://localhost:1313/tags/html/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/html/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Markdown</title>
-      <link>http://localhost:1313/tags/markdown/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/markdown/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Privacy</title>
-      <link>http://localhost:1313/tags/privacy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/privacy/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Shortcodes</title>
-      <link>http://localhost:1313/tags/shortcodes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/shortcodes/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Text</title>
-      <link>http://localhost:1313/tags/text/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/text/</guid>
       <description></description>
     </item>
   </channel>
