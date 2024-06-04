@@ -1,18 +1,21 @@
 +++
 author = "Josh Moreton"
 title = "Wilkie & Gillan"
-date = "2024-04-05"
+date = "2024-04-05 10:21:32"
 description = "Building a new brand from scratch"
 tags = [
     "wilkieandgillan",
 ]
+series = ["Client showcase"]
 +++
 
-# Wilkie & Gillan: Transforming Spaces with Precision and Care
+When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services.
 
-## Understanding the Client's Vision
+<!--more-->
 
-When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services. Based in Edinburgh, they had a solid reputation for delivering exceptional bathroom and kitchen renovations, but their existing website and branding didn't do justice to their craftsmanship or their client-centric approach.
+{{< figure src="/clients/wilkie-gillan/wilkie-gillan.png" title="Wilkie & Gillan" width="85%" >}}
+
+Based in Edinburgh, they had a solid reputation for delivering exceptional bathroom and kitchen renovations, but their existing website and branding didn't do justice to their craftsmanship or their client-centric approach.
 
 ### The Initial Consultation
 

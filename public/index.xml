@@ -6,8 +6,15 @@
     <description>Recent content on rwxt</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Apr 2024 10:21:32 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wilkie &amp; Gillan</title>
+      <link>http://localhost:1313/clients/wilkie-gillan/</link>
+      <pubDate>Fri, 05 Apr 2024 10:21:32 +0000</pubDate>
+      <guid>http://localhost:1313/clients/wilkie-gillan/</guid>
+      <description>&lt;p&gt;When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Markdown Syntax Guide</title>
       <link>http://localhost:1313/clients/markdown-syntax/</link>
@@ -35,13 +42,6 @@
       <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/clients/math-typesetting/</guid>
       <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Emoji Support</title>
-      <link>http://localhost:1313/clients/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/clients/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
