@@ -53,4 +53,4 @@ If you're looking to elevate your business's digital presence, I'm here to help.
 
 ---
 
-For more information on how I can assist your business, feel free to [get in touch](https://www.rwxt.org/contact) today!
+For more information on how I can assist your business, feel free to [get in touch](https://www.rwxt.org/#contact) today!
