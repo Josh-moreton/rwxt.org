@@ -61,18 +61,18 @@ label = "code"
 enable = true
 
 [[params.two.section]]
-img = "/img/R1-03104-0021.JPG"
+img = "/img/R1-03104-0021.webp"
 img_alt = "blurry background: white/grey"
 title = 'Cybersecurity Leader'
 body = 'Primarily I am a cybersecurity architect, helping to advise CEOs, CIOs, and CISOs on how to turn cybersecurity from a cost centre to a driver of high quality outcomes for their businesses.'
 
 [[params.two.section]]
-img = "/img/R1-03105-019A.JPG"
+img = "/img/R1-03105-019A.webp"
 title = 'Small Business Consultant'
 body = "Secondarily, I am a builder. I help entrepreneurs and small business owners build businesses. I build websites, I build brands, and I build business technology for my clients."
 
 [[params.two.section]]
-img = "/img/R1-03104-0006.JPG"
+img = "/img/R1-03104-0006.webp"
 title = 'Mentor and Advisor'
 body = 'Tertiarily (?) I help people navigate their careers. I have had the privilege of being mentored by some of the best in the business. I now try to pay that forward by mentoring others, and advising on boards and in the community.'
 
