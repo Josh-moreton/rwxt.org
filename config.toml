@@ -19,6 +19,14 @@ body_is_markdown = true
 #custom_css = "foo.css"
 #custom_sass = "bar.scss"
 #images = ["path_to_social_image_for_link_previews.jpg"]
+inlineCSS = true
+
+[outputFormats]
+  [outputFormats.HTML]
+    mediaType = "text/html"
+    isHTML = true
+    notAlternative = true
+    minify = true
 
 [[params.menu.main]]
 url = '/'
