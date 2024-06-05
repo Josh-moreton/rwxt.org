@@ -4,7 +4,7 @@ outputs = ["Reveal"]
 layout = "bundle"
 [logo]
 src = "logo-white.svg"
-alt = "" # Alt text. 
+alt = "rwxt" # Alt text. 
 width = "100px" # Size of the file.
 # diag = "1%" # How far from the top right should the file be.
 # top = "1%" # Overrides diag.
@@ -14,17 +14,7 @@ theme = "night"
 margin = 0.2
 +++
 
-## Elevate Your Business with Strategic Cybersecurity
-
----
-
-<section data-noprocess data-auto-animate>
-  <h1>Implicit</h1>
-</section>
-<section data-auto-animate>
-  <h1>Implicit</h1>
-  <h1>Animation</h1>
-</section>
+## Cybersecurity doesn't have to be a burden
 
 ---
 
