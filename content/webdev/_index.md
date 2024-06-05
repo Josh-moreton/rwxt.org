@@ -1,6 +1,6 @@
 +++
 aliases = ["clients", "clientwork", "blog", "showcase", "docs"]
-title = "Clients"
+title = "Web Development"
 author = "Josh Moreton"
 tags = ["index"]
 +++

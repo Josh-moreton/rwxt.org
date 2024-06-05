@@ -5,13 +5,10 @@
     <loc>http://localhost:1313/series/client-showcase/</loc>
     <lastmod>2024-05-21T09:36:01+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/clients/</loc>
-    <lastmod>2024-05-21T09:36:01+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/gr8/</loc>
     <lastmod>2024-05-21T09:36:01+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/clients/gr8-projects/</loc>
+    <loc>http://localhost:1313/webdev/gr8-projects/</loc>
     <lastmod>2024-05-21T09:36:01+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/index/</loc>
@@ -26,13 +23,18 @@
     <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-05-21T09:36:01+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/clients/wilkie-gillan/</loc>
+    <loc>http://localhost:1313/webdev/</loc>
+    <lastmod>2024-05-21T09:36:01+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/webdev/wilkie-gillan/</loc>
     <lastmod>2024-04-05T10:21:32+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/wilkieandgillan/</loc>
     <lastmod>2024-04-05T10:21:32+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/custom-theme-example/</loc>
   </url><url>
     <loc>http://localhost:1313/cyber/</loc>
   </url>

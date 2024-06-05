@@ -10,16 +10,16 @@
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GR8 Construction Projects</title>
-      <link>http://localhost:1313/clients/gr8-projects/</link>
+      <link>http://localhost:1313/webdev/gr8-projects/</link>
       <pubDate>Tue, 21 May 2024 09:36:01 +0000</pubDate>
-      <guid>http://localhost:1313/clients/gr8-projects/</guid>
+      <guid>http://localhost:1313/webdev/gr8-projects/</guid>
       <description>&lt;p&gt;Greg and Ross at GR8 already had a strong physical brand, but needed help and guidance taking that brand online.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Wilkie &amp; Gillan</title>
-      <link>http://localhost:1313/clients/wilkie-gillan/</link>
+      <link>http://localhost:1313/webdev/wilkie-gillan/</link>
       <pubDate>Fri, 05 Apr 2024 10:21:32 +0000</pubDate>
-      <guid>http://localhost:1313/clients/wilkie-gillan/</guid>
+      <guid>http://localhost:1313/webdev/wilkie-gillan/</guid>
       <description>&lt;p&gt;When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services.&lt;/p&gt;</description>
     </item>
     <item>
@@ -27,7 +27,7 @@
       <link>http://localhost:1313/cyber/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/cyber/</guid>
-      <description>Cybersecurity Hugo page bundles are a useful way to organize content.&#xA;To create a reveal-hugo presentation from the index.md file of a leaf page bundle, you need to specify the layout manually.&#xA;layout = &amp;#34;bundle&amp;#34; Why? By default, reveal-hugo doesn&amp;rsquo;t create pages for single template types (foo.md), only for list template types (_index.md).&#xA;This technique can also be used to output an HTML file for any section of a presentation, should you need to.</description>
+      <description>Elevate Your Business with Strategic Cybersecurity Pragmatic Advice for Real Value [Your Name], Cybersecurity Consultant&#xA;Welcome to Read, Write, Execute Discover how our considered and pragmatic advice can transform cybersecurity from a cost center to a value driver. Our expertise links security outcomes to your core business mission.&#xA;Aligning Security with Business Goals We believe in creating security strategies that not only protect but also propel your business forward, ensuring your operations are both secure and efficient.</description>
     </item>
   </channel>
 </rss>

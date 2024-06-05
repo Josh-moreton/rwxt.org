@@ -10,9 +10,9 @@
     <atom:link href="http://localhost:1313/tags/gr8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GR8 Construction Projects</title>
-      <link>http://localhost:1313/clients/gr8-projects/</link>
+      <link>http://localhost:1313/webdev/gr8-projects/</link>
       <pubDate>Tue, 21 May 2024 09:36:01 +0000</pubDate>
-      <guid>http://localhost:1313/clients/gr8-projects/</guid>
+      <guid>http://localhost:1313/webdev/gr8-projects/</guid>
       <description>&lt;p&gt;Greg and Ross at GR8 already had a strong physical brand, but needed help and guidance taking that brand online.&lt;/p&gt;</description>
     </item>
   </channel>

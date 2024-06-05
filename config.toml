@@ -3,7 +3,7 @@ title = "rwxt"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 paginate = "7"
-theme = ['Spectral', 'reveal-hugo']
+theme = ['spectral', 'reveal-hugo']
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
@@ -45,11 +45,15 @@ title = "Home"
 
 [[params.menu.main]]
 url = '/clients/'
-title = "Recent Clients"
+title = "Web Development"
 
 [[params.menu.main]]
 url = '/cyber/'
 title = "Cybersecurity"
+
+[[params.menu.main]]
+url = '/book/'
+title = "Book Time With Me"
 
 [taxonomies]
 tag = "tags"

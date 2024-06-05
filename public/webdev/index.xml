@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Client Showcase on rwxt</title>
-    <link>http://localhost:1313/series/client-showcase/</link>
-    <description>Recent content in Client Showcase on rwxt</description>
+    <title>Web Development on rwxt</title>
+    <link>http://localhost:1313/webdev/</link>
+    <description>Recent content in Web Development on rwxt</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 21 May 2024 09:36:01 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/series/client-showcase/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/webdev/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GR8 Construction Projects</title>
       <link>http://localhost:1313/webdev/gr8-projects/</link>

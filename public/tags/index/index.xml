@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 21 May 2024 09:36:01 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Clients</title>
-      <link>http://localhost:1313/clients/</link>
+      <title>Web Development</title>
+      <link>http://localhost:1313/webdev/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/clients/</guid>
+      <guid>http://localhost:1313/webdev/</guid>
       <description></description>
     </item>
   </channel>
