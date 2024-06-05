@@ -147,6 +147,11 @@ email = "josh@rwxt.org"
 subject = "New Submission!"
 formspree_form_id = "mbjnvjwk"
 
+[params.book]
+enable = true
+title = "Book time with me"
+body = "Put time in our diaries to chat."
+
 [params.social]
 twitter = ""
 linkedin = "joshua-stuart-moreton"
