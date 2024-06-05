@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<title>My approach to Cybersecurity</title>
+<meta name="description" content="Cyber Security leader, board advisor, and mentor.">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css"><link rel="stylesheet" href="/reveal-js/dist/theme/night.css" id="theme">
+<link rel="stylesheet" href="/highlight-js/default.min.css">
+
+<style>
+ 
+.reveal section pre {
+  box-shadow: none;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border: 1px solid lightgrey;
+}
+.reveal section pre:hover {
+  border: 1px solid grey;
+  transition: border 0.3s ease;
+}
+.reveal section pre > code {
+  padding: 10px;
+}
+.reveal table {
+  font-size: 0.65em;
+}
+ 
+.reveal section.side-by-side h1 {
+  position: absolute;
+}
+.reveal section.side-by-side h1:first-of-type {
+  left: 25%;
+}
+.reveal section.side-by-side h1:nth-of-type(2) {
+  right: 25%;
+}
+.reveal section[data-background-image] a,
+.reveal section[data-background-image] p,
+.reveal section[data-background-image] h2 {
+  color: white;
+}
+.reveal section[data-background-image] a {
+  text-decoration: underline;
+}
+</style>
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="cybersecurity">Cybersecurity</h1>
+</section><section>
+<p><a href="https://gohugo.io/content-management/page-bundles/">Hugo page bundles</a> are a useful way to organize content.</p>
+</section><section>
+<p>To create a reveal-hugo presentation from the <code>index.md</code> file of a leaf page bundle, you need to specify the layout manually.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span><span style="color:#a6e22e">layout</span> = <span style="color:#e6db74">&#34;bundle&#34;</span>
+</span></span></code></pre></div></section><section>
+<p>Why? By default, reveal-hugo doesn&rsquo;t create pages for single template types (foo.md), only for list template types (_index.md).</p>
+</section><section>
+<p>This technique can also be used to output an HTML file for any section of a presentation, should you need to.</p>
+</section>
+
+  
+
+    <section><p>If more markdown files are present in the bundle, their contents will be added to the presentation.</p>
+</section><section>
+<p>Specify <code>weight</code> in the frontmatter if it&rsquo;s necessary to order them.</p>
+</section><section>
+<p>If you don&rsquo;t want them to be included, specify <code>layout = &quot;list&quot;</code> in the front matter instead of <code>layout = &quot;bundle&quot;</code>.</p>
+</section><section>
+<h2 id="the-end">THE END</h2>
+</section>
+
+</div>
+      
+<div class="line top"></div>
+<div class="line bottom"></div>
+<div class="line left"></div>
+<div class="line right"></div>
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = {"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}};
+  var revealHugoPageParams = {"margin":0.2,"theme":"night"};
+
+  var revealHugoPlugins = {
+    
+    plugins: [RevealMarkdown,RevealHighlight,RevealZoom,RevealNotes]
+  };
+
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+    
+    
+
+
+<script type="text/javascript">
+
+Reveal.on('slidechanged', function(event) {
+  console.log("🎞️ Slide is now " + event.indexh);
+});
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<title>plugin-example</title>
+<meta name="description" content="Shows how a Reveal.js plugin can be added and used">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css"><link rel="stylesheet" href="/reveal-js/dist/theme/night.css" id="theme">
+<link rel="stylesheet" href="/highlight-js/default.min.css">
+
+    <link rel="stylesheet" href="/plugin/gallery/gallery.css">
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="plugin-example">plugin-example</h1>
+</section><section>
+<p>This presentation demonstrates how a Reveal.js plugin can be added.</p>
+</section><section>
+<p>The plugin is called <a href="https://github.com/marcins/revealjs-simple-gallery">revealjs-simple-gallery</a>.</p>
+</section><section>
+<p>It can make any slide an image gallery. Here are a few examples.</p>
+</section><section>
+<!-- raw HTML omitted -->
+</section><section>
+<!-- raw HTML omitted -->
+</section><section>
+<!-- raw HTML omitted -->
+</section><section>
+<p>See the <a href="https://github.com/marcins/revealjs-simple-gallery">revealjs-simple-gallery GitHub repo</a> to learn about more customization options.</p>
+</section><section>
+<p>These are the steps to use this plugin for this reveal-hugo presentation.</p>
+</section><section>
+<h3 id="1">1</h3>
+<p>Copy the plugin CSS and JavaScript into the static directory</p>
+</section><section>
+<h3 id="2">2</h3>
+<p>Add the JavaScript (and optionally css) file path to the <code>plugins</code> field in the
+front matter</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[[<span style="color:#a6e22e">reveal_hugo</span>.<span style="color:#a6e22e">plugins</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># name must match the name by which the plugin is exported</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Gallery&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">source</span> = <span style="color:#e6db74">&#34;plugin/gallery/gallery.plugin.js&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">css</span> = <span style="color:#e6db74">&#34;plugin/gallery/gallery.css&#34;</span>
+</span></span></code></pre></div></section><section>
+<h2 id="the-end">THE END</h2>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  <script type="text/javascript" src="/plugin/gallery/gallery.plugin.js"></script>
+  
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = {"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}};
+  var revealHugoPageParams = {"margin":0.2,"theme":"night"};
+
+  var revealHugoPlugins = {
+    
+    plugins: [RevealMarkdown,RevealHighlight,RevealZoom,RevealNotes,Gallery]
+  };
+
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+    
+    
+  </body>
+</html>

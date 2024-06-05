@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<title>Custom theme example presentation</title>
+<meta name="description" content="Cyber Security leader, board advisor, and mentor.">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/_.min.9d939d2136a60dac77c2556aed26102b172d5349e49b14cc5fbf146822994e37.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="-">🖌 ️</h2>
+<h2 id="custom-themes">Custom Themes</h2>
+<p><em>with Hugo Pipes</em></p>
+</section><section>
+<p>This presentation uses a custom Reveal.js theme written in SCSS that is compiled by Hugo, using <a href="https://gohugo.io/hugo-pipes/">Hugo pipes</a>.</p>
+</section><section>
+<p>Hugo pipes compiles the source code of the theme, located in <code>assets/custom-theme.scss</code>, into CSS.</p>
+</section><section>
+<h2 id="heading">😄</h2>
+<p>No separate build process is required, which means you can iterate on your theme and your content at the same time.</p>
+</section><section>
+<p>To set a custom theme and use Hugo to compile it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[<span style="color:#a6e22e">reveal_hugo</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">custom_theme</span> = <span style="color:#e6db74">&#34;custom-theme.scss&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">custom_theme_compile</span> = <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p><code>custom-theme.scss</code> must live in the <code>assets</code> folder.</p>
+</section><section>
+<p>To pass compilation options, use the <code>custom_theme_options</code> param:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[<span style="color:#a6e22e">reveal_hugo</span>.<span style="color:#a6e22e">custom_theme_options</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">targetPath</span> = <span style="color:#e6db74">&#34;css/custom-theme.css&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">enableSourceMap</span> = <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>See all the <a href="https://gohugo.io/hugo-pipes/scss-sass/#options">available options</a>.</p>
+</section><section>
+<p>Note: to use a custom theme that doesn&rsquo;t need compilation, put it in the <code>static</code> directory and do not set the <code>custom_theme_compile</code> parameter. It will be served to the browser directly.</p>
+</section><section>
+<p>Write a custom Reveal.js theme in four steps:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>1. Import `mixins` and `settings` from the templates directory
+</span></span><span style="display:flex;"><span>2. Override variables and functions for colors, fonts and sizes
+</span></span><span style="display:flex;"><span>3. Import `theme` from the templates directory
+</span></span><span style="display:flex;"><span>4. Add any additional selectors to override the built CSS
+</span></span></code></pre></div></section><section>
+<p>See the <a href="https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md">Reveal.js theme docs</a> to learn what overrides are possible.</p>
+</section><section>
+<p>See <code>assets/custom-theme.scss</code> or any file in <code>assets/reveal-js/dist/theme/source</code> for an example.</p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = {"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}};
+  var revealHugoPageParams = {"custom_theme":"custom-theme.scss","custom_theme_compile":true};
+
+  var revealHugoPlugins = {
+    
+    plugins: [RevealMarkdown,RevealHighlight,RevealZoom,RevealNotes]
+  };
+
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+    
+    
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<title>Logo presentation example</title>
+<meta name="description" content="Cyber Security leader, board advisor, and mentor.">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css"><link rel="stylesheet" href="/reveal-hugo/themes/robot-lung.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  </head>
+  <body>
+    
+    <style>
+      #logo {
+        position: absolute;
+        top: 1%;
+        left: 1%;
+        width: 15%;
+      }
+    </style>
+    <img id="logo" src="github-logo.png" alt="">
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="logo-example">logo-example</h2>
+<p>This presentation shows how to add a logo to each slide, like the GitHub one you see above.</p>
+<p>You can generalize the concept to add any additional markup to your presentations.</p>
+</section><section>
+<p><a href="https://github.com/dzello/reveal-hugo/blob/master/exampleSite/content/logo-example">See the code for this presentation</a></p>
+</section><section>
+<p>For a basic setup, in the front matter, add an image to the presentation&rsquo;s directory.</p>
+<p>Then, add a logo section in the front matter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">src</span> = <span style="color:#e6db74">&#34;github-logo.png&#34;</span>
+</span></span></code></pre></div><p>The front matter should end up looking like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+++</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;Logo presentation example&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">outputs</span> = [<span style="color:#e6db74">&#34;Reveal&#34;</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">src</span> = <span style="color:#e6db74">&#34;github-logo.png&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+++</span>
+</span></span></code></pre></div></section><section>
+<p>If the logo placement doesn&rsquo;t quite match your needs, you may customize it with the following parameters:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">src</span> = <span style="color:#e6db74">&#34;github-logo.png&#34;</span> <span style="color:#75715e"># Location of the file displayed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alt</span> = <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#75715e"># Alt text. </span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">width</span> = <span style="color:#e6db74">&#34;15%&#34;</span> <span style="color:#75715e"># Size of the file.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">diag</span> = <span style="color:#e6db74">&#34;1%&#34;</span> <span style="color:#75715e"># How far from the top right should the file be.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">top</span> = <span style="color:#e6db74">&#34;1%&#34;</span> <span style="color:#75715e"># Overrides diag.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">right</span> = <span style="color:#e6db74">&#34;1%&#34;</span> <span style="color:#75715e"># Overrides diag.</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>Instead of absolute (<code>250px</code>), relative measurements (<code>12.5%</code>) should be used. They work better with different screen sizes.</p>
+</li>
+<li>
+<p>By default, null (<code>&quot;&quot;</code>) is used as alt text for logos, as otherwise the alt text would unnecessarily get read by screen readers.</p>
+</li>
+</ul>
+</section><section>
+<p>💡 Tip: to make the logo settings present on every presentation, add the settings to your site&rsquo;s configuration file <code>config.toml</code> under <code>[params.logo]</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">src</span> = <span style="color:#e6db74">&#34;/img/logo.png&#34;</span>
+</span></span></code></pre></div><p>Note that now, the path to the logo file shall be absolute, and should be stored in <code>static/img/logo.png</code> instead.</p>
+</section><section>
+<p>Depending on the theme you&rsquo;re using, your styles will be different. <!-- raw HTML omitted -->You may also prefer to put your CSS in an external file or your Reveal.js theme.</p>
+<p>For per-presentation override, you may add custom CSS with the ID <code>#logo</code> to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>layouts/partials/{section}/reveal-hugo/body.html
+</span></span></code></pre></div><p>Substitute <code>{section}</code> for <code>home</code> if you are adding a logo to the presentation at <code>content/_index.md</code>. Otherwise, substitute the name of the Hugo section where your presentation lives.</p>
+<p>For a site-wide override, use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape><span style="display:flex;"><span>layouts/partials/{section}/reveal-hugo/body.html
+</span></span></code></pre></div></section><section>
+<h1 id="heading">🤗</h1>
+<p>That&rsquo;s it.</p>
+<p>Happy Hugo-ing!</p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = {"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}};
+  var revealHugoPageParams = {"custom_theme":"reveal-hugo/themes/robot-lung.css","margin":0.2};
+
+  var revealHugoPlugins = {
+    
+    plugins: [RevealMarkdown,RevealHighlight,RevealZoom,RevealNotes]
+  };
+
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+    
+    <style>
+  #logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 250px;
+  }
+</style>
+<img id="logo" src="github-logo.png" alt="">
+  </body>
+</html>

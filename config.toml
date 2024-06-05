@@ -3,11 +3,11 @@ title = "rwxt"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 paginate = "7"
-theme = "spectral"
+theme = ['Spectral', 'reveal-hugo']
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
-fancyTitle = "Joshua Moreton" # title for frontpage, may include image
+fancyTitle = "Joshua Moreton"                                     # title for frontpage, may include image
 copyright = "Josh Moreton"
 description = 'Cyber Security leader, board advisor, and mentor.'
 description2 = 'Keen photographer, web designer, and runner.'
@@ -21,12 +21,23 @@ body_is_markdown = true
 #images = ["path_to_social_image_for_link_previews.jpg"]
 inlineCSS = true
 
+[params.reveal_hugo]
+history = true
+
+# used in content/template-example
+[params.reveal_hugo.templates.grey]
+background = "#424242"
+transition = "convex"
+
 [outputFormats]
-  [outputFormats.HTML]
-    mediaType = "text/html"
-    isHTML = true
-    notAlternative = true
-    minify = true
+[outputFormats.HTML]
+mediaType = "text/html"
+isHTML = true
+notAlternative = true
+minify = true
+[outputFormats.reveal]
+mediaType = "text/html"
+isHTML = true
 
 [[params.menu.main]]
 url = '/'
@@ -36,10 +47,14 @@ title = "Home"
 url = '/clients/'
 title = "Recent Clients"
 
+[[params.menu.main]]
+url = '/cyber/'
+title = "Cybersecurity"
+
 [taxonomies]
-    tag = "tags"
-    category = "categories"
-    series = "series"
+tag = "tags"
+category = "categories"
+series = "series"
 
 [params.one]
 enable = true

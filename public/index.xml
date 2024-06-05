@@ -22,5 +22,12 @@
       <guid>http://localhost:1313/clients/wilkie-gillan/</guid>
       <description>&lt;p&gt;When Jack and Euan from Pride Trade Services approached me, they were looking for a complete redesign of their brand, to showcase their high-quality joinery, plumbing, and tiling services.&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>My approach to Cybersecurity</title>
+      <link>http://localhost:1313/cyber/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/cyber/</guid>
+      <description>Cybersecurity Hugo page bundles are a useful way to organize content.&#xA;To create a reveal-hugo presentation from the index.md file of a leaf page bundle, you need to specify the layout manually.&#xA;layout = &amp;#34;bundle&amp;#34; Why? By default, reveal-hugo doesn&amp;rsquo;t create pages for single template types (foo.md), only for list template types (_index.md).&#xA;This technique can also be used to output an HTML file for any section of a presentation, should you need to.</description>
+    </item>
   </channel>
 </rss>
