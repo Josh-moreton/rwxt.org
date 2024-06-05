@@ -14,6 +14,16 @@ theme = "night"
 margin = 0.2
 +++
 
+<div class="fragment" data-fragment-index="1">
+Your first animated text
+</div>
+
+<div class="fragment" data-fragment-index="2">
+Your second animated text
+</div>
+
+---
+
 ## Cybersecurity doesn't have to be a burden
 
 ---
