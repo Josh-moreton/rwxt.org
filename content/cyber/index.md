@@ -14,6 +14,8 @@ theme = "night"
 margin = 0.2
 +++
 
+{{% markdown %}}
+
 <div class="fragment" data-fragment-index="1">
 Your first animated text
 </div>
@@ -21,8 +23,13 @@ Your first animated text
 <div class="fragment" data-fragment-index="2">
 Your second animated text
 </div>
+{{% /markdown %}}
 
 ---
+
+- {{% fragment %}}One{{% /fragment %}}
+- {{% fragment %}}Two{{% /fragment %}}
+- {{% fragment %}}Three{{% /fragment %}}
 
 ## Cybersecurity doesn't have to be a burden
 
