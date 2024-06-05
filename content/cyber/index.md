@@ -9,7 +9,15 @@ margin = 0.2
 
 ## Elevate Your Business with Strategic Cybersecurity
 
-Josh Moreton, Cybersecurity Consultant
+---
+
+<section data-noprocess data-auto-animate>
+  <h1>Implicit</h1>
+</section>
+<section data-auto-animate>
+  <h1>Implicit</h1>
+  <h1>Animation</h1>
+</section>
 
 ---
 
