@@ -140,7 +140,7 @@ special = false
 [params.contact]
 enable = true
 title = "Contact"
-body = "Get in touch about building you a website, or cyber security consultancy."
+body = "Send me a message. I'd love to chat."
 phone = ""
 address = "Edinburgh, Scotland"
 email = "josh@rwxt.org"
