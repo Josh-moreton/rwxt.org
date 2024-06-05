@@ -23,11 +23,14 @@ You can generalize the concept to add any additional markup to your presentation
 For a basic setup, in the front matter, add an image to the presentation's directory.
 
 Then, add a logo section in the front matter:
+
 ```toml
 [logo]
 src = "github-logo.png"
 ```
+
 The front matter should end up looking like this:
+
 ```toml
 +++
 title = "Logo presentation example"
@@ -44,16 +47,16 @@ If the logo placement doesn't quite match your needs, you may customize it with 
 ```toml
 [logo]
 src = "github-logo.png" # Location of the file displayed.
-alt = "" # Alt text. 
+alt = "" # Alt text.
 width = "15%" # Size of the file.
-diag = "1%" # How far from the top right should the file be.
-top = "1%" # Overrides diag.
-right = "1%" # Overrides diag.
+# diag = "1%" # How far from the top right should the file be.
+# top = "1%" # Overrides diag.
+# right = "1%" # Overrides diag.
 ```
 
- - Instead of absolute (`250px`), relative measurements (`12.5%`) should be used. They work better with different screen sizes.
+- Instead of absolute (`250px`), relative measurements (`12.5%`) should be used. They work better with different screen sizes.
 
- - By default, null (`""`) is used as alt text for logos, as otherwise the alt text would unnecessarily get read by screen readers.
+- By default, null (`""`) is used as alt text for logos, as otherwise the alt text would unnecessarily get read by screen readers.
 
 ---
 
@@ -63,6 +66,7 @@ right = "1%" # Overrides diag.
 [params.logo]
 src = "/img/logo.png"
 ```
+
 Note that now, the path to the logo file shall be absolute, and should be stored in `static/img/logo.png` instead.
 
 ---
@@ -70,13 +74,15 @@ Note that now, the path to the logo file shall be absolute, and should be stored
 Depending on the theme you're using, your styles will be different. <br>You may also prefer to put your CSS in an external file or your Reveal.js theme.
 
 For per-presentation override, you may add custom CSS with the ID `#logo` to:
+
 ```text
 layouts/partials/{section}/reveal-hugo/body.html
 ```
 
-Substitute `{section}` for `home` if you are adding a logo to the presentation at `content/_index.md`. Otherwise, substitute the name of the Hugo section where your presentation lives. 
+Substitute `{section}` for `home` if you are adding a logo to the presentation at `content/_index.md`. Otherwise, substitute the name of the Hugo section where your presentation lives.
 
 For a site-wide override, use:
+
 ```text
 layouts/partials/{section}/reveal-hugo/body.html
 ```
