@@ -7,10 +7,10 @@ theme = ['spectral', 'reveal-hugo']
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
-fancyTitle = "Joshua Moreton"                                     # title for frontpage, may include image
+fancyTitle = "Joshua Moreton"                                           # title for frontpage, may include image
 copyright = "Josh Moreton"
-description = 'Cyber Security leader, board advisor, and mentor.'
-description2 = 'Keen photographer, web designer, and runner.'
+description = 'Cyber Security leader, board advisor, and web designer.'
+description2 = 'Keen photographer, mentor, and runner.'
 description3 = 'All-round nerd.'
 
 startbuttonText = "Contact me"
@@ -158,18 +158,23 @@ title = "Nothing important"
 body = "Auguce consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat."
 
 [params.cta]
-enable = false
-title = "Arccue ut vel commodo"
-body = "Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla."
+enable = true
+title = "Come speak with me"
+body = "If you want to talk about Security Strategy, Web Development, or just want to chat, I'm here to help. Either contact me below, or book some time in my diary for a call"
 
 [[params.cta.link]]
-href = "#contact"
-text = "Get in touch"
+href = "/book"
+text = "Book time"
 special = true
 
 [[params.cta.link]]
-href = "#about"
-text = "Learn More"
+href = "/cyber"
+text = "Learn - Cyber"
+special = false
+
+[[params.cta.link]]
+href = "/clients"
+text = "Learn - Webdev"
 special = false
 
 [params.contact]
