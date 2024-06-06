@@ -28,6 +28,22 @@ history = true
 [params.reveal_hugo.templates.grey]
 background = "#424242"
 transition = "convex"
+autoslide = "5000"
+
+[params.reveal_hugo.templates.darkgrey]
+background = "#3A3E45"
+transition = "concave"
+autoslide = "5000"
+
+[params.reveal_hugo.templates.cyan]
+background = "#53AFA6"
+transition = "fade"
+autoslide = "5000"
+
+[params.reveal_hugo.templates.orange]
+background = "#DF6752"
+transition = "zoom"
+autoslide = "5000"
 
 [outputFormats]
 [outputFormats.HTML]
