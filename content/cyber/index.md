@@ -13,5 +13,3 @@ layout = "bundle"
 theme = "night"
 margin = 0.2
 +++
-
-## Cybersecurity doesn't have to be a burden
