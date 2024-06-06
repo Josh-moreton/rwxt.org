@@ -61,6 +61,10 @@
     {
       "title": "webdev",
       "path": "[[workspace]]/content/webdev"
+    },
+    {
+      "title": "GR8-Projects",
+      "path": "[[workspace]]/content/webdev/GR8-Projects"
     }
   ]
 }
