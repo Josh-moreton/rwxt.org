@@ -24,6 +24,9 @@ inlineCSS = true
 [params.reveal_hugo]
 history = true
 
+[params.reveal_hugo.custom_theme_options]
+targetPath = "css/bento.css"
+
 # used in content/template-example
 [params.reveal_hugo.templates.grey]
 background = "#424242"

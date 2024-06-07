@@ -2,3 +2,5 @@
 .DS_Store
 /public/
 static/.DS_Store
+themes/.DS_Store
+static/.DS_Store

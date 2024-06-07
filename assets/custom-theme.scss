@@ -39,3 +39,10 @@ section.has-light-background {
 .reveal pre {
   margin: 50px auto;
 }
+
+.container {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
