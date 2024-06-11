@@ -82,11 +82,11 @@ series = "series"
 [params.one]
 enable = true
 title = 'Who I am and what I do'
-body = '''<p>Welcome! I’m Joshua Moreton, a full time cybersecurity leader and part time web designer. Be it building high-performing teams or powerful online platforms, I will always deliver the best results for my clients.</p>
+body = '''<p>Hi! I’m Joshua Moreton, a full time cybersecurity leader and part time web designer.</p>
 
-<p>Whether it's enhancing your online presence, fortifying your security infrastructure, or designing a secure and engaging website, I am here to help my clients thrive and navigate an ever evolving technological landscape.</p>
+<p>If you're here for web design, you can find some recent clients and example work using the menu. You can also book a free 30 minute consultation, or just chat to me directly using the chat feature below.</p>
 
-<p>Get in touch or explore the site to find out who I am and how I'm already supporting my clients to achieve their goals.</p>'''
+<p>Get in touch or explore the site to find out who I am and how we might be able to work together.</p>'''
 
 [[params.one.icon]]
 icon = "fa-gem"
