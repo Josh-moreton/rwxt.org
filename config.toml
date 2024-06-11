@@ -13,8 +13,8 @@ description = 'Cybersecurity leader, web designer, and board advisor.'
 description2 = 'Keen photographer, mentor, and runner.'
 description3 = 'All-round nerd.'
 
-startbuttonText = "Contact me"
-startbuttonLink = "#"
+startbuttonText = "Get a free consultation"
+startbuttonLink = "/book/"
 body_is_markdown = true
 #custom_css = "foo.css"
 #custom_sass = "bar.scss"
