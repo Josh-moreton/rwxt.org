@@ -7,9 +7,9 @@ theme = ['spectral', 'reveal-hugo']
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
-fancyTitle = "Joshua Moreton"                                           # title for frontpage, may include image
+fancyTitle = "Joshua Moreton"                                          # title for frontpage, may include image
 copyright = "Josh Moreton"
-description = 'Cyber Security leader, board advisor, and web designer.'
+description = 'Cybersecurity leader, web designer, and board advisor.'
 description2 = 'Keen photographer, mentor, and runner.'
 description3 = 'All-round nerd.'
 
@@ -82,11 +82,11 @@ series = "series"
 [params.one]
 enable = true
 title = 'Who I am and what I do'
-body = '''Hello and welcome to my landing page! I’m Joshua Moreton, and I wear many hats: Cyber Security Leader, Board Advisor, Mentor, and Small Business Consultant. With a passion for helping entrepreneurs and small business owners build high-quality online presences that drive sales, I bring a wealth of experience to the table.
+body = '''Welcome! I’m Joshua Moreton, a full time cybersecurity leader and part time web designer committed to helping my clients succeed in the digital world. With a passion for helping entrepreneurs and small business owners build high-quality online presences that drive sales, I am dedicated to making a meaningful impact in both the digital and physical security landscapes.
 
-Outside of my professional life, I am an avid photographer, web designer, and runner, constantly exploring new ways to blend creativity with technology. My journey is defined by a relentless curiosity and a commitment to making a meaningful impact in both the digital and physical security landscapes.
+Whether it's enhancing your online presence, fortifying your security infrastructure, or designing a secure and engaging website, I am here to help my clients thrive and navigate an ever evolving technological landscape.
 
-This page is your gateway to understanding who I am and how I can support your goals. Whether you need cyber security expertise, strategic guidance, mentorship, or assistance in enhancing your online presence, I’m here to help. Dive in, connect, and let's explore how we can collaborate to achieve success.'''
+Get in touch or explore the site to find out who I am and how I'm already supporting my clients to achieve their goals.'''
 
 [[params.one.icon]]
 icon = "fa-gem"
@@ -125,10 +125,8 @@ body = 'Tertiarily (?) I help people navigate their careers. I have had the priv
 [params.three]
 enable = false
 title = 'Accumsan mus tortor nunc aliquet'
-body = '''
-Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend  
-fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.
-'''
+body = '''Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend  
+fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.'''
 
 [[params.three.feature]]
 icon = "fa-paper-plane"
