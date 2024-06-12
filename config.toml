@@ -70,10 +70,6 @@ title = "Web Development"
 url = '/cyber/'
 title = "Cybersecurity"
 
-[[params.menu.main]]
-url = '/book/'
-title = "Book Time With Me"
-
 [taxonomies]
 tag = "tags"
 category = "categories"
