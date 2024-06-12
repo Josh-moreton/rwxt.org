@@ -1,13 +1,13 @@
 {{ $md := .Site.Params.body_is_markdown | default false }} {{ with
 .Site.Params.book }} {{ if .enable }}
-<!-- Calendly inline widget begin -->
-<div
-  class="calendly-inline-widget"
-  data-url="https://calendly.com/josh-rwxt?hide_gdpr_banner=1&primary_color=53afa6"
-  style="min-width: 320px; height: 700px"></div>
-<script
-  type="text/javascript"
-  src="https://assets.calendly.com/assets/external/widget.js"
-  async></script>
-<!-- Calendly inline widget end -->
+
+<div style="display: flex; justify-content: center">
+  <a
+    href=""
+    onclick="Calendly.initPopupWidget({url: 'https://calendly.com/josh-rwxt'});return false;"
+    class="button primary"
+    >Schedule time with me</a
+  >
+</div>
+
 {{ end }} {{ end }}

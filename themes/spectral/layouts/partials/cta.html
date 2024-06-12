@@ -1,19 +1,23 @@
-{{ $md := .Site.Params.body_is_markdown | default false }}
-
-{{ with .Site.Params.cta }}
-{{ if .enable }}
+{{ $md := .Site.Params.body_is_markdown | default false }} {{ with
+.Site.Params.cta }} {{ if .enable }}
 <section id="cta" class="wrapper style4">
-	<div class="inner">
-		<header>
+  <div class="inner">
+    <header>
       <h2>{{ .title | safeHTML }}</h2>
       {{ partial "body_text.html" (dict "context" . "md" $md) }}
-		</header>
-		<ul class="actions stacked">
+    </header>
+    <ul class="actions stacked">
       {{ range .link }}
-      <li><a href="{{ .href }}" class="button fit {{ if .special }}primary{{ end }}">{{ .text }}</a></li>
+      <li>
+        <a
+          href="{{ .href }}"
+          onclick="Calendly.initPopupWidget({url: 'https://calendly.com/josh-rwxt?hide_gdpr_banner=1'});return false;"
+          class="button fit {{ if .special }}primary{{ end }}"
+          >{{ .text }}</a
+        >
+      </li>
       {{ end }}
-		</ul>
-	</div>
+    </ul>
+  </div>
 </section>
-{{ end }}
-{{ end }}
+{{ end }} {{ end }}
