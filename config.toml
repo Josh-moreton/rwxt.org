@@ -86,7 +86,7 @@ body = '''<p>Hi! I’m Joshua Moreton, a full time cybersecurity leader and part
 
 <p>If you're here for web design, you can find some recent clients and example work using the menu. You can also book a free 30 minute consultation, or just chat to me directly using the chat feature below.</p>
 
-<p>Get in touch or explore the site to find out who I am and how we might be able to work together.</p>'''
+<p>Explore the site or get in touch to find out who I am and how we might be able to work together.</p>'''
 
 [[params.one.icon]]
 icon = "fa-gem"
@@ -161,7 +161,7 @@ body = "Auguce consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidu
 [params.cta]
 enable = true
 title = "Book a free consultation"
-body = "If you want to talk about your business, your career, or your cybersecurity, I'm here to help. Either contact me below, or book some time in my diary for a call"
+body = "If you want to talk about your business, career, or cybersecurity, I'm here to help. Either contact me below, or book some time in my diary for a call"
 
 [[params.cta.link]]
 href = "/book"
