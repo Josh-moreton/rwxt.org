@@ -1,22 +1,25 @@
-{{ $md := .Site.Params.body_is_markdown | default false }}
-
-{{ with .Site.Params.three }}
-{{ if .enable }}
+{{ $md := .Site.Params.body_is_markdown | default false }} {{ with
+.Site.Params.three }} {{ if .enable }}
 <section id="three" class="wrapper style3 special">
-	<div class="inner">
-		<header class="major">
+  <div class="inner">
+    <header class="major">
       <h2>{{ .title | safeHTML }}</h2>
       {{ partial "body_text.html" (dict "context" . "md" $md) }}
-		</header>
-		<ul class="features">
+    </header>
+    <ul class="features">
       {{ range .feature }}
       <li class="icon {{ .icon }}">
         <h3>{{ .title | safeHTML }}</h3>
         <p>{{ .body | safeHTML }}</p>
-			</li>
+        <a
+          href="{{ .href }}"
+          target="”_blank”"
+          class="button fit {{ if .special }}primary{{ end }}"
+          >{{ .buttontext }}</a
+        >
+      </li>
       {{ end }}
-		</ul>
-	</div>
+    </ul>
+  </div>
 </section>
-{{ end }}
-{{ end }}
+{{ end }} {{ end }}
