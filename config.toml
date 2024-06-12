@@ -110,7 +110,7 @@ enable = true
 img = "/img/IMG_1397.webp"
 img_alt = "blurry background: white/grey"
 title = 'Cybersecurity Leader'
-body = 'Primarily I am a cybersecurity architect, helping to advise CEOs, CIOs, and CISOs on how to turn cybersecurity from a cost centre to a driver of high quality outcomes for their businesses.'
+body = 'Primarily I am a cybersecurity architect, helping to advise busy leaders on how to turn cybersecurity from a cost centre to a driver of high quality outcomes for their businesses.'
 
 [[params.two.section]]
 img = "/img/000091820009.jpeg"
