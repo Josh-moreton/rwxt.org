@@ -160,8 +160,8 @@ body = "Auguce consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidu
 
 [params.cta]
 enable = true
-title = "Come speak with me"
-body = "If you want to talk about Security Strategy, Web Development, or just want to chat, I'm here to help. Either contact me below, or book some time in my diary for a call"
+title = "Book a free consultation"
+body = "If you want to talk about your business, your career, or your cybersecurity, I'm here to help. Either contact me below, or book some time in my diary for a call"
 
 [[params.cta.link]]
 href = "/book"
@@ -169,13 +169,13 @@ text = "Book time"
 special = true
 
 [[params.cta.link]]
-href = "/cyber"
-text = "Learn - Cyber"
+href = "/clients"
+text = "Learn - Webdev"
 special = false
 
 [[params.cta.link]]
-href = "/clients"
-text = "Learn - Webdev"
+href = "/cyber"
+text = "Learn - Cyber"
 special = false
 
 [params.contact]
