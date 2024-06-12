@@ -179,7 +179,7 @@ text = "Learn - Webdev"
 special = false
 
 [params.contact]
-enable = true
+enable = false
 title = "Contact"
 body = "Send me a message. I'd love to chat."
 phone = ""
