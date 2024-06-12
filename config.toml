@@ -15,7 +15,7 @@ description3 = 'All-round nerd.'
 
 startbuttonText = "Book time with me"
 startbuttonLink = "#cta"
-body_is_markdown = true
+# body_is_markdown = true
 #custom_css = "foo.css"
 #custom_sass = "bar.scss"
 #images = ["path_to_social_image_for_link_previews.jpg"]

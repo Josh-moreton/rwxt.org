@@ -7,7 +7,7 @@
     {{ if and .Site.Params.startbuttonText .Site.Params.startbuttonLink }}
     <ul class="actions special">
       <li>
-        <a href="#contact" class="button primary"
+        <a href="{{ .Site.Params.startbuttonLink }}" class="button primary"
           >{{ .Site.Params.StartbuttonText }}</a
         >
       </li>
