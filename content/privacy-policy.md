@@ -8,13 +8,13 @@ draft: false
 
 **Effective Date: 23 May 2025**
 
-Welcome to [Your Company Name]! Your privacy is important to us, and we are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you interact with our services.
+Welcome to RWXT! Your privacy is important to us, and we are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you interact with our services.
 
 ---
 
 ### **1. Who We Are**
 
-[Your Company Name] is a technology company based in the United Kingdom. Our registered office is at [Insert Address]. If you have any questions about this policy, you can contact us at [Insert Contact Email].
+RWXT is a technology company based in the United Kingdom. If you have any questions about this policy, you can contact us at privacy@rwxt.org.
 
 ---
 
