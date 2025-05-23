@@ -70,6 +70,10 @@ title = "Web Development"
 url = '/cyber/'
 title = "Cybersecurity"
 
+[[params.menu.main]]
+url = '/privacy-policy/'
+title = "Privacy Policy"
+
 [taxonomies]
 tag = "tags"
 category = "categories"
