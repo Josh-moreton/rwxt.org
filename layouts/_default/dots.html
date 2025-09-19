@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en-us" }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="origin" />
+  <title>{{ .Title }}</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Google Fonts - IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vanta.js dependencies -->
+  <script src="/js/three.r134.min.js"></script>
+  <script src="/js/vanta.dots.min.js"></script>
+
+  <style>
+    html, body { height: 100%; }
+    body { margin: 0; overflow: hidden; }
+    #vanta-bg { position: fixed; inset: 0; z-index: 1; }
+    .content { position: relative; z-index: 2; height: 100vh; display: grid; place-items: center; }
+    h1 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 500; color: #fff; margin: 0; text-transform: none; letter-spacing: 0.06em; }
+    a.home { position: fixed; top: 16px; left: 16px; color: #fff; text-decoration: none; font-family: 'IBM Plex Sans', sans-serif; z-index: 3; }
+  </style>
+</head>
+<body>
+  <div id="vanta-bg"></div>
+  <a class="home" href="/">← Home</a>
+  <main class="content">
+    <h1>{{ .Title }}</h1>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      VANTA.DOTS({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color2: 0xffffff,
+        size: 2.70,
+        spacing: 42.00,
+        showLines: false
+      })
+    })
+  </script>
+</body>
+</html>
