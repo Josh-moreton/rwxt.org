@@ -28,6 +28,11 @@
   }
 
   function initAccessibilityFeatures() {
+    // Only add skip link if it doesn't already exist
+    if (document.querySelector('.skip-link')) {
+      return;
+    }
+    
     // Ensure focus visibility for keyboard navigation
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Tab') {
