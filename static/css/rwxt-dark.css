@@ -1,0 +1,234 @@
+/* 
+ * RWXT Dark Theme - Modern minimal dark aesthetic
+ * Layered on top of existing Spectral theme
+ */
+
+/* CSS Custom Properties for Dark Theme */
+:root {
+  /* Color Palette */
+  --bg: #0B0C0E;
+  --surface: #111318;
+  --text: #E6E7EA;
+  --muted: #A5A7AD;
+  --accent: #22D3EE;
+  --accent-weak: rgba(34, 211, 238, 0.18);
+  --accent-glow: rgba(34, 211, 238, 0.3);
+  
+  /* Spacing & Layout */
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Typography */
+  --font-family-primary: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Shadows & Effects */
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --grain-opacity: 0.02;
+  --vignette-opacity: 0.1;
+}
+
+/* Base Dark Theme Application */
+body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-family-primary) !important;
+  line-height: 1.6;
+}
+
+/* Subtle grain and vignette overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: var(--grain-opacity);
+  background-image: 
+    radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, var(--vignette-opacity)) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* Typography Improvements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+  font-family: var(--font-family-primary) !important;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.01em;
+}
+
+p, span, div, li {
+  color: var(--text);
+}
+
+/* Links */
+a {
+  color: var(--accent) !important;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: var(--accent) !important;
+  text-shadow: 0 0 8px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* Buttons & CTAs */
+.button, button {
+  background: linear-gradient(135deg, var(--accent), rgba(34, 211, 238, 0.8)) !important;
+  color: var(--bg) !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  font-family: var(--font-family-primary) !important;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-lg) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: none !important;
+  letter-spacing: 0.02em;
+}
+
+.button:hover, button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px var(--accent-weak) !important;
+  filter: brightness(1.1);
+}
+
+.button.primary {
+  box-shadow: 0 4px 15px var(--accent-weak) !important;
+}
+
+/* Surface Elements */
+.wrapper, .inner, section {
+  background-color: transparent !important;
+}
+
+/* Header & Navigation */
+#header {
+  background: rgba(11, 12, 14, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+}
+
+#header h1 a {
+  color: var(--text) !important;
+}
+
+#nav ul li a {
+  color: var(--muted) !important;
+  font-family: var(--font-family-primary) !important;
+}
+
+#nav ul li a:hover {
+  color: var(--accent) !important;
+}
+
+/* Banner Section */
+#banner {
+  background: transparent !important;
+  position: relative;
+  z-index: 2;
+}
+
+#banner h2 {
+  color: var(--text) !important;
+  font-family: var(--font-family-primary) !important;
+  font-weight: var(--font-weight-medium) !important;
+  text-transform: none !important;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#banner .inner {
+  backdrop-filter: blur(5px);
+  background: rgba(17, 19, 24, 0.1);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl) !important;
+  border: 1px solid rgba(34, 211, 238, 0.05);
+}
+
+/* Footer */
+#footer {
+  background: var(--surface) !important;
+  color: var(--muted) !important;
+  border-top: 1px solid rgba(34, 211, 238, 0.1);
+}
+
+/* Form Elements */
+input, textarea, select {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(34, 211, 238, 0.2) !important;
+  border-radius: var(--border-radius-sm) !important;
+  font-family: var(--font-family-primary) !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px var(--accent-weak) !important;
+  outline: none !important;
+}
+
+/* Reduced Motion Support */
+.is-reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.is-reduced-motion a:hover {
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+.is-reduced-motion .button:hover,
+.is-reduced-motion button:hover {
+  transform: none !important;
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Ensure 4.5:1 contrast ratio compliance */
+/* Text colors already meet WCAG AA standards with --text: #E6E7EA on --bg: #0B0C0E */
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Loading States */
+.is-preload * {
+  transition: none !important;
+}
