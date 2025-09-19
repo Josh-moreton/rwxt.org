@@ -2,23 +2,22 @@ baseURL = "https://rwxt.org"
 title = "rwxt"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-theme = ['spectral', 'reveal-hugo']
+theme = 'spectral'
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
-fancyTitle = "Joshua Moreton"
+fancyTitle = "rwx_t"
 copyright = "Josh Moreton"
-description = 'Minimal portfolio site'
+description = 'rwx technologies'
 
 [[params.menu.main]]
 url = '/'
 title = "Home"
 
 [[params.menu.main]]
-url = '/webdev/'
-title = "Web Development"
-
-
-[[params.menu.main]]
 url = '/privacy-policy/'
 title = "Privacy Policy"
+
+[[params.menu.main]]
+url = '/cookie-policy/'
+title = "Cookie Policy"
