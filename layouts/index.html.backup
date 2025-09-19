@@ -34,48 +34,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Three.js local copy -->
-  <script src="/js/three.r134.min.js"></script>
+  <!-- Three.js from CDN with integrity -->
+  <script 
+    src="https://unpkg.com/three@0.160.0/build/three.min.js" 
+    integrity="sha384-ksRK9+g6fC4MaCebFdEcBWVyXWLUd7P6VhwZ6PFn3yzgIjhvj2LLJ8YFMgY/w8GE" 
+    crossorigin="anonymous">
+  </script>
 
   <!-- Accessibility utilities -->
   <script src="/js/accessibility.js"></script>
   
-  <!-- Modern dark theme styling for 3D hero -->
+  <!-- Additional styling for the minimal layout -->
   <style>
     body {
       overflow: hidden;
-      margin: 0;
-      padding: 0;
     }
     
-    /* 3D Hero Canvas Positioning */
-    #hero-canvas {
+    #vanta-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
-      pointer-events: none;
     }
     
-    /* Page wrapper positioning above 3D canvas */
-    #page-wrapper {
-      position: relative;
-      z-index: 2;
-      background: transparent;
-    }
-    
-    /* Banner styling for layering over 3D hero */
-    #banner {
-      background: transparent !important;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    /* Override banner background overlay */
+    /* Override banner background to be transparent */
     #banner:after {
       display: none !important;
     }
@@ -85,85 +69,21 @@
       display: none !important;
     }
     
-    /* Enhanced banner inner styling */
-    #banner .inner {
-      text-align: center;
-      padding: 2rem !important;
-      backdrop-filter: blur(10px);
-      background: rgba(17, 19, 24, 0.1);
-      border-radius: 12px;
-      border: 1px solid rgba(34, 211, 238, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Title styling */
+    /* Apply IBM Plex Sans to the title */
     #banner h2 {
       font-family: 'IBM Plex Sans', sans-serif !important;
       font-weight: 500;
       text-transform: none !important;
-      color: #E6E7EA !important;
-      font-size: 3.5rem !important;
-      letter-spacing: 0.06em;
-      margin: 0;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-      position: relative;
-    }
-    
-    /* Subtle glow effect on title */
-    #banner h2::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, transparent, rgba(34, 211, 238, 0.1));
-      border-radius: 8px;
-      z-index: -1;
-      filter: blur(20px);
-    }
-    
-    /* Responsive design */
-    @media (max-width: 768px) {
-      #banner h2 {
-        font-size: 2.5rem !important;
-      }
-      
-      #banner .inner {
-        padding: 1.5rem !important;
-        margin: 1rem;
-      }
-    }
-    
-    /* Loading state */
-    .is-preload #banner .inner {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    
-    /* Fade in animation */
-    #banner .inner {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* Reduced motion overrides */
-    .is-reduced-motion #banner .inner {
-      transition: none !important;
-      transform: none !important;
-    }
-    
-    .is-reduced-motion #banner h2::after {
-      display: none !important;
     }
   </style>
 </head>
 <body class="landing is-preload">
+  <!-- Vanta.js background container -->
+  <div id="vanta-bg"></div>
   
   <!-- Page Wrapper -->
   <div id="page-wrapper">
-    <!-- Banner section with title over 3D hero -->
+    <!-- Banner section with animated Josh Moreton text -->
     <section id="banner">
       <div class="inner">
         <h2>{{ .Site.Params.fancyTitle | safeHTML }}</h2>
@@ -174,7 +94,25 @@
   <!-- Include the original theme's scripts -->
   {{ partial "scripts.html" . }}
   
-  <!-- Initialize 3D Hero -->
-  <script src="/js/hero-3d.js"></script>
+  <!-- Vanta.js initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      VANTA.WAVES({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x202020,
+        shininess: 26.00,
+        waveHeight: 30.00,
+        waveSpeed: 0.70,
+        zoom: 0.65
+      });
+    });
+  </script>
 </body>
 </html>

@@ -3,5 +3,7 @@
 /public/
 static/.DS_Store
 themes/.DS_Store
-static/.DS_Store
-themes/.DS_Store
+hugo.tar.gz
+*.log
+.hugo_build.lock
+node_modules/

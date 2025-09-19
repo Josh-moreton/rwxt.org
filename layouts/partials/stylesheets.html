@@ -1,0 +1,23 @@
+{{ $css := resources.Get "css/main.css" | minify | fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+{{ $noscript_css := resources.Get "css/noscript.css" | minify | fingerprint "sha512" }}
+<noscript><link rel="stylesheet" href="{{ $noscript_css.RelPermalink }}" integrity="{{ $noscript_css.Data.Integrity }}"></noscript>
+
+<!-- RWXT Dark Theme -->
+<link rel="stylesheet" href="/css/rwxt-dark.css">
+
+<!-- Google Fonts - IBM Plex Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{{ with .Site.Params.custom_css }}
+{{ $custom_css := resources.Get . | minify | fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $custom_css.RelPermalink }}" integrity="{{ $custom_css.Data.Integrity }}">
+{{ end }}
+
+{{ with .Site.Params.custom_sass }}
+{{ $custom_sass := resources.Get . | resources.ToCSS | minify | fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $custom_sass.RelPermalink }}" integrity="{{ $custom_sass.Data.Integrity }}">
+{{ end }}
