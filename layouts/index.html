@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en-us" }}">
+<head>
+  <title>{{ .Title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="origin" />
+
+  {{ template "_internal/google_analytics.html" . }}
+  {{ with .Site.Params.description }}
+  <meta name="description" content="{{ . | plainify }}" />
+  {{ end }}
+  {{ with .Site.Params.author }}
+  <meta name="author" content="{{ . }}" />
+  {{ end }}
+
+  <!-- Include the original theme's stylesheets -->
+  {{ partial "stylesheets.html" . }}
+
+  <!-- Vanta.js dependencies -->
+  <script src="/js/three.r134.min.js"></script>
+  <script src="/js/vanta.waves.min.js"></script>
+  
+  <!-- Additional styling for the minimal layout -->
+  <style>
+    body {
+      overflow: hidden;
+    }
+    
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    /* Override banner background to be transparent */
+    #banner:after {
+      display: none !important;
+    }
+    
+    /* Remove the scroll down arrow */
+    #banner .more {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="landing is-preload">
+  <!-- Vanta.js background container -->
+  <div id="vanta-bg"></div>
+  
+  <!-- Page Wrapper -->
+  <div id="page-wrapper">
+    <!-- Header with hamburger menu -->
+    <header id="header" class="alt">
+      <h1>
+        <a href="{{ .Site.BaseURL }}" style="display: flex; align-items: center">
+          <img src="/img/logo-white.svg" alt="{{ .Site.Title }}" class="logo" style="max-width: 100%; height: 30px" />
+        </a>
+      </h1>
+      <nav id="nav">
+        <ul>
+          <li class="special">
+            <a href="#menu" class="menuToggle" aria-label="Menu">
+              <span>Menu</span>
+            </a>
+            <div id="menu">
+              <ul>
+                {{ range .Site.Params.menu.main }}
+                <li><a href="{{ .url | relURL }}">{{ .title }}</a></li>
+                {{ end }}
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <!-- Banner section with animated Josh Moreton text -->
+    <section id="banner">
+      <div class="inner">
+        <h2>{{ .Site.Params.fancyTitle | safeHTML }}</h2>
+      </div>
+    </section>
+  </div>
+
+  <!-- Include the original theme's scripts -->
+  {{ partial "scripts.html" . }}
+  
+  <!-- Vanta.js initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      VANTA.WAVES({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x202020,
+        shininess: 26.00,
+        waveHeight: 30.00,
+        waveSpeed: 0.70,
+        zoom: 0.65
+      });
+    });
+  </script>
+</body>
+</html>

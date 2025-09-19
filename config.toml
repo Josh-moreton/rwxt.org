@@ -2,225 +2,23 @@ baseURL = "https://rwxt.org"
 title = "rwxt"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-paginate = "7"
 theme = ['spectral', 'reveal-hugo']
 googleAnalytics = "G-T5VYH6J8WD"
 
 [params]
-fancyTitle = "Joshua Moreton"                                          # title for frontpage, may include image
+fancyTitle = "Joshua Moreton"
 copyright = "Josh Moreton"
-description = 'Cybersecurity leader, web designer, and board advisor.'
-description2 = 'Keen photographer, mentor, and runner.'
-description3 = 'All-round nerd.'
-
-startbuttonText = "Book time with me"
-startbuttonLink = "#cta"
-# body_is_markdown = true
-#custom_css = "foo.css"
-#custom_sass = "bar.scss"
-#images = ["path_to_social_image_for_link_previews.jpg"]
-inlineCSS = true
-
-[params.reveal_hugo]
-history = true
-
-[params.reveal_hugo.custom_theme_options]
-targetPath = "css/bento.css"
-
-# used in content/template-example
-[params.reveal_hugo.templates.grey]
-background = "#424242"
-transition = "convex"
-autoslide = "5000"
-
-[params.reveal_hugo.templates.darkgrey]
-background = "#3A3E45"
-transition = "concave"
-autoslide = "5000"
-
-[params.reveal_hugo.templates.cyan]
-background = "#53AFA6"
-transition = "fade"
-autoslide = "5000"
-
-[params.reveal_hugo.templates.orange]
-background = "#DF6752"
-transition = "zoom"
-autoslide = "5000"
-
-[outputFormats]
-[outputFormats.HTML]
-mediaType = "text/html"
-isHTML = true
-notAlternative = true
-minify = true
-[outputFormats.reveal]
-mediaType = "text/html"
-isHTML = true
+description = 'Minimal portfolio site'
 
 [[params.menu.main]]
 url = '/'
 title = "Home"
 
 [[params.menu.main]]
-url = '/clients/'
+url = '/webdev/'
 title = "Web Development"
 
-[[params.menu.main]]
-url = '/cyber/'
-title = "Cybersecurity"
 
 [[params.menu.main]]
 url = '/privacy-policy/'
 title = "Privacy Policy"
-
-[taxonomies]
-tag = "tags"
-category = "categories"
-series = "series"
-
-[params.one]
-enable = true
-title = 'Who I am and what I do'
-body = '''<p>Hi! I’m Joshua Moreton, a full time cybersecurity leader and part time web designer.</p>
-
-<p>If you're here for web design, you can find some recent clients and example work using the menu. You can also book a free 30 minute consultation, or just chat to me directly using the chat feature below.</p>
-
-<p>Explore the site or get in touch to find out who I am and how we might be able to work together.</p>'''
-
-[[params.one.icon]]
-icon = "fa-gem"
-style = "1"
-label = "gem"
-
-[[params.one.icon]]
-icon = "fa-heart"
-style = "2"
-label = "heart"
-
-[[params.one.icon]]
-icon = "solid fa-code"
-style = "3"
-label = "code"
-
-[params.two]
-enable = true
-
-[[params.two.section]]
-img = "/img/IMG_1397.webp"
-img_alt = "blurry background: white/grey"
-title = 'Cybersecurity Leader'
-body = 'Primarily I am a cybersecurity architect, helping to advise busy leaders on how to turn cybersecurity from a cost centre to a driver of high quality outcomes for their businesses.'
-
-[[params.two.section]]
-img = "/img/000091820009.jpeg"
-title = 'Web Designer'
-body = "Secondarily, I am a builder. I help entrepreneurs and small business owners build businesses. I build websites, I build brands, and I build business applications for my clients."
-
-[[params.two.section]]
-img = "/img/000091830029.webp"
-title = 'Mentor and Advisor'
-body = 'Tertiarily (?) I help people navigate their careers. I have had the privilege of being mentored by some of the best in the business. I now try to pay that forward by mentoring others.'
-
-[params.three]
-enable = true
-title = 'The world (wide web) is your oyster.'
-body = '''Below are just a few examples of website designs I can offer.'''
-
-[[params.three.feature]]
-icon = "solid fa-house"
-title = "Building on a brand"
-body = "A Construction company looking to expand online"
-href = "https://gr8constructionprojects.com"
-buttontext = "Build"
-special = true
-
-[[params.three.feature]]
-icon = "fa-pen-to-square"
-title = "Blog away"
-body = "A simple take on a modern blog site"
-href = "https://josh-moreton.github.io/example-1/"
-buttontext = "Blog"
-special = true
-
-[[params.three.feature]]
-icon = "solid fa-droplet"
-title = "Bathroom design"
-body = "A burgeoning bathroom design company looking for a rebrand"
-href = "https://wilkieandgillan.com"
-buttontext = "Blog"
-special = true
-
-# [[params.three.feature]]
-# icon = "solid fa-headphones-alt"
-# title = "Modern take on a blog"
-# body = "A simple take on a modern blog site"
-# href = "https://josh-moreton.github.io/example-1/"
-# buttontext = "Blog"
-# special = false
-
-# [[params.three.feature]]
-# icon = "fa-heart"
-# title = "Modern take on a blog"
-# body = "A simple take on a modern blog site"
-# href = "https://josh-moreton.github.io/example-1/"
-# buttontext = "Blog"
-# special = false
-
-# [[params.three.feature]]
-# icon = "fa-flag"
-# title = "Modern take on a blog"
-# body = "A simple take on a modern blog site"
-# href = "https://josh-moreton.github.io/example-1/"
-# buttontext = "Blog"
-# special = false
-
-[params.cta]
-enable = true
-title = "Book a free consultation"
-body = "If you want to talk about your business, career, or cybersecurity, I'm here to help. Either chat with me below, or book some time in my diary for a call"
-
-[[params.cta.link]]
-href = ""
-text = "Book time"
-special = true
-
-[[params.cta.link]]
-href = "/clients"
-text = "Learn - Webdev"
-special = false
-
-[[params.cta.link]]
-href = "/cyber"
-text = "Learn - Cyber"
-special = false
-
-[params.contact]
-enable = false
-title = "Contact"
-body = "Send me a message. I'd love to chat."
-phone = ""
-address = "Edinburgh, Scotland"
-email = "josh@rwxt.org"
-subject = "New Submission!"
-formspree_form_id = "mbjnvjwk"
-
-[params.book]
-enable = true
-title = "Book time with me"
-body = "Put time in our diaries to chat."
-
-[params.social]
-twitter = ""
-linkedin = "joshua-stuart-moreton"
-github = "Josh-moreton"
-facebook = ""
-youtube = ""
-instagram = ""
-dribble = ""
-
-# language specific options
-
-[languages.en]
-weight = 0
-languageName = "English"
