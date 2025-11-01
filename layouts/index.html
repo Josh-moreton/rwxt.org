@@ -81,6 +81,8 @@
       background-color: rgba(0, 0, 0, 0.4);
       padding: 20px;
       border-radius: 8px;
+      text-transform: none !important;
+      letter-spacing: normal !important;
     }
     
     #banner .description a {
@@ -106,11 +108,13 @@
     <section id="banner">
       <div class="inner">
         <h2>{{ .Site.Params.fancyTitle | safeHTML }}</h2>
+        {{ if .Site.Params.descriptionParagraph }}
         <p class="description">
-          Read, write, execute technologies builds tech stacks for driven entrepreneurs and founders.
+          {{ .Site.Params.descriptionParagraph }}
           <br><br>
-          To find out more, email <a href="mailto:info@rwxt.org">info@rwxt.org</a>
+          To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a>
         </p>
+        {{ end }}
       </div>
     </section>
   </div>
