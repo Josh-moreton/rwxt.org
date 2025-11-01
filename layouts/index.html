@@ -84,9 +84,6 @@
       margin-right: auto;
       color: rgba(255, 255, 255, 0.95);
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      border-radius: 8px;
       text-transform: none !important;
       letter-spacing: normal !important;
     }
@@ -117,8 +114,10 @@
         {{ if .Site.Params.descriptionParagraph }}
         <p class="description">
           {{ .Site.Params.descriptionParagraph }}
+          {{ if .Site.Params.contactEmail }}
           <br><br>
           To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a>
+          {{ end }}
         </p>
         {{ end }}
       </div>
