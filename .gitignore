@@ -5,3 +5,5 @@ static/.DS_Store
 themes/.DS_Store
 static/.DS_Store
 themes/.DS_Store
+*.tar.gz
+hugo

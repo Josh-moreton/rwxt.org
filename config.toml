@@ -9,6 +9,8 @@ googleAnalytics = "G-T5VYH6J8WD"
 fancyTitle = "rwx_t"
 copyright = "Josh Moreton"
 description = 'rwx technologies'
+descriptionParagraph = "Read, write, execute technologies builds tech stacks for driven entrepreneurs and founders."
+contactEmail = "info@rwxt.org"
 
 [[params.menu.main]]
 url = '/'
