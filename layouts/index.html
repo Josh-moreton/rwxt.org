@@ -57,8 +57,17 @@
     }
     
     /* Override banner background to be transparent */
-    #banner:after {
+    #banner:after,
+    #banner:before {
       display: none !important;
+      opacity: 0 !important;
+      background: none !important;
+      background-color: transparent !important;
+    }
+    
+    body.is-preload #banner:after {
+      display: none !important;
+      opacity: 0 !important;
     }
     
     /* Remove the scroll down arrow */
@@ -106,6 +115,30 @@
     #banner p {
       background: none !important;
       background-color: transparent !important;
+    }
+    
+    /* Force no background on banner inner container */
+    #banner .inner {
+      background: none !important;
+      background-color: transparent !important;
+    }
+    
+    /* Override any mobile-specific banner backgrounds */
+    @media screen and (max-width: 736px) {
+      #banner,
+      #banner:after,
+      #banner:before,
+      #banner .inner,
+      #banner p {
+        background: none !important;
+        background-color: transparent !important;
+        opacity: 1 !important;
+      }
+      
+      #banner:after,
+      #banner:before {
+        display: none !important;
+      }
     }
   </style>
 </head>
