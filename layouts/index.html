@@ -139,6 +139,20 @@
       #banner:before {
         display: none !important;
       }
+      
+      /* Vertically center content on mobile */
+      #banner {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 100vh !important;
+        height: 100vh !important;
+        padding: 3em 2em !important;
+      }
+      
+      #banner .inner {
+        margin: auto;
+      }
     }
   </style>
 </head>
