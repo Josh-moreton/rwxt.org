@@ -52,7 +52,7 @@
     #content {
       overflow: visible;
       width: 100%;
-      min-height: 500vh;
+      min-height: 600vh;
       position: relative;
     }
 
@@ -153,6 +153,10 @@
 
     section:nth-of-type(5) {
       top: 400vh;
+    }
+
+    section:nth-of-type(6) {
+      top: 500vh;
     }
 
     .content-inner {
@@ -324,6 +328,105 @@
       left: 8%;
     }
 
+    /* Process Section */
+    .process-section {
+      background: transparent;
+      padding: 120px 2rem;
+    }
+
+    .process-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .process-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0f0f0f;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+
+    .process-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 3rem;
+      max-width: 720px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      position: relative;
+    }
+
+    /* Progress line */
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      /* aligns with icon centers */
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.08));
+    }
+
+    .process-step {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .step-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .step-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .step-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #2a2a2a;
+    }
+
+    @media (max-width: 900px) {
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+
+      .process-headline {
+        text-align: center;
+      }
+
+      .process-subhead {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+    }
+
     section:nth-of-type(3) {
       background: transparent;
       display: flex;
@@ -491,6 +594,8 @@
         <div class="panel s2" style="top:100vh; background:#F8F7F6;"></div>
         <!-- Section 3 dark panel -->
         <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
+        <!-- Section 4 process light panel -->
+        <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
       </div>
       <div id="particle-layer"></div>
 
@@ -597,6 +702,59 @@
             </g>
           </g>
         </svg>
+      </section>
+
+      <!-- Process / How It Works Section -->
+      <section class="process-section">
+        <div class="process-container">
+          <h2 class="process-headline">From idea to launch — no friction.</h2>
+          <p class="process-subhead">Every project follows a focused, fast-moving workflow designed for clarity and
+            speed.</p>
+
+          <div class="process-grid">
+            <div class="process-step">
+              <!-- Pencil Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 21l3.8-1L20 6.8a2.2 2.2 0 0 0 0-3.1l-.7-.7a2.2 2.2 0 0 0-3.1 0L3 16.2 3 21z" />
+                <path d="M14.5 5.5l4 4" />
+              </svg>
+              <div class="step-title">1. Scope</div>
+              <div class="step-body">Define the MVP. Capture what matters, cut what doesn’t. Map user journeys, set
+                success metrics, and write clear user stories.</div>
+            </div>
+
+            <div class="process-step">
+              <!-- Terminal Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 5h18v14H3z" />
+                <path d="M7 9l3 3-3 3" />
+                <path d="M12 15h5" />
+              </svg>
+              <div class="step-title">2. Build</div>
+              <div class="step-body">Design and code move together — no silos, no waiting. Every commit moves the
+                product toward production, not just a prototype.</div>
+            </div>
+
+            <div class="process-step">
+              <!-- Rocket Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2c3 0 6 3 6 6 0 6-6 12-6 12S6 14 6 8c0-3 3-6 6-6z" />
+                <path d="M12 9.5v.01" />
+                <path d="M7 20l2-2" />
+                <path d="M15 20l-2-2" />
+              </svg>
+              <div class="step-title">3. Ship</div>
+              <div class="step-body">Deploy with security, scalability, and polish baked in. Infrastructure, analytics,
+                and support ready from day one.</div>
+            </div>
+          </div>
+
+          <p class="process-subhead" style="margin-top:2rem; color:#555;">→ Built like an agency project, delivered like
+            a startup.</p>
+        </div>
       </section>
 
       <section>
@@ -999,6 +1157,23 @@
         ease: 'sine.inOut',
         delay: 1
       });
+
+      /*------------------------------
+      Process Section Animation
+      ------------------------------*/
+      const steps = gsap.utils.toArray('.process-step')
+      gsap.set(steps, { opacity: 0, y: 20 })
+      gsap.to(steps, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: '.process-section',
+          start: 'top 75%'
+        }
+      })
 
     });
   </script>
