@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>{{ .Site.Title }}</title>
   <meta charset="utf-8" />
@@ -9,16 +10,17 @@
   <!-- Google Fonts - IBM Plex Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- GSAP + ScrollTrigger + ScrollSmoother (Local) -->
   <script src="/gsap-public/minified/gsap.min.js"></script>
   <script src="/gsap-public/minified/ScrollTrigger.min.js"></script>
   <script src="/gsap-public/minified/ScrollSmoother.min.js"></script>
-  
+
   <!-- SimplexNoise (Local) -->
   <script src="/js/simplex-noise.js"></script>
-  
+
   <!-- Styles -->
   <style>
     * {
@@ -26,14 +28,14 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #fff;
       color: #000;
     }
-    
-    body:before, 
+
+    body:before,
     body:after {
       content: "";
       position: fixed;
@@ -45,22 +47,24 @@
       background: linear-gradient(to bottom, #fff 10%, rgba(255, 255, 255, 0));
       pointer-events: none;
     }
-    
+
     body:after {
       top: auto;
       bottom: 0;
       background: linear-gradient(to top, #fff 50%, rgba(255, 255, 255, 0));
     }
-    
+
     #wrapper {
       overflow: hidden;
     }
-    
+
     #content {
       overflow: visible;
       width: 100%;
+      min-height: 400vh;
+      position: relative;
     }
-    
+
     .scroll {
       width: 100%;
       height: 100vh;
@@ -69,17 +73,17 @@
       align-items: center;
       justify-content: center;
       position: absolute;
-      z-index: 1;
+      z-index: 10;
       font-family: 'IBM Plex Sans', Roboto, sans-serif;
       letter-spacing: 0.2em;
       font-size: 11px;
       pointer-events: none;
     }
-    
+
     .scroll span {
       display: block;
     }
-    
+
     .scroll svg {
       margin-top: 10px;
       width: 18px;
@@ -91,7 +95,7 @@
       stroke-miterlimit: 10;
       stroke-width: 1;
     }
-    
+
     .circle {
       width: 20px;
       height: 20px;
@@ -100,22 +104,39 @@
       margin: -19px auto;
       transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
     }
-    
+
     section {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 4rem 2rem;
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      width: 100%;
+      z-index: 5;
     }
-    
+
+    section:nth-of-type(1) {
+      top: 0;
+    }
+
+    section:nth-of-type(2) {
+      top: 100vh;
+    }
+
+    section:nth-of-type(3) {
+      top: 200vh;
+    }
+
+    section:nth-of-type(4) {
+      top: 300vh;
+    }
+
     .content-inner {
       max-width: 800px;
       text-align: center;
     }
-    
+
     h1 {
       font-size: 3rem;
       font-weight: 500;
@@ -125,94 +146,96 @@
       padding: 0.5rem 0;
       display: inline-block;
     }
-    
+
     h2 {
       font-size: 2.5rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
     }
-    
+
     p {
       font-size: 1.1rem;
       line-height: 1.8;
       color: #333;
       margin: 1rem 0;
     }
-    
+
     a {
       color: #000;
       text-decoration: underline;
     }
-    
+
     a:hover {
       color: #555;
     }
-    
+
     @keyframes scroll {
       0% {
         transform: translateY(0);
       }
+
       100% {
         transform: translateY(10px);
       }
     }
-    
-
   </style>
 </head>
+
 <body>
-  
+
   <div id="wrapper">
     <div id="content">
-      
-      <div class="scroll">
-        <span>SCROLL</span>
-        <svg viewBox="0 0 24 24">
-          <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
-          <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
-          <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
-        </svg>
-      </div>
-      
-      <!-- Content sections -->
+
+      <!-- Particles will be inserted here by JavaScript -->
+
+      <!-- Content sections with scroll indicator on first section -->
       <section>
+        <div class="scroll">
+          <span>SCROLL</span>
+          <svg viewBox="0 0 24 24">
+            <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
+            <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
+            <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+          </svg>
+        </div>
         <div class="content-inner">
           <h1>{{ .Site.Params.fancyTitle | default "rwx_t" }}</h1>
           <p>{{ .Site.Params.descriptionParagraph }}</p>
           {{ if .Site.Params.contactEmail }}
-          <p>To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a></p>
+          <p>To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail
+              }}</a></p>
           {{ end }}
         </div>
       </section>
-      
+
       <section>
         <div class="content-inner">
           <h2>Scroll-Driven Animation</h2>
           <p>As you scroll down, watch the beautiful particle system reveal itself.</p>
         </div>
       </section>
-      
+
       <section>
         <div class="content-inner">
           <h2>Performance Optimized</h2>
           <p>Buttery-smooth scrolling with GSAP's ScrollSmoother plugin.</p>
         </div>
       </section>
-      
+
       <section>
         <div class="content-inner">
           <h2>Keep Scrolling</h2>
           <p>Continue scrolling to see more particles fade in.</p>
         </div>
       </section>
-      
+
     </div>
   </div>
 
   <!-- Particle System + ScrollSmoother Animation -->
   <script>
-    window.addEventListener('load', function() {
-      
+    window.addEventListener('load', function () {
+
       /*------------------------------
       Register plugins
       ------------------------------*/
@@ -223,19 +246,26 @@
       Making some circles noise
       ------------------------------*/
       const simplex = new SimplexNoise()
+
+      // Create fragment to insert particles at the beginning
+      const fragment = document.createDocumentFragment()
+
       for (let i = 0; i < 5000; i++) {
         const div = document.createElement('div')
         div.classList.add('circle')
         const n1 = simplex.noise2D(i * 0.003, i * 0.0033)
         const n2 = simplex.noise2D(i * 0.002, i * 0.001)
-        
+
         const style = {
           transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${3 + n1 * 2}, ${3 + n2 * 2})`,
-          boxShadow: `0 0 0 .2px hsla(${Math.floor(i*0.3)}, 70%, 70%, .6)`
+          boxShadow: `0 0 0 .2px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`
         }
         Object.assign(div.style, style)
-        content.appendChild(div)
+        fragment.appendChild(div)
       }
+
+      // Insert all circles at the very beginning of content
+      content.insertBefore(fragment, content.firstChild)
       const Circles = document.querySelectorAll('.circle')
 
       /*------------------------------
@@ -263,8 +293,9 @@
           opacity: 1,
         })
       })
-      
+
     });
   </script>
 </body>
+
 </html>
