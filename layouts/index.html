@@ -52,7 +52,7 @@
     #content {
       overflow: visible;
       width: 100%;
-      min-height: 600vh;
+      min-height: 700vh;
       position: relative;
     }
 
@@ -159,6 +159,10 @@
       top: 500vh;
     }
 
+    section:nth-of-type(7) {
+      top: 600vh;
+    }
+
     .content-inner {
       max-width: 800px;
       text-align: center;
@@ -244,7 +248,8 @@
     /* About / Value Proposition Section */
     section:nth-of-type(2) {
       background: transparent;
-      padding: 6rem 2rem;
+      padding: 80px 2rem;
+      /* reclaimed vertical space */
     }
 
     .about-container {
@@ -331,7 +336,8 @@
     /* Process Section */
     .process-section {
       background: transparent;
-      padding: 120px 2rem;
+      padding: 90px 2rem;
+      /* reclaimed vertical space */
     }
 
     .process-container {
@@ -343,7 +349,8 @@
     /* Solutions Section */
     .solutions-section {
       background: transparent;
-      padding: 120px 2rem 140px;
+      padding: 90px 2rem 110px;
+      /* reclaimed vertical space */
     }
 
     .solutions-container {
@@ -373,25 +380,30 @@
     .solutions-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.75rem;
+      gap: 2rem;
       margin-bottom: 2.5rem;
+      align-items: stretch;
     }
 
     .solution-card {
       background: #fff;
       border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 10px;
-      padding: 28px;
+      border-radius: 12px;
+      padding: 32px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
       opacity: 0;
       transform: translateY(20px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
     }
 
     .solution-title {
       font-family: 'JetBrains Mono', monospace;
       font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
       color: #111;
       text-transform: uppercase;
       letter-spacing: 0.02em;
@@ -400,9 +412,10 @@
     .solution-body {
       font-family: 'Inter', sans-serif;
       font-size: 0.98rem;
-      line-height: 1.7;
+      line-height: 1.75;
       color: #2a2a2a;
-      margin-bottom: 0.75rem;
+      margin: 0;
+      flex-grow: 1;
     }
 
     .solution-note {
@@ -415,7 +428,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.95rem;
       color: #111;
-      margin: 0.35rem 0 0.25rem;
+      margin: 0.35rem 0 0.1rem;
     }
 
     .solutions-cta {
@@ -465,6 +478,27 @@
       .solutions-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* Footer Section */
+    .footer-section {
+      background: transparent;
+      padding: 64px 2rem;
+      text-align: center;
+      color: #555;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      min-height: auto;
+      scroll-snap-align: none;
+    }
+
+    .footer-section a {
+      color: #222;
+    }
+
+    .footer-section .brand {
+      font-family: 'JetBrains Mono', monospace;
+      color: #111;
     }
 
     .process-headline {
@@ -725,6 +759,8 @@
         <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
         <!-- Section 6 solutions light panel -->
         <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
+        <!-- Section 7 footer panel -->
+        <div class="panel s7" style="top:600vh; background:#FAFAFA;"></div>
       </div>
       <div id="particle-layer"></div>
 
@@ -1009,15 +1045,19 @@
             <div class="cta-subhead">Book a 20-minute scoping call — no sales pitch, just straight talk about your idea
               and how to ship it.</div>
             <a class="cta-button" href="#contact">Start your build →</a>
-            <div class="cta-secondary">or email <a
-                href="mailto:founder@readwritexecute.dev">founder@readwritexecute.dev</a></div>
+            <div class="cta-secondary">or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a></div>
             <div class="cta-secondary" style="margin-top:24px; font-size:0.9rem; color:#888;">© read, write, execute. —
               Launch fast. Ship right.</div>
           </div>
         </div>
       </section>
 
-      <!-- Removed placeholder section -->
+      <!-- Footer -->
+      <section class="footer-section">
+        <p><span class="brand">read, write, execute.</span> — Launch fast. Ship right.</p>
+        <p style="margin-top:12px; font-size:0.85rem;">© <span id="year"></span> All rights reserved. <a
+            href="/privacy-policy/">Privacy</a> · <a href="/cookie-policy/">Cookies</a></p>
+      </section>
 
     </div>
   </div>
@@ -1448,6 +1488,10 @@
           }
         });
       });
+
+      // Set footer year
+      const yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
     });
   </script>
 </body>
