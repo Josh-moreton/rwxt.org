@@ -7,11 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="{{ .Site.Params.description }}" />
 
-  <!-- Google Fonts - IBM Plex Sans -->
+  <!-- Google Fonts - IBM Plex Sans + Muli -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&display=swap"
     rel="stylesheet">
+
+  <!-- Three.js for WebGL -->
+  <script src="/js/three.min.js"></script>
+
+  <!-- WebFont Loader -->
+  <script src="/js/webfontloader.js"></script>
 
   <!-- GSAP + ScrollTrigger + ScrollSmoother (Local) -->
   <script src="/gsap-public/minified/gsap.min.js"></script>
@@ -171,6 +178,20 @@
       color: #555;
     }
 
+    /* WebGL Canvas for kinetic typography */
+    #Canvas {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      width: 960px;
+      height: 540px;
+      max-width: 90vw;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     @keyframes scroll {
       0% {
         transform: translateY(0);
@@ -200,14 +221,7 @@
             <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
           </svg>
         </div>
-        <div class="content-inner">
-          <h1>{{ .Site.Params.fancyTitle | default "rwx_t" }}</h1>
-          <p>{{ .Site.Params.descriptionParagraph }}</p>
-          {{ if .Site.Params.contactEmail }}
-          <p>To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail
-              }}</a></p>
-          {{ end }}
-        </div>
+        <canvas id="Canvas"></canvas>
       </section>
 
       <section>
@@ -233,6 +247,193 @@
 
     </div>
   </div>
+
+  <!-- WebGL Kinetic Typography Animation -->
+  <script>
+    // Vertex shader
+    const vertexShader = `
+      uniform mat4 modelViewMatrix;
+      uniform mat4 projectionMatrix;
+      uniform float time;
+      uniform float index;
+      uniform float divisions;
+      uniform float tOffsetX;
+      uniform vec4 tween;
+      attribute vec3 position;
+      attribute vec2 uv;
+      varying vec2 vUv;
+
+      mat2 scale2D(vec2 scale) {
+        return mat2(scale.x, 0.0, 0.0, scale.y);
+      }
+
+      void main() {
+        vUv = uv;
+        vec3 pos = position;
+        float scaleX = tween.x;
+        pos.x += tOffsetX;
+        pos.xy *= scale2D(vec2(scaleX, 1.0));
+        pos.x -= tOffsetX;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+      }
+    `;
+
+    // Fragment shader
+    const fragmentShader = `
+      precision highp float;
+      uniform sampler2D texture;
+      uniform float time;
+      uniform float index;
+      uniform float divisions;
+      uniform vec4 tween;
+      varying vec2 vUv;
+
+      void main() {
+        vec2 uv = vUv;
+        float startV = index * (1.0 / divisions);
+        vec2 tuv = vec2(uv.x, startV + uv.y * (1.0 / divisions));
+        vec4 color = texture2D(texture, tuv);
+        gl_FragColor = color;
+      }
+    `;
+
+    // Settings
+    const width = 960;
+    const height = 540;
+    const aspectRatio = width / height;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const sceneWidth = 2;
+    const sceneHeight = sceneWidth / aspectRatio;
+    let scene, camera, renderer;
+
+    const titleWidth = 2.0;
+    const titleHeight = 0.5;
+    const numDivisions = 40;
+    const titleMeshes = [];
+    let numMeshes = 0;
+
+    const tweens1 = [];
+    const tweens2 = [];
+    const tweens3 = [];
+
+    function createCanvas() {
+      scene = new THREE.Scene();
+      camera = new THREE.OrthographicCamera(-sceneWidth / 2, sceneWidth / 2, sceneHeight / 2, -sceneHeight / 2, 0.01, 1000);
+      camera.position.set(0, 0, 1);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas: document.getElementById('Canvas')
+      });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(dpr);
+
+      const texture1 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'READ' });
+      const texture2 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'WRITE' });
+      const texture3 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'EXECUTE' });
+
+      createTitle({ texture: texture1, tweens: tweens1 });
+      createTitle({ texture: texture2, tweens: tweens2 });
+      createTitle({ texture: texture3, tweens: tweens3 });
+
+      numMeshes = titleMeshes.length;
+      animateTitle();
+    }
+
+    function createFontTexture(options) {
+      const canvas = document.createElement('canvas');
+      const width = options.width * dpr;
+      const height = options.height * dpr;
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.font = `600 ${options.fontSize * dpr}px 'Muli'`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#000';
+      ctx.fillText(options.text, width / 2, height / 2 + 25);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.format = THREE.RGBAFormat;
+      texture.needsUpdate = false;
+
+      return texture;
+    }
+
+    function createTitle(params) {
+      for (let i = 0; i < numDivisions; i++) {
+        const dividedHeight = titleHeight / numDivisions;
+        const geometry = new THREE.PlaneBufferGeometry(titleWidth, dividedHeight);
+        geometry.removeAttribute('normal');
+
+        const material = new THREE.RawShaderMaterial({
+          uniforms: {
+            texture: { value: params.texture },
+            time: { value: 0 },
+            index: { value: i },
+            divisions: { value: numDivisions },
+            tOffsetX: { value: -1.0 },
+            tween: { value: new THREE.Vector4(0, 0, 1, 1) },
+          },
+          vertexShader,
+          fragmentShader,
+          transparent: true,
+        });
+
+        const y = -titleHeight * 0.5 + i * dividedHeight + dividedHeight * 0.5;
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.y = y;
+
+        scene.add(mesh);
+        titleMeshes.push(mesh);
+        params.tweens.push(material.uniforms.tween.value);
+      }
+    }
+
+    function animateTitle() {
+      const tl = gsap.timeline({
+        repeat: -1,
+        defaults: { ease: "power3.inOut", duration: 0.8, stagger: 0.01 }
+      });
+
+      const setTransformOffset = (titleIndex, value) => {
+        const startIndex = titleIndex * numDivisions;
+        const endIndex = startIndex + numDivisions;
+        for (let i = startIndex; i < endIndex; i++) {
+          titleMeshes[i].material.uniforms.tOffsetX.value = value;
+        }
+      };
+
+      tl.to(tweens1, { x: 1.0, onStart: () => { setTransformOffset(0, -1.0); } }, 'start');
+      tl.to(tweens1, { x: 0.0, onStart: () => { setTransformOffset(0, 1.0); } }, 'next1');
+      tl.to(tweens2, { x: 1.0, onStart: () => { setTransformOffset(1, -1.0); } }, 'next1');
+      tl.to(tweens2, { x: 0.0, onStart: () => { setTransformOffset(1, 1.0); } }, 'next2');
+      tl.to(tweens3, { x: 1.0, onStart: () => { setTransformOffset(2, -1.0); } }, 'next2');
+      tl.to(tweens3, { x: 0.0, onStart: () => { setTransformOffset(2, 1.0); } });
+    }
+
+    function updateCanvas() {
+      requestAnimationFrame(updateCanvas);
+      const time = performance.now() * 0.001;
+      for (let i = 0; i < numMeshes; i++) {
+        titleMeshes[i].material.uniforms.time.value = time;
+      }
+      renderer.render(scene, camera);
+    }
+
+    WebFont.load({
+      google: { families: ['Muli:600'] },
+      classes: false,
+      active: () => {
+        createCanvas();
+        updateCanvas();
+      }
+    });
+  </script>
 
   <!-- Particle System + ScrollSmoother Animation -->
   <script>
