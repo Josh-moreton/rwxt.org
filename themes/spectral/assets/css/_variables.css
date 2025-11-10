@@ -1,0 +1,88 @@
+/*
+  rwx_t Global Color Theme Variables
+  Light theme by default, Dark theme ready for toggle
+*/
+
+:root {
+  /* Light Theme (Default) */
+  --bg: #FFFFFF;
+  --bg-alt: #F5F5F5;
+  --surface: #F8F7F6;
+  --surface-alt: #FAFAFA;
+  --surface-dark: #1d1d1d;
+  --primary: #216CFF;
+  --accent: #00E0A4;
+  --text: #0F0F10;
+  --text-secondary: #333;
+  --text-tertiary: #555;
+  --text-muted: #666;
+  --text-light: #999;
+  --border: rgba(0, 0, 0, 0.06);
+  --shadow: rgba(0, 0, 0, 0.04);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  
+  /* Interactive states */
+  --link-color: var(--accent);
+  --link-hover: var(--primary);
+  
+  /* Contrast colors for dark sections */
+  --text-on-dark: #FFFFFF;
+  --text-on-dark-secondary: #ededed;
+  --text-on-dark-muted: #ccc;
+}
+
+/* Dark Theme (via data-theme or system preference) */
+:root[data-theme="dark"] {
+  --bg: #0F0F10;
+  --bg-alt: #1A1A1A;
+  --surface: #1A1A1A;
+  --surface-alt: #252525;
+  --surface-dark: #0F0F10;
+  --primary: #216CFF;
+  --accent: #00E0A4;
+  --text: #FFFFFF;
+  --text-secondary: #e0e0e0;
+  --text-tertiary: #b0b0b0;
+  --text-muted: #999;
+  --text-light: #666;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: rgba(0, 0, 0, 0.2);
+  --shadow-hover: rgba(0, 0, 0, 0.4);
+  
+  /* Interactive states */
+  --link-color: var(--accent);
+  --link-hover: var(--primary);
+  
+  /* Contrast colors for light sections in dark mode */
+  --text-on-dark: #FFFFFF;
+  --text-on-dark-secondary: #ededed;
+  --text-on-dark-muted: #ccc;
+}
+
+/* System preference fallback (when no explicit data-theme is set) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0F0F10;
+    --bg-alt: #1A1A1A;
+    --surface: #1A1A1A;
+    --surface-alt: #252525;
+    --surface-dark: #0F0F10;
+    --primary: #216CFF;
+    --accent: #00E0A4;
+    --text: #FFFFFF;
+    --text-secondary: #e0e0e0;
+    --text-tertiary: #b0b0b0;
+    --text-muted: #999;
+    --text-light: #666;
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow: rgba(0, 0, 0, 0.2);
+    --shadow-hover: rgba(0, 0, 0, 0.4);
+    
+    --link-color: var(--accent);
+    --link-hover: var(--primary);
+    
+    --text-on-dark: #FFFFFF;
+    --text-on-dark-secondary: #ededed;
+    --text-on-dark-muted: #ccc;
+  }
+}

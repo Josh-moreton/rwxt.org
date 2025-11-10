@@ -1,3 +1,4 @@
+@import url(_variables.css);
 @import url(fontawesome-all.min.css);
 
 /* https://google-webfonts-helper.herokuapp.com/fonts/open-sans */
@@ -243,7 +244,8 @@ html {
 }
 
 body {
-  background: #2e3842;
+  background: var(--bg);
+  color: var(--text);
 }
 
 body.is-preload *,
@@ -263,7 +265,7 @@ body,
 input,
 select,
 textarea {
-  color: #fff;
+  color: var(--text);
   font-family: "Open Sans", Helvetica, sans-serif;
   font-size: 15pt;
   font-weight: 400;
@@ -315,7 +317,7 @@ a:hover {
 
 strong,
 b {
-  color: #fff;
+  color: var(--text);
   font-weight: 600;
 }
 
@@ -334,7 +336,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #fff;
+  color: var(--text);
   font-weight: 800;
   letter-spacing: 0.225em;
   line-height: 1em;
@@ -405,7 +407,7 @@ sup {
 
 hr {
   border: 0;
-  border-bottom: solid 2px #fff;
+  border-bottom: solid 2px var(--text);
   margin: 3em 0;
 }
 
@@ -414,7 +416,7 @@ hr.major {
 }
 
 blockquote {
-  border-left: solid 4px #fff;
+  border-left: solid 4px var(--text);
   font-style: italic;
   margin: 0 0 2em 0;
   padding: 0.5em 0 0.5em 2em;
@@ -2026,7 +2028,7 @@ input[type="password"]:focus,
 input[type="email"]:focus,
 select:focus,
 textarea:focus {
-  box-shadow: 0 0 0 2px #21b2a6;
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 select {
@@ -2074,7 +2076,7 @@ input[type="radio"] {
 input[type="checkbox"] + label,
 input[type="radio"] + label {
   text-decoration: none;
-  color: #fff;
+  color: var(--text);
   cursor: pointer;
   display: inline-block;
   font-size: 1em;
@@ -2116,14 +2118,14 @@ input[type="radio"] + label:before {
 
 input[type="checkbox"]:checked + label:before,
 input[type="radio"]:checked + label:before {
-  background: #2e3842;
-  color: #fff;
+  background: var(--primary);
+  color: var(--bg);
   content: "\f00c";
 }
 
 input[type="checkbox"]:focus + label:before,
 input[type="radio"]:focus + label:before {
-  box-shadow: 0 0 0 2px #21b2a6;
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 input[type="checkbox"] + label:before {
@@ -2243,15 +2245,15 @@ input[type="radio"] + label:before {
 }
 
 .icon.style1 {
-  color: #00ffcc;
+  color: var(--accent);
 }
 
 .icon.style2 {
-  color: #00f0ff;
+  color: var(--primary);
 }
 
 .icon.style3 {
-  color: #76ddff;
+  color: var(--link-color);
 }
 
 /* Image */
@@ -2578,8 +2580,8 @@ button,
   background-color: transparent;
   border-radius: 3px;
   border: 0;
-  box-shadow: inset 0 0 0 2px #fff;
-  color: #fff;
+  box-shadow: inset 0 0 0 2px var(--text);
+  color: var(--text);
   cursor: pointer;
   display: inline-block;
   font-size: 0.8em;
@@ -2650,9 +2652,9 @@ input[type="reset"].primary,
 input[type="button"].primary,
 button.primary,
 .button.primary {
-  background-color: #ed4933;
+  background-color: var(--primary);
   box-shadow: none !important;
-  color: #ffffff !important;
+  color: var(--bg) !important;
 }
 
 input[type="submit"].primary:hover,
@@ -2660,7 +2662,7 @@ input[type="reset"].primary:hover,
 input[type="button"].primary:hover,
 button.primary:hover,
 .button.primary:hover {
-  background-color: #ef5e4a !important;
+  background-color: var(--accent) !important;
 }
 
 input[type="submit"].primary:active,
@@ -2668,7 +2670,8 @@ input[type="reset"].primary:active,
 input[type="button"].primary:active,
 button.primary:active,
 .button.primary:active {
-  background-color: #eb341c !important;
+  background-color: var(--primary) !important;
+  filter: brightness(0.9);
 }
 
 input[type="submit"].disabled,
@@ -2766,7 +2769,7 @@ button:disabled,
 
 .features li:before {
   display: block;
-  color: #00ffcc;
+  color: var(--accent);
   position: absolute;
   left: 1.75em;
   top: 2.75em;
@@ -2965,13 +2968,13 @@ button:disabled,
 }
 
 .wrapper.style1 {
-  background-color: #21b2a6;
-  color: #c8ece9;
+  background-color: var(--primary);
+  color: var(--bg);
 }
 
 .wrapper.style1 strong,
 .wrapper.style1 b {
-  color: #ffffff;
+  color: var(--bg);
 }
 
 .wrapper.style1 h2,
@@ -2979,7 +2982,7 @@ button:disabled,
 .wrapper.style1 h4,
 .wrapper.style1 h5,
 .wrapper.style1 h6 {
-  color: #ffffff;
+  color: var(--bg);
 }
 
 .wrapper.style1 hr {
@@ -3011,7 +3014,7 @@ button:disabled,
 }
 
 .wrapper.style1 label {
-  color: #ffffff;
+  color: var(--bg);
 }
 
 .wrapper.style1 input[type="text"],
@@ -3027,8 +3030,8 @@ button:disabled,
 }
 
 .wrapper.style1 select option {
-  color: #ffffff;
-  background: #21b2a6;
+  color: var(--bg);
+  background: var(--primary);
 }
 
 .wrapper.style1 input[type="checkbox"] + label,
@@ -3043,8 +3046,8 @@ button:disabled,
 
 .wrapper.style1 input[type="checkbox"]:checked + label:before,
 .wrapper.style1 input[type="radio"]:checked + label:before {
-  background: #ffffff;
-  color: #21b2a6;
+  background: var(--bg);
+  color: var(--primary);
 }
 
 .wrapper.style1 ::-webkit-input-placeholder {
