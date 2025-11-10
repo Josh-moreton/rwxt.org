@@ -126,6 +126,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 4rem 2rem;
       position: absolute;
       width: 100%;
@@ -195,27 +196,36 @@
 
     /* Typewriter Effect Container - Replaces previous WebGL animation */
     #typewriter-container {
-      display: block;
+      display: flex;
       position: absolute;
       top: 50%;
-      left: 30%;
+      left: 50%;
       transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 90vw;
+      justify-content: center;
+      align-items: center;
+      gap: 0.12em;
+      padding: 0 1rem;
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
       z-index: 1;
       pointer-events: none;
     }
 
     /* Typewriter text element - animated with GSAP using SteppedEase */
     #typewriter-text {
-      font-family: 'Muli', 'IBM Plex Sans', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem); /* Responsive sizing */
+      font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+      font-size: inherit;
       font-weight: 600;
       color: #000;
-      white-space: nowrap; /* Prevents text wrapping */
-      overflow: hidden; /* Hides characters outside visible width */
+      white-space: nowrap;
+      overflow: hidden;
       display: inline-block;
-      min-width: 1ch; /* Ensures minimum width for cursor visibility */
-      will-change: width; /* Performance optimization for width animation */
-      backface-visibility: hidden; /* Performance optimization */
+      line-height: 1;
+      min-width: 1ch;
+      will-change: width;
+      backface-visibility: hidden;
+      font-variant-ligatures: none;
     }
 
     /* Blinking cursor effect */
@@ -224,15 +234,22 @@
       width: 3px;
       height: 1em;
       background-color: currentColor;
-      margin-left: 2px;
-      vertical-align: middle;
+      margin-left: 0.12em;
+      align-self: center;
       animation: blink 0.7s steps(1) infinite;
     }
 
     /* CSS-based cursor blink animation */
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
 
     @keyframes scroll {
@@ -712,12 +729,9 @@
         padding-bottom: 3rem;
       }
 
-      #Canvas {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: min(108vw, 720px);
-        height: auto;
-        aspect-ratio: 16 / 9;
+      #typewriter-container {
+        max-width: 95vw;
+        font-size: clamp(2.8rem, 9vw, 5.2rem);
       }
 
       .about-container {
@@ -790,8 +804,9 @@
         display: none;
       }
 
-      #Canvas {
+      #typewriter-container {
         top: 45%;
+        font-size: clamp(2.4rem, 11vw, 4.4rem);
       }
 
       .process-section {
@@ -863,12 +878,10 @@
         min-height: auto;
       }
 
-      #Canvas {
-        left: 50%;
-        width: 100vw;
-        height: auto;
-        max-width: 100vw;
-        transform: translate(-50%, -50%);
+      #typewriter-container {
+        top: 48%;
+        max-width: 96vw;
+        font-size: clamp(2rem, 12vw, 3.5rem);
       }
 
       .screen {
@@ -1108,7 +1121,7 @@
             <text class="maskText1" x="50%" y="60%" style="fill:#ededed;">I BUILD</text>
           </g>
           <g mask="url(#mainMaskInverse)">
-            <text class="maskText2" x="50%" y="60%" style="fill:#5783FC;">WHAT I</text>
+            <text class="maskText2" x="50%" y="60%" style="fill:#5783FC;">YOUR</text>
           </g>
           <path id="mainLine" fill="none" stroke="none" stroke-width="3" stroke-miterlimit="10"
             d="M148,122.1c133-87.1,377-87.8,504,0" />
@@ -1281,8 +1294,8 @@
   -->
   <script>
     // Words to cycle through in typewriter animation
-    const words = ['READ', 'WRITE', 'EXECUTE'];
-    
+    const words = ['read', 'write', 'execute'];
+
     /**
      * Initialize and start the typewriter animation
      * Creates a GSAP timeline that types each word, pauses, then erases it
@@ -1300,10 +1313,10 @@
 
         words.forEach((word, index) => {
           const charCount = word.length;
-          
+
           // Type in animation - animate width from 0 to full word length
           // Uses SteppedEase to create discrete character-by-character effect
-          tl.fromTo(typewriterText, 
+          tl.fromTo(typewriterText,
             { width: '0ch' },
             {
               width: charCount + 'ch',
@@ -1314,17 +1327,17 @@
               }
             }
           );
-          
+
           // Pause before erasing
           tl.to({}, { duration: 1 });
-          
+
           // Erase animation - animate width back to 0 (faster than typing)
           tl.to(typewriterText, {
             width: '0ch',
             duration: charCount * 0.05, // Faster erase (0.05s per character)
             ease: SteppedEase.config(charCount)
           });
-          
+
           // Pause before next word
           tl.to({}, { duration: 0.3 });
         });
@@ -1335,7 +1348,7 @@
       // Set initial state
       typewriterText.style.width = '0ch';
       typewriterText.textContent = words[0];
-      
+
       // Start animation
       typewriterAnimation();
     }
@@ -1343,9 +1356,9 @@
     // Initialize typewriter animation when fonts are loaded OR after timeout
     // Multiple initialization paths ensure animation works even if fonts fail to load
     let initialized = false;
-    
+
     WebFont.load({
-      google: { families: ['Muli:600'] },
+      google: { families: ['JetBrains Mono:600'] },
       classes: false,
       active: () => {
         if (!initialized) {
@@ -1361,7 +1374,7 @@
         }
       }
     });
-    
+
     // Fallback: Initialize after 1 second if fonts haven't loaded
     // Ensures animation always starts even if WebFont loader fails
     setTimeout(() => {
@@ -1576,7 +1589,7 @@
         .to(k, 1, { rotation: -180, transformOrigin: "-28% -28%" }, "-=1")
         .to(f, 1, { morphSVG: "M148,122.1c152.9,62.6,377-83.1,504,0" }, "-=1")
         .to(a, 1, { morphSVG: "M148,122.5c152.9,63.6,377-84.7,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1")
-        .set(".maskText1", { textContent: "DESIGN" }, "-=1")
+        .set(".maskText1", { textContent: "DREAMS" }, "-=1")
         .to(b, 1, { x: g.getAttribute("cx"), y: g.getAttribute("cy"), rotation: 90 })
         .to(k, 1, { rotation: -90, transformOrigin: "-28% -28%" }, "-=1")
         .to(m, 1, { rotation: 0, transformOrigin: "50% 50%" })
