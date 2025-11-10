@@ -1260,8 +1260,8 @@
         const n2 = simplex.noise2D(i * 0.002, i * 0.001)
 
         const style = {
-          transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${3 + n1 * 2}, ${3 + n2 * 2})`,
-          boxShadow: `0 0 0 .2px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`
+          transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${(3 + n1 * 2) * 1.5}, ${(3 + n2 * 2) * 1.5})`,
+          boxShadow: `0 0 0 .3px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`
         }
         Object.assign(div.style, style)
         fragment.appendChild(div)
