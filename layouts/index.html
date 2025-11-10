@@ -1,205 +1,269 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang | default "en-us" }}">
+<html lang="en">
 <head>
-  <title>{{ .Title }}</title>
+  <title>{{ .Site.Title }}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="referrer" content="origin" />
-
-  {{ template "_internal/google_analytics.html" . }}
-  {{ with .Site.Params.description }}
-  <meta name="description" content="{{ . | plainify }}" />
-  {{ end }}
-  {{ with .Site.Params.author }}
-  <meta name="author" content="{{ . }}" />
-  {{ end }}
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-  <link rel="manifest" href="/site.webmanifest">
-
-  <!-- Include the original theme's stylesheets -->
-  {{ partial "stylesheets.html" . }}
+  <meta name="description" content="{{ .Site.Params.description }}" />
 
   <!-- Google Fonts - IBM Plex Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Vanta.js dependencies -->
-  <script src="/js/three.r134.min.js"></script>
-  <script src="/js/vanta.waves.min.js"></script>
+  <!-- GSAP + ScrollTrigger + ScrollSmoother (Local) -->
+  <script src="/gsap-public/minified/gsap.min.js"></script>
+  <script src="/gsap-public/minified/ScrollTrigger.min.js"></script>
+  <script src="/gsap-public/minified/ScrollSmoother.min.js"></script>
   
-  <!-- Additional styling for the minimal layout -->
+  <!-- SimplexNoise (Local) -->
+  <script src="/js/simplex-noise.js"></script>
+  
+  <!-- Styles -->
   <style>
-    body {
-      overflow: hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     
-    #vanta-bg {
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+    
+    body:before, 
+    body:after {
+      content: "";
       position: fixed;
+      z-index: 10;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      z-index: 1;
+      height: 60px;
+      background: linear-gradient(to bottom, #fff 10%, rgba(255, 255, 255, 0));
+      pointer-events: none;
     }
     
-    /* Ensure page wrapper is above the background */
-    #page-wrapper {
+    body:after {
+      top: auto;
+      bottom: 0;
+      background: linear-gradient(to top, #fff 50%, rgba(255, 255, 255, 0));
+    }
+    
+    #wrapper {
+      overflow: hidden;
+    }
+    
+    #content {
+      overflow: visible;
+      width: 100%;
+    }
+    
+    .scroll {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      z-index: 1;
+      font-family: 'IBM Plex Sans', Roboto, sans-serif;
+      letter-spacing: 0.2em;
+      font-size: 11px;
+      pointer-events: none;
+    }
+    
+    .scroll span {
+      display: block;
+    }
+    
+    .scroll svg {
+      margin-top: 10px;
+      width: 18px;
+      height: 18px;
+      animation: scroll 0.95s ease-in-out alternate infinite;
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+      stroke-width: 1;
+    }
+    
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 40%;
+      opacity: 0;
+      margin: -19px auto;
+      transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
+    }
+    
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
       position: relative;
       z-index: 2;
     }
     
-    /* Override banner background to be transparent */
-    #banner:after,
-    #banner:before {
-      display: none !important;
-      opacity: 0 !important;
-      background: none !important;
-      background-color: transparent !important;
+    .content-inner {
+      max-width: 800px;
+      text-align: center;
     }
     
-    body.is-preload #banner:after {
-      display: none !important;
-      opacity: 0 !important;
-    }
-    
-    /* Remove the scroll down arrow */
-    #banner .more {
-      display: none !important;
-    }
-    
-    /* Apply IBM Plex Sans to the title */
-    #banner h2 {
-      font-family: 'IBM Plex Sans', sans-serif !important;
+    h1 {
+      font-size: 3rem;
       font-weight: 500;
-      text-transform: none !important;
+      margin-bottom: 1rem;
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
+      padding: 0.5rem 0;
+      display: inline-block;
     }
     
-    /* Style the description paragraph */
-    #banner .description {
-      font-family: 'IBM Plex Sans', sans-serif !important;
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
       font-size: 1.1rem;
-      line-height: 1.6;
-      margin-top: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      text-transform: none !important;
-      letter-spacing: normal !important;
-      background: none !important;
-      background-color: transparent !important;
+      line-height: 1.8;
+      color: #333;
+      margin: 1rem 0;
     }
     
-    #banner .description a {
-      color: rgba(255, 255, 255, 1);
+    a {
+      color: #000;
       text-decoration: underline;
-      transition: color 0.2s ease;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
-    #banner .description a:hover {
-      color: rgba(255, 255, 255, 1);
-      text-decoration: none;
+    a:hover {
+      color: #555;
     }
     
-    /* Force no background on all paragraph elements in banner */
-    #banner p {
-      background: none !important;
-      background-color: transparent !important;
+    @keyframes scroll {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(10px);
+      }
     }
     
-    /* Force no background on banner inner container */
-    #banner .inner {
-      background: none !important;
-      background-color: transparent !important;
-    }
-    
-    /* Override any mobile-specific banner backgrounds */
-    @media screen and (max-width: 736px) {
-      #banner,
-      #banner:after,
-      #banner:before,
-      #banner .inner,
-      #banner p {
-        background: none !important;
-        background-color: transparent !important;
-        opacity: 1 !important;
-      }
-      
-      #banner:after,
-      #banner:before {
-        display: none !important;
-      }
-      
-      /* Vertically center content on mobile */
-      #banner {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: 100vh !important;
-        height: 100vh !important;
-        padding: 3em 2em !important;
-      }
-      
-      #banner .inner {
-        margin: auto;
-      }
-    }
+
   </style>
 </head>
-<body class="landing is-preload">
-  <!-- Vanta.js background container -->
-  <div id="vanta-bg"></div>
+<body>
   
-  <!-- Page Wrapper -->
-  <div id="page-wrapper">
-    <!-- Banner section with animated Josh Moreton text -->
-    <section id="banner">
-      <div class="inner">
-        <h2>{{ .Site.Params.fancyTitle | safeHTML }}</h2>
-        {{ if .Site.Params.descriptionParagraph }}
-        <p class="description">
-          {{ .Site.Params.descriptionParagraph }}
-          {{ if .Site.Params.contactEmail }}
-          <br><br>
-          To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a>
-          {{ end }}
-        </p>
-        {{ end }}
+  <div id="wrapper">
+    <div id="content">
+      
+      <div class="scroll">
+        <span>SCROLL</span>
+        <svg viewBox="0 0 24 24">
+          <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
+          <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
+          <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+        </svg>
       </div>
-    </section>
+      
+      <!-- Content sections -->
+      <section>
+        <div class="content-inner">
+          <h1>{{ .Site.Params.fancyTitle | default "rwx_t" }}</h1>
+          <p>{{ .Site.Params.descriptionParagraph }}</p>
+          {{ if .Site.Params.contactEmail }}
+          <p>To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a></p>
+          {{ end }}
+        </div>
+      </section>
+      
+      <section>
+        <div class="content-inner">
+          <h2>Scroll-Driven Animation</h2>
+          <p>As you scroll down, watch the beautiful particle system reveal itself.</p>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content-inner">
+          <h2>Performance Optimized</h2>
+          <p>Buttery-smooth scrolling with GSAP's ScrollSmoother plugin.</p>
+        </div>
+      </section>
+      
+      <section>
+        <div class="content-inner">
+          <h2>Keep Scrolling</h2>
+          <p>Continue scrolling to see more particles fade in.</p>
+        </div>
+      </section>
+      
+    </div>
   </div>
 
-  <!-- Include the original theme's scripts -->
-  {{ partial "scripts.html" . }}
-  
-  <!-- Vanta.js initialization -->
+  <!-- Particle System + ScrollSmoother Animation -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      VANTA.WAVES({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0x202020,
-        shininess: 26.00,
-        waveHeight: 30.00,
-        waveSpeed: 0.70,
-        zoom: 0.65
+    window.addEventListener('load', function() {
+      
+      /*------------------------------
+      Register plugins
+      ------------------------------*/
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
+      const content = document.querySelector('#content')
+
+      /*------------------------------
+      Making some circles noise
+      ------------------------------*/
+      const simplex = new SimplexNoise()
+      for (let i = 0; i < 5000; i++) {
+        const div = document.createElement('div')
+        div.classList.add('circle')
+        const n1 = simplex.noise2D(i * 0.003, i * 0.0033)
+        const n2 = simplex.noise2D(i * 0.002, i * 0.001)
+        
+        const style = {
+          transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${3 + n1 * 2}, ${3 + n2 * 2})`,
+          boxShadow: `0 0 0 .2px hsla(${Math.floor(i*0.3)}, 70%, 70%, .6)`
+        }
+        Object.assign(div.style, style)
+        content.appendChild(div)
+      }
+      const Circles = document.querySelectorAll('.circle')
+
+      /*------------------------------
+      Init ScrollSmoother
+      ------------------------------*/
+      const scrollerSmoother = ScrollSmoother.create({
+        content: content,
+        wrapper: '#wrapper',
+        smooth: 1,
+        effects: false
       });
+
+      /*------------------------------
+      Scroll Trigger
+      ------------------------------*/
+      const main = gsap.timeline({
+        scrollTrigger: {
+          scrub: .7,
+          start: "top 25%",
+          end: "bottom bottom"
+        }
+      })
+      Circles.forEach((circle) => {
+        main.to(circle, {
+          opacity: 1,
+        })
+      })
+      
     });
   </script>
 </body>
