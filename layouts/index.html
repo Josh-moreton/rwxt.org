@@ -193,7 +193,7 @@
       color: #555;
     }
 
-    /* Typewriter Effect Container */
+    /* Typewriter Effect Container - Replaces previous WebGL animation */
     #typewriter-container {
       display: block;
       position: absolute;
@@ -204,19 +204,21 @@
       pointer-events: none;
     }
 
+    /* Typewriter text element - animated with GSAP using SteppedEase */
     #typewriter-text {
       font-family: 'Muli', 'IBM Plex Sans', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(3rem, 8vw, 6rem); /* Responsive sizing */
       font-weight: 600;
       color: #000;
-      white-space: nowrap;
-      overflow: hidden;
+      white-space: nowrap; /* Prevents text wrapping */
+      overflow: hidden; /* Hides characters outside visible width */
       display: inline-block;
-      min-width: 1ch;
-      will-change: width;
-      backface-visibility: hidden;
+      min-width: 1ch; /* Ensures minimum width for cursor visibility */
+      will-change: width; /* Performance optimization for width animation */
+      backface-visibility: hidden; /* Performance optimization */
     }
 
+    /* Blinking cursor effect */
     .typewriter-cursor {
       display: inline-block;
       width: 3px;
@@ -227,6 +229,7 @@
       animation: blink 0.7s steps(1) infinite;
     }
 
+    /* CSS-based cursor blink animation */
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
@@ -1071,16 +1074,25 @@
     </div>
   </div>
 
-  <!-- GSAP Typewriter Animation -->
+  <!-- GSAP Typewriter Animation 
+       Replaces previous WebGL Three.js shader-based animation
+       Uses GSAP Timeline with SteppedEase for character-by-character typing effect
+       Inspired by: https://codepen.io/jonathan/pen/LbPNvK
+  -->
   <script>
-    // Typewriter effect configuration
+    // Words to cycle through in typewriter animation
     const words = ['READ', 'WRITE', 'EXECUTE'];
     
+    /**
+     * Initialize and start the typewriter animation
+     * Creates a GSAP timeline that types each word, pauses, then erases it
+     */
     function initTypewriter() {
       const typewriterText = document.getElementById('typewriter-text');
       if (!typewriterText) return;
 
       function typewriterAnimation() {
+        // Create infinite looping timeline
         const tl = gsap.timeline({
           repeat: -1,
           repeatDelay: 0.5
@@ -1090,12 +1102,13 @@
           const charCount = word.length;
           
           // Type in animation - animate width from 0 to full word length
+          // Uses SteppedEase to create discrete character-by-character effect
           tl.fromTo(typewriterText, 
             { width: '0ch' },
             {
               width: charCount + 'ch',
               duration: charCount * 0.1, // 0.1s per character
-              ease: SteppedEase.config(charCount),
+              ease: SteppedEase.config(charCount), // Creates stepped animation for typing effect
               onStart: () => {
                 typewriterText.textContent = word;
               }
@@ -1105,7 +1118,7 @@
           // Pause before erasing
           tl.to({}, { duration: 1 });
           
-          // Erase animation - animate width back to 0
+          // Erase animation - animate width back to 0 (faster than typing)
           tl.to(typewriterText, {
             width: '0ch',
             duration: charCount * 0.05, // Faster erase (0.05s per character)
@@ -1128,6 +1141,7 @@
     }
 
     // Initialize typewriter animation when fonts are loaded OR after timeout
+    // Multiple initialization paths ensure animation works even if fonts fail to load
     let initialized = false;
     
     WebFont.load({
@@ -1140,6 +1154,7 @@
         }
       },
       inactive: () => {
+        // Initialize even if fonts fail to load
         if (!initialized) {
           initialized = true;
           initTypewriter();
@@ -1148,6 +1163,7 @@
     });
     
     // Fallback: Initialize after 1 second if fonts haven't loaded
+    // Ensures animation always starts even if WebFont loader fails
     setTimeout(() => {
       if (!initialized) {
         initialized = true;
