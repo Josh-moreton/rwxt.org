@@ -15,9 +15,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css">
 
-  <!-- Three.js for WebGL -->
-  <script src="/js/three.min.js"></script>
-
   <!-- WebFont Loader -->
   <script src="/js/webfontloader.js"></script>
 
@@ -196,18 +193,43 @@
       color: #555;
     }
 
-    /* WebGL Canvas for kinetic typography */
-    #Canvas {
+    /* Typewriter Effect Container */
+    #typewriter-container {
       display: block;
       position: absolute;
       top: 50%;
       left: 30%;
       transform: translate(-50%, -50%);
-      width: 960px;
-      height: 540px;
-      max-width: 90vw;
       z-index: 1;
       pointer-events: none;
+    }
+
+    #typewriter-text {
+      font-family: 'Muli', 'IBM Plex Sans', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 600;
+      color: #000;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      min-width: 1ch;
+      will-change: width;
+      backface-visibility: hidden;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background-color: currentColor;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     @keyframes scroll {
@@ -770,7 +792,9 @@
             <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
           </svg>
         </div>
-        <canvas id="Canvas"></canvas>
+        <div id="typewriter-container">
+          <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+        </div>
       </section>
 
       <!-- About / Value Proposition Section -->
@@ -1047,191 +1071,89 @@
     </div>
   </div>
 
-  <!-- WebGL Kinetic Typography Animation -->
+  <!-- GSAP Typewriter Animation -->
   <script>
-    // Vertex shader
-    const vertexShader = `
-      uniform mat4 modelViewMatrix;
-      uniform mat4 projectionMatrix;
-      uniform float time;
-      uniform float index;
-      uniform float divisions;
-      uniform float tOffsetX;
-      uniform vec4 tween;
-      attribute vec3 position;
-      attribute vec2 uv;
-      varying vec2 vUv;
+    // Typewriter effect configuration
+    const words = ['READ', 'WRITE', 'EXECUTE'];
+    
+    function initTypewriter() {
+      const typewriterText = document.getElementById('typewriter-text');
+      if (!typewriterText) return;
 
-      mat2 scale2D(vec2 scale) {
-        return mat2(scale.x, 0.0, 0.0, scale.y);
-      }
-
-      void main() {
-        vUv = uv;
-        vec3 pos = position;
-        float scaleX = tween.x;
-        pos.x += tOffsetX;
-        pos.xy *= scale2D(vec2(scaleX, 1.0));
-        pos.x -= tOffsetX;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-      }
-    `;
-
-    // Fragment shader
-    const fragmentShader = `
-      precision highp float;
-      uniform sampler2D texture;
-      uniform float time;
-      uniform float index;
-      uniform float divisions;
-      uniform vec4 tween;
-      varying vec2 vUv;
-
-      void main() {
-        vec2 uv = vUv;
-        float startV = index * (1.0 / divisions);
-        vec2 tuv = vec2(uv.x, startV + uv.y * (1.0 / divisions));
-        vec4 color = texture2D(texture, tuv);
-        gl_FragColor = color;
-      }
-    `;
-
-    // Settings
-    const width = 960;
-    const height = 540;
-    const aspectRatio = width / height;
-    const dpr = Math.min(window.devicePixelRatio, 2);
-    const sceneWidth = 2;
-    const sceneHeight = sceneWidth / aspectRatio;
-    let scene, camera, renderer;
-
-    const titleWidth = 2.0;
-    const titleHeight = 0.5;
-    const numDivisions = 40;
-    const titleMeshes = [];
-    let numMeshes = 0;
-
-    const tweens1 = [];
-    const tweens2 = [];
-    const tweens3 = [];
-
-    function createCanvas() {
-      scene = new THREE.Scene();
-      camera = new THREE.OrthographicCamera(-sceneWidth / 2, sceneWidth / 2, sceneHeight / 2, -sceneHeight / 2, 0.01, 1000);
-      camera.position.set(0, 0, 1);
-
-      renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        canvas: document.getElementById('Canvas')
-      });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(dpr);
-
-      const texture1 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'READ' });
-      const texture2 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'WRITE' });
-      const texture3 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'EXECUTE' });
-
-      createTitle({ texture: texture1, tweens: tweens1 });
-      createTitle({ texture: texture2, tweens: tweens2 });
-      createTitle({ texture: texture3, tweens: tweens3 });
-
-      numMeshes = titleMeshes.length;
-      animateTitle();
-    }
-
-    function createFontTexture(options) {
-      const canvas = document.createElement('canvas');
-      const width = options.width * dpr;
-      const height = options.height * dpr;
-      canvas.width = width;
-      canvas.height = height;
-
-      const ctx = canvas.getContext('2d');
-      ctx.font = `600 ${options.fontSize * dpr}px 'Muli'`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#000';
-      ctx.fillText(options.text, width / 2, height / 2 + 25);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBAFormat;
-      texture.needsUpdate = false;
-
-      return texture;
-    }
-
-    function createTitle(params) {
-      for (let i = 0; i < numDivisions; i++) {
-        const dividedHeight = titleHeight / numDivisions;
-        const geometry = new THREE.PlaneBufferGeometry(titleWidth, dividedHeight);
-        geometry.removeAttribute('normal');
-
-        const material = new THREE.RawShaderMaterial({
-          uniforms: {
-            texture: { value: params.texture },
-            time: { value: 0 },
-            index: { value: i },
-            divisions: { value: numDivisions },
-            tOffsetX: { value: -1.0 },
-            tween: { value: new THREE.Vector4(0, 0, 1, 1) },
-          },
-          vertexShader,
-          fragmentShader,
-          transparent: true,
+      function typewriterAnimation() {
+        const tl = gsap.timeline({
+          repeat: -1,
+          repeatDelay: 0.5
         });
 
-        const y = -titleHeight * 0.5 + i * dividedHeight + dividedHeight * 0.5;
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = y;
+        words.forEach((word, index) => {
+          const charCount = word.length;
+          
+          // Type in animation - animate width from 0 to full word length
+          tl.fromTo(typewriterText, 
+            { width: '0ch' },
+            {
+              width: charCount + 'ch',
+              duration: charCount * 0.1, // 0.1s per character
+              ease: SteppedEase.config(charCount),
+              onStart: () => {
+                typewriterText.textContent = word;
+              }
+            }
+          );
+          
+          // Pause before erasing
+          tl.to({}, { duration: 1 });
+          
+          // Erase animation - animate width back to 0
+          tl.to(typewriterText, {
+            width: '0ch',
+            duration: charCount * 0.05, // Faster erase (0.05s per character)
+            ease: SteppedEase.config(charCount)
+          });
+          
+          // Pause before next word
+          tl.to({}, { duration: 0.3 });
+        });
 
-        scene.add(mesh);
-        titleMeshes.push(mesh);
-        params.tweens.push(material.uniforms.tween.value);
+        return tl;
       }
+
+      // Set initial state
+      typewriterText.style.width = '0ch';
+      typewriterText.textContent = words[0];
+      
+      // Start animation
+      typewriterAnimation();
     }
 
-    function animateTitle() {
-      const tl = gsap.timeline({
-        repeat: -1,
-        defaults: { ease: "power3.inOut", duration: 0.8, stagger: 0.01 }
-      });
-
-      const setTransformOffset = (titleIndex, value) => {
-        const startIndex = titleIndex * numDivisions;
-        const endIndex = startIndex + numDivisions;
-        for (let i = startIndex; i < endIndex; i++) {
-          titleMeshes[i].material.uniforms.tOffsetX.value = value;
-        }
-      };
-
-      tl.to(tweens1, { x: 1.0, onStart: () => { setTransformOffset(0, -1.0); } }, 'start');
-      tl.to(tweens1, { x: 0.0, onStart: () => { setTransformOffset(0, 1.0); } }, 'next1');
-      tl.to(tweens2, { x: 1.0, onStart: () => { setTransformOffset(1, -1.0); } }, 'next1');
-      tl.to(tweens2, { x: 0.0, onStart: () => { setTransformOffset(1, 1.0); } }, 'next2');
-      tl.to(tweens3, { x: 1.0, onStart: () => { setTransformOffset(2, -1.0); } }, 'next2');
-      tl.to(tweens3, { x: 0.0, onStart: () => { setTransformOffset(2, 1.0); } });
-    }
-
-    function updateCanvas() {
-      requestAnimationFrame(updateCanvas);
-      const time = performance.now() * 0.001;
-      for (let i = 0; i < numMeshes; i++) {
-        titleMeshes[i].material.uniforms.time.value = time;
-      }
-      renderer.render(scene, camera);
-    }
-
+    // Initialize typewriter animation when fonts are loaded OR after timeout
+    let initialized = false;
+    
     WebFont.load({
       google: { families: ['Muli:600'] },
       classes: false,
       active: () => {
-        createCanvas();
-        updateCanvas();
+        if (!initialized) {
+          initialized = true;
+          initTypewriter();
+        }
+      },
+      inactive: () => {
+        if (!initialized) {
+          initialized = true;
+          initTypewriter();
+        }
       }
     });
+    
+    // Fallback: Initialize after 1 second if fonts haven't loaded
+    setTimeout(() => {
+      if (!initialized) {
+        initialized = true;
+        initTypewriter();
+      }
+    }, 1000);
   </script>
 
   <!-- Particle System + ScrollSmoother Animation -->
