@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="{{ .Site.Params.description }}" />
 
-  <!-- Google Fonts - IBM Plex Sans + Muli + Brandon Grotesque -->
+  <!-- Google Fonts - IBM Plex Sans + Muli + Brandon Grotesque + JetBrains Mono + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css">
 
@@ -52,8 +52,32 @@
     #content {
       overflow: visible;
       width: 100%;
-      min-height: 400vh;
+      min-height: 500vh;
       position: relative;
+    }
+
+    /* Global layered architecture */
+    #bg-panels {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      /* below particles and content */
+      pointer-events: none;
+    }
+
+    #bg-panels .panel {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+    }
+
+    #particle-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      /* above backgrounds, below content */
+      pointer-events: none;
     }
 
     .scroll {
@@ -96,7 +120,7 @@
       margin: -19px auto;
       margin-left: 66.66%;
       transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
-      z-index: 2;
+      z-index: 0;
       position: relative;
     }
 
@@ -108,7 +132,7 @@
       padding: 4rem 2rem;
       position: absolute;
       width: 100%;
-      z-index: 5;
+      z-index: 20;
     }
 
     section:nth-of-type(1) {
@@ -125,6 +149,10 @@
 
     section:nth-of-type(4) {
       top: 300vh;
+    }
+
+    section:nth-of-type(5) {
+      top: 400vh;
     }
 
     .content-inner {
@@ -209,16 +237,103 @@
       opacity: 0;
     }
 
+    /* About / Value Proposition Section */
     section:nth-of-type(2) {
-      background: #1d1d1d;
+      background: transparent;
+      padding: 6rem 2rem;
+    }
+
+    .about-container {
+      max-width: 60%;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-headline {
+      font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: #000;
+    }
+
+    .about-body {
+      font-family: 'Inter', 'IBM Plex Sans', sans-serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #1a1a1a;
+      margin-bottom: 2rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about-subtext {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* Animated accent elements */
+    .accent-line {
+      position: absolute;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .accent-line-1 {
+      top: 15%;
+      left: 10%;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #000, transparent);
+    }
+
+    .accent-line-2 {
+      bottom: 20%;
+      right: 12%;
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #000, transparent);
+    }
+
+    .code-fragment {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #000;
+      opacity: 0.06;
+      white-space: pre;
+      pointer-events: none;
+    }
+
+    .code-fragment-1 {
+      top: 25%;
+      right: 8%;
+    }
+
+    .code-fragment-2 {
+      bottom: 30%;
+      left: 8%;
+    }
+
+    section:nth-of-type(3) {
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      z-index: 1;
+      z-index: 20;
     }
 
-    section:nth-of-type(2) .anchorBezierSVG {
+    section:nth-of-type(3) .anchorBezierSVG {
       width: 100%;
       height: 100%;
       max-width: 100%;
@@ -332,10 +447,36 @@
       transform: rotateX(-120deg);
     }
 
-    section:nth-of-type(3) {
+    section:nth-of-type(4) {
       background: transparent;
       padding: 0;
-      z-index: 3;
+      z-index: 20;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .about-container {
+        max-width: 90%;
+      }
+
+      .about-headline {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-body {
+        font-size: 1rem;
+        padding: 0 24px;
+      }
+
+      .about-subtext {
+        font-size: 0.85rem;
+      }
+
+      .accent-line,
+      .code-fragment {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -344,8 +485,16 @@
 
   <div id="wrapper">
     <div id="content">
+      <!-- Global background panels and particle layer -->
+      <div id="bg-panels">
+        <!-- Section 2 off-white panel -->
+        <div class="panel s2" style="top:100vh; background:#F8F7F6;"></div>
+        <!-- Section 3 dark panel -->
+        <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
+      </div>
+      <div id="particle-layer"></div>
 
-      <!-- Particles will be inserted here by JavaScript -->
+      <!-- Sections sit above particle layer -->
 
       <!-- Content sections with scroll indicator on first section -->
       <section>
@@ -358,6 +507,30 @@
           </svg>
         </div>
         <canvas id="Canvas"></canvas>
+      </section>
+
+      <!-- About / Value Proposition Section -->
+      <section>
+        <div class="about-container">
+          <h1 class="about-headline">read, write, execute.</h1>
+          <div class="about-body">
+            I build production-grade digital products — fast.
+            From first commit to live release, I design and code everything myself — no middlemen, no handovers.
+            Secure, scalable, and built to ship.
+          </div>
+          <div class="about-subtext">
+            Where startups come to trade ideas for execution.
+          </div>
+        </div>
+
+        <!-- Animated accent elements -->
+        <div class="accent-line accent-line-1"></div>
+        <div class="accent-line accent-line-2"></div>
+        <div class="code-fragment code-fragment-1">const execute = () => {
+          return ship();
+          }</div>
+        <div class="code-fragment code-fragment-2">// build → test → deploy
+          git push origin main</div>
       </section>
 
       <section>
@@ -717,6 +890,7 @@
       ------------------------------*/
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
       const content = document.querySelector('#content')
+      const particleLayer = document.querySelector('#particle-layer')
 
       /*------------------------------
       Making some circles noise
@@ -740,8 +914,8 @@
         fragment.appendChild(div)
       }
 
-      // Insert all circles at the very beginning of content
-      content.insertBefore(fragment, content.firstChild)
+      // Insert all circles into dedicated particle layer
+      particleLayer.appendChild(fragment)
       const Circles = document.querySelectorAll('.circle')
 
       /*------------------------------
@@ -769,6 +943,62 @@
           opacity: 1,
         })
       })
+
+      /*------------------------------
+      About Section Animation
+      ------------------------------*/
+      gsap.to('.about-container', {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-container',
+          start: 'top 75%',
+          end: 'bottom 25%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      // Animate accent lines
+      gsap.to('.accent-line-1', {
+        x: 30,
+        opacity: 0.15,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      gsap.to('.accent-line-2', {
+        x: -30,
+        opacity: 0.15,
+        duration: 3.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 0.5
+      });
+
+      // Animate code fragments
+      gsap.to('.code-fragment-1', {
+        y: -10,
+        opacity: 0.1,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      gsap.to('.code-fragment-2', {
+        y: 10,
+        opacity: 0.1,
+        duration: 4.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 1
+      });
 
     });
   </script>
