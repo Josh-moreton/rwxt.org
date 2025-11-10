@@ -1,206 +1,1484 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang | default "en-us" }}">
+<html lang="en">
+
 <head>
-  <title>{{ .Title }}</title>
+  <title>{{ .Site.Title }}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="referrer" content="origin" />
+  <meta name="description" content="{{ .Site.Params.description }}" />
 
-  {{ template "_internal/google_analytics.html" . }}
-  {{ with .Site.Params.description }}
-  <meta name="description" content="{{ . | plainify }}" />
-  {{ end }}
-  {{ with .Site.Params.author }}
-  <meta name="author" content="{{ . }}" />
-  {{ end }}
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-  <link rel="manifest" href="/site.webmanifest">
-
-  <!-- Include the original theme's stylesheets -->
-  {{ partial "stylesheets.html" . }}
-
-  <!-- Google Fonts - IBM Plex Sans -->
+  <!-- Google Fonts - IBM Plex Sans + Muli + Brandon Grotesque + JetBrains Mono + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css">
 
-  <!-- Vanta.js dependencies -->
-  <script src="/js/three.r134.min.js"></script>
-  <script src="/js/vanta.waves.min.js"></script>
-  
-  <!-- Additional styling for the minimal layout -->
+  <!-- Three.js for WebGL -->
+  <script src="/js/three.min.js"></script>
+
+  <!-- WebFont Loader -->
+  <script src="/js/webfontloader.js"></script>
+
+  <!-- GSAP + ScrollTrigger + ScrollSmoother + MorphSVG + DrawSVG (Local) -->
+  <script src="/gsap-public/minified/gsap.min.js"></script>
+  <script src="/gsap-public/minified/ScrollTrigger.min.js"></script>
+  <script src="/gsap-public/minified/ScrollSmoother.min.js"></script>
+  <script src="/gsap-public/minified/MorphSVGPlugin.min.js"></script>
+  <script src="/gsap-public/minified/DrawSVGPlugin.min.js"></script>
+
+  <!-- SimplexNoise (Local) -->
+  <script src="/js/simplex-noise.js"></script>
+
+  <!-- Styles -->
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+
+    #wrapper {
       overflow: hidden;
     }
-    
-    #vanta-bg {
-      position: fixed;
-      top: 0;
+
+    #content {
+      overflow: visible;
+      width: 100%;
+      min-height: 600vh;
+      position: relative;
+    }
+
+    /* Global layered architecture */
+    #bg-panels {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      /* below particles and content */
+      pointer-events: none;
+    }
+
+    #bg-panels .panel {
+      position: absolute;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
+    }
+
+    #particle-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      /* above backgrounds, below content */
+      pointer-events: none;
+    }
+
+    .scroll {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 4rem;
+      position: absolute;
+      z-index: 10;
+      font-family: 'IBM Plex Sans', Roboto, sans-serif;
+      letter-spacing: 0.2em;
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    .scroll span {
+      display: block;
+    }
+
+    .scroll svg {
+      margin-top: 10px;
+      width: 18px;
+      height: 18px;
+      animation: scroll 0.95s ease-in-out alternate infinite;
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+      stroke-width: 1;
+    }
+
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 40%;
+      opacity: 0;
+      margin: -19px auto;
+      margin-left: 66.66%;
+      transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
+      z-index: 0;
+      position: relative;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      position: absolute;
+      width: 100%;
+      z-index: 20;
+    }
+
+    section:nth-of-type(1) {
+      top: 0;
+    }
+
+    section:nth-of-type(2) {
+      top: 100vh;
+    }
+
+    section:nth-of-type(3) {
+      top: 200vh;
+    }
+
+    section:nth-of-type(4) {
+      top: 300vh;
+    }
+
+    section:nth-of-type(5) {
+      top: 400vh;
+    }
+
+    section:nth-of-type(6) {
+      top: 500vh;
+    }
+
+    .content-inner {
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
+      padding: 0.5rem 0;
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      margin: 1rem 0;
+    }
+
+    a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    /* WebGL Canvas for kinetic typography */
+    #Canvas {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      width: 960px;
+      height: 540px;
+      max-width: 90vw;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(10px);
+      }
+    }
+
+    /* SVG Bezier Animation Styles */
+    .anchorBezierSVG {
+      width: 90%;
+      height: 90%;
+      visibility: hidden;
+      overflow: visible;
+      opacity: 1;
+    }
+
+    .anchorBezierSVG text {
+      text-anchor: middle;
+      font-family: "brandon-grotesque", Helvetica Neue, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+
+    .maskText3 {
+      opacity: 0;
+    }
+
+    /* About / Value Proposition Section */
+    section:nth-of-type(2) {
+      background: transparent;
+      padding: 80px 2rem;
+      /* reclaimed vertical space */
+    }
+
+    .about-container {
+      max-width: 60%;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      position: relative;
       z-index: 1;
     }
-    
-    /* Ensure page wrapper is above the background */
-    #page-wrapper {
-      position: relative;
-      z-index: 2;
+
+    .about-headline {
+      font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: #000;
     }
-    
-    /* Override banner background to be transparent */
-    #banner:after,
-    #banner:before {
-      display: none !important;
-      opacity: 0 !important;
-      background: none !important;
-      background-color: transparent !important;
-    }
-    
-    body.is-preload #banner:after {
-      display: none !important;
-      opacity: 0 !important;
-    }
-    
-    /* Remove the scroll down arrow */
-    #banner .more {
-      display: none !important;
-    }
-    
-    /* Apply IBM Plex Sans to the title */
-    #banner h2 {
-      font-family: 'IBM Plex Sans', sans-serif !important;
-      font-weight: 500;
-      text-transform: none !important;
-    }
-    
-    /* Style the description paragraph */
-    #banner .description {
-      font-family: 'IBM Plex Sans', sans-serif !important;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-top: 2rem;
-      max-width: 600px;
+
+    .about-body {
+      font-family: 'Inter', 'IBM Plex Sans', sans-serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #1a1a1a;
+      margin-bottom: 2rem;
+      max-width: 680px;
       margin-left: auto;
       margin-right: auto;
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      text-transform: none !important;
-      letter-spacing: normal !important;
-      background: none !important;
-      background-color: transparent !important;
     }
-    
-    #banner .description a {
-      color: rgba(255, 255, 255, 1);
-      text-decoration: underline;
-      transition: color 0.2s ease;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    .about-subtext {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 400;
+      letter-spacing: 0.02em;
     }
-    
-    #banner .description a:hover {
-      color: rgba(255, 255, 255, 1);
+
+    /* Animated accent elements */
+    .accent-line {
+      position: absolute;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .accent-line-1 {
+      top: 15%;
+      left: 10%;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #000, transparent);
+    }
+
+    .accent-line-2 {
+      bottom: 20%;
+      right: 12%;
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #000, transparent);
+    }
+
+    .code-fragment {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #000;
+      opacity: 0.06;
+      white-space: pre;
+      pointer-events: none;
+    }
+
+    .code-fragment-1 {
+      top: 25%;
+      right: 8%;
+    }
+
+    .code-fragment-2 {
+      bottom: 30%;
+      left: 8%;
+    }
+
+    /* Process Section */
+    .process-section {
+      background: transparent;
+      padding: 90px 2rem;
+      /* reclaimed vertical space */
+    }
+
+    .process-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Solutions Section */
+    .solutions-section {
+      background: transparent;
+      padding: 90px 2rem 110px;
+      /* reclaimed vertical space */
+    }
+
+    .solutions-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .solutions-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0f0f0f;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+
+    .solutions-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 3rem;
+      max-width: 820px;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
+      align-items: stretch;
+    }
+
+    .solution-card {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      padding: 38px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      transform: translateY(20px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .solution-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .solution-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #2a2a2a;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .solution-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: #555;
+    }
+
+    .solution-price {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #111;
+      margin: 0.35rem 0 0.1rem;
+    }
+
+    .solutions-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .cta-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #0f0f0f;
+    }
+
+    .cta-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      background: #111;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
       text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
-    
-    /* Force no background on all paragraph elements in banner */
-    #banner p {
-      background: none !important;
-      background-color: transparent !important;
+
+    .cta-button:hover {
+      background: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
-    
-    /* Force no background on banner inner container */
-    #banner .inner {
-      background: none !important;
-      background-color: transparent !important;
+
+    .cta-secondary {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 0.75rem;
     }
-    
-    /* Override any mobile-specific banner backgrounds */
-    @media screen and (max-width: 736px) {
-      #banner,
-      #banner:after,
-      #banner:before,
-      #banner .inner,
-      #banner p {
-        background: none !important;
-        background-color: transparent !important;
-        opacity: 1 !important;
+
+    @media (max-width: 1024px) {
+      .solutions-grid {
+        grid-template-columns: 1fr;
       }
-      
-      #banner:after,
-      #banner:before {
-        display: none !important;
+    }
+
+    /* Footer Section */
+    .footer-section {
+      background: transparent;
+      padding: 64px 2rem;
+      text-align: center;
+      color: #555;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      min-height: auto;
+      scroll-snap-align: none;
+    }
+
+    .footer-section a {
+      color: #222;
+    }
+
+    .footer-section .brand {
+      font-family: 'JetBrains Mono', monospace;
+      color: #111;
+    }
+
+    .process-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0f0f0f;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+
+    .process-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 3rem;
+      max-width: 720px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      position: relative;
+    }
+
+    /* Progress line */
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      /* aligns with icon centers */
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.08));
+    }
+
+    .process-step {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .step-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .step-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .step-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #2a2a2a;
+    }
+
+    @media (max-width: 900px) {
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
       }
-      
-      /* Vertically center content on mobile */
-      #banner {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: 100vh !important;
-        height: 100vh !important;
-        padding: 3em 2em !important;
+
+      .process-grid::before {
+        display: none;
       }
-      
-      #banner .inner {
-        margin: auto;
+
+      .process-headline {
+        text-align: center;
+      }
+
+      .process-subhead {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+    }
+
+    section:nth-of-type(3) {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      z-index: 20;
+    }
+
+    section:nth-of-type(3) .anchorBezierSVG {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* 3D Fold Effect Styles */
+    :root {
+      --step--2: clamp(3.13rem, 2.62rem + 2.51vw, 5.76rem);
+      --step--1: clamp(3.75rem, 3.09rem + 3.29vw, 7.20rem);
+      --step-0: clamp(4.50rem, 3.64rem + 4.29vw, 9.00rem);
+    }
+
+    .marquee {
+      border-bottom: 1px solid #1a1a1a;
+      color: #ccc;
+      font-size: var(--step-0);
+      font-weight: 700;
+      height: calc(170px + 4rem);
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+    }
+
+    .marquee img {
+      object-fit: cover;
+      max-height: 150px;
+    }
+
+    .track {
+      height: 100%;
+      overflow: hidden;
+      padding: 2rem 0;
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    .track .text {
+      animation: marquee 50000ms linear infinite;
+      align-items: center;
+      display: inline-flex;
+      will-change: transform;
+    }
+
+    .-focus {
+      color: #1a1a1a;
+      font-weight: 900;
+    }
+
+    .screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrapper-3d {
+      position: relative;
+      perspective: 20vw;
+      transform-style: preserve-3d;
+    }
+
+    .fold {
+      overflow: hidden;
+      width: 100vw;
+      height: 80vh;
+    }
+
+    .fold-top {
+      position: absolute;
+      transform-origin: bottom center;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+    }
+
+    .fold-center {
+      width: 100vw;
+    }
+
+    .fold-bottom {
+      position: absolute;
+      transform-origin: top center;
+      right: 0;
+      left: 0;
+      top: 100%;
+    }
+
+    .fold-align {
+      width: 100%;
+      height: 100%;
+    }
+
+    .fold-bottom .fold-align {
+      transform: translateY(-100%);
+    }
+
+    .fold-top .fold-align {
+      transform: translateY(100%);
+    }
+
+    .fold-bottom {
+      transform-origin: top center;
+      transform: rotateX(120deg);
+    }
+
+    .fold-top {
+      transform-origin: bottom center;
+      transform: rotateX(-120deg);
+    }
+
+    section:nth-of-type(4) {
+      background: transparent;
+      padding: 0;
+      z-index: 20;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .about-container {
+        max-width: 90%;
+      }
+
+      .about-headline {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-body {
+        font-size: 1rem;
+        padding: 0 24px;
+      }
+
+      .about-subtext {
+        font-size: 0.85rem;
+      }
+
+      .accent-line,
+      .code-fragment {
+        display: none;
       }
     }
   </style>
 </head>
-<body class="landing is-preload">
-  <!-- Vanta.js background container -->
-  <div id="vanta-bg"></div>
-  
-  <!-- Page Wrapper -->
-  <div id="page-wrapper">
-    <!-- Banner section with animated Josh Moreton text -->
-    <section id="banner">
-      <div class="inner">
-        <h2>{{ .Site.Params.fancyTitle | safeHTML }}</h2>
-        {{ if .Site.Params.descriptionParagraph }}
-        <p class="description">
-          {{ .Site.Params.descriptionParagraph }}
-          {{ if .Site.Params.contactEmail }}
-          <br><br>
-          To find out more, email <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a>
-          {{ end }}
-        </p>
-        {{ end }}
+
+<body>
+
+  <div id="wrapper">
+    <div id="content">
+      <!-- Global background panels and particle layer -->
+      <div id="bg-panels">
+        <!-- Section 2 off-white panel -->
+        <div class="panel s2" style="top:100vh; background:#F8F7F6;"></div>
+        <!-- Section 3 dark panel -->
+        <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
+        <!-- Section 4 process light panel -->
+        <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
+        <!-- Section 6 solutions light panel -->
+        <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
       </div>
-    </section>
+      <div id="particle-layer"></div>
+
+      <!-- Sections sit above particle layer -->
+
+      <!-- Content sections with scroll indicator on first section -->
+      <section>
+        <div class="scroll">
+          <span>SCROLL</span>
+          <svg viewBox="0 0 24 24">
+            <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
+            <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
+            <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+          </svg>
+        </div>
+        <canvas id="Canvas"></canvas>
+      </section>
+
+      <!-- About / Value Proposition Section -->
+      <section>
+        <div class="about-container">
+          <h1 class="about-headline">read, write, execute.</h1>
+          <div class="about-body">
+            I build production-grade digital products — fast.
+            From first commit to live release, I design and code everything myself — no middlemen, no handovers.
+            Secure, scalable, and built to ship.
+          </div>
+          <div class="about-subtext">
+            Where startups come to trade ideas for execution.
+          </div>
+        </div>
+
+        <!-- Animated accent elements -->
+        <div class="accent-line accent-line-1"></div>
+        <div class="accent-line accent-line-2"></div>
+        <div class="code-fragment code-fragment-1">const execute = () => {
+          return ship();
+          }</div>
+        <div class="code-fragment code-fragment-2">// build → test → deploy
+          git push origin main</div>
+      </section>
+
+      <section>
+        <svg class="anchorBezierSVG" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <g id="anchorPopGroup" fill="none" stroke="#ededed" stroke-width="3" stroke-linecap="round"
+              stroke-miterlimit="10">
+              <line x1="24" y1="17.5" x2="24" y2="1.5" />
+              <line x1="29.5" y1="25" x2="45.5" y2="25" />
+              <line x1="23" y1="30.5" x2="23" y2="46.5" />
+              <line x1="17.5" y1="24" x2="1.5" y2="24" />
+            </g>
+            <mask id="mainMask">
+              <rect width="100%" height="100%" fill="#000" />
+              <path class="mainLineMask" fill="#FFF" stroke="none" stroke-miterlimit="10"
+                d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z" />
+            </mask>
+            <mask id="mainMaskInverse">
+              <rect width="100%" height="100%" fill="#FFF" />
+              <path class="mainLineMask" fill="#000" stroke="none" stroke-miterlimit="10"
+                d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z" />
+            </mask>
+          </defs>
+          <g mask="url(#mainMask)">
+            <text class="maskText1" x="50%" y="60%" style="fill:#ededed;">I BUILD</text>
+          </g>
+          <g mask="url(#mainMaskInverse)">
+            <text class="maskText2" x="50%" y="60%" style="fill:#5783FC;">WHAT I</text>
+          </g>
+          <path id="mainLine" fill="none" stroke="none" stroke-width="3" stroke-miterlimit="10"
+            d="M148,122.1c133-87.1,377-87.8,504,0" />
+          <path class="mainLineStart" stroke-linecap="round" fill="none" stroke="#5783FC" stroke-width="2"
+            stroke-miterlimit="10" d="M148,122.1 c20.7-21.9,98.7-100.2,96.7-95.5" />
+          <g id="anchorGroupL">
+            <line id="anchorLineLTop" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="155.8"
+              y1="115.1" x2="243.7" y2="27.2" />
+            <line id="anchorLineLBot" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="140.8"
+              y1="130.1" x2="52" y2="218.9" />
+            <circle id="anchorDragLTop" fill="#5783FC" cx="243.7" cy="27.2" r="5.6" />
+            <circle id="anchorDragLBot" fill="#5783FC" cx="52" cy="218.9" r="5.6" />
+          </g>
+          <rect id="anchorPointL" x="139.7" y="113.8" fill="#5783FC" stroke="#5783FC" stroke-width="5"
+            stroke-miterlimit="10" width="15.8" height="15.8" />
+          <g id="anchorGroupR">
+            <line id="anchorLineRTop" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="658.8"
+              y1="115.1" x2="746.7" y2="27.2" />
+            <line id="anchorLineRBot" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="643.8"
+              y1="130.1" x2="555" y2="218.9" />
+            <circle id="anchorDragRTop" fill="#5783FC" cx="746.7" cy="27.2" r="5.6" />
+            <circle id="anchorDragRBot" fill="#5783FC" cx="555" cy="218.9" r="5.6" />
+          </g>
+          <rect id="anchorPointR" x="643.8" y="113.8" fill="#5783FC" stroke="#5783FC" stroke-width="5"
+            stroke-miterlimit="10" width="15.8" height="15.8" />
+          <g id="nib">
+            <g id="nibInnerGroup">
+              <polygon fill="#1d1d1d" stroke="#ededed" stroke-width="2" stroke-miterlimit="10"
+                points="1.7,1.8 8.7,20.9 20.7,27.5 27.5,20.8 19.9,9" />
+              <rect x="19.7" y="23.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.9343 28.0365)" fill="#1d1d1d"
+                stroke="#ededed" stroke-width="2" stroke-miterlimit="10" width="16.4" height="10.1" />
+              <line fill="none" stroke="#ededed" stroke-width="2" stroke-miterlimit="10" x1="24.2" y1="24.1" x2="16.6"
+                y2="16.6" />
+              <circle fill="#ededed" cx="16.6" cy="16.6" r="2.5" />
+            </g>
+          </g>
+        </svg>
+      </section>
+
+      <!-- Process / How It Works Section -->
+      <section class="process-section">
+        <div class="process-container">
+          <h2 class="process-headline">From idea to launch — no friction.</h2>
+          <p class="process-subhead">Every project follows a focused, fast-moving workflow designed for clarity and
+            speed.</p>
+
+          <div class="process-grid">
+            <div class="process-step">
+              <!-- Pencil Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 21l3.8-1L20 6.8a2.2 2.2 0 0 0 0-3.1l-.7-.7a2.2 2.2 0 0 0-3.1 0L3 16.2 3 21z" />
+                <path d="M14.5 5.5l4 4" />
+              </svg>
+              <div class="step-title">1. Scope</div>
+              <div class="step-body">Define the MVP. Capture what matters, cut what doesn’t. Map user journeys, set
+                success metrics, and write clear user stories.</div>
+            </div>
+
+            <div class="process-step">
+              <!-- Terminal Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 5h18v14H3z" />
+                <path d="M7 9l3 3-3 3" />
+                <path d="M12 15h5" />
+              </svg>
+              <div class="step-title">2. Build</div>
+              <div class="step-body">Design and code move together — no silos, no waiting. Every commit moves the
+                product toward production, not just a prototype.</div>
+            </div>
+
+            <div class="process-step">
+              <!-- Rocket Icon -->
+              <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2c3 0 6 3 6 6 0 6-6 12-6 12S6 14 6 8c0-3 3-6 6-6z" />
+                <path d="M12 9.5v.01" />
+                <path d="M7 20l2-2" />
+                <path d="M15 20l-2-2" />
+              </svg>
+              <div class="step-title">3. Ship</div>
+              <div class="step-body">Deploy with security, scalability, and polish baked in. Infrastructure, analytics,
+                and support ready from day one.</div>
+            </div>
+          </div>
+
+          <p class="process-subhead" style="margin-top:2rem; color:#555;">→ Built like an agency project, delivered like
+            a startup.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="screen" id="fold-effect">
+          <div class="wrapper-3d">
+            <div class="fold fold-top">
+              <div class="fold-align">
+                <div class="fold-content">
+                  <div class="marquee">
+                    <div class="track">
+                      Launch.Launch.<span class="-focus">Launch.</span>Launch.Launch.Launch.Launch.Launch.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Fast.Fast.<span class="-focus">Fast.</span>Fast.Fast.Fast.Fast.Fast.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Ship.Ship.Ship.Ship.Ship.<span class="-focus">Ship.</span>Ship.Ship.Ship.Ship.Ship.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Right.Right.Right.<span class="-focus">Right.</span>Right.Right.Right.Right.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fold fold-center" id="center-fold">
+              <div class="fold-align">
+                <div class="fold-content" id="center-content">
+                  <div class="marquee">
+                    <div class="track">
+                      Launch.Launch.<span class="-focus">Launch.</span>Launch.Launch.Launch.Launch.Launch.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Fast.Fast.<span class="-focus">Fast.</span>Fast.Fast.Fast.Fast.Fast.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Ship.Ship.Ship.Ship.Ship.<span class="-focus">Ship.</span>Ship.Ship.Ship.Ship.Ship.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Right.Right.Right.<span class="-focus">Right.</span>Right.Right.Right.Right.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fold fold-bottom">
+              <div class="fold-align">
+                <div class="fold-content">
+                  <div class="marquee">
+                    <div class="track">
+                      Launch.Launch.<span class="-focus">Launch.</span>Launch.Launch.Launch.Launch.Launch.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Fast.Fast.<span class="-focus">Fast.</span>Fast.Fast.Fast.Fast.Fast.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Ship.Ship.Ship.Ship.Ship.<span class="-focus">Ship.</span>Ship.Ship.Ship.Ship.Ship.
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="track">
+                      Right.Right.Right.<span class="-focus">Right.</span>Right.Right.Right.Right.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Solutions & Call to Action -->
+      <section class="solutions-section">
+        <div class="solutions-container">
+          <h2 class="solutions-headline">Solutions built for founders who move fast.</h2>
+          <p class="solutions-subhead">Choose the level of partnership that fits your stage — from prototype to scale.
+          </p>
+
+          <div class="solutions-grid">
+            <div class="solution-card">
+              <div class="solution-title">1. Spark — Prototype &amp; Validate</div>
+              <div class="solution-body">Turn ideas into clickable prototypes and investor decks. Scope your product,
+                map the core flow, and visualise it fast.</div>
+              <div class="solution-price">From £6k</div>
+              <div class="solution-note">→ Best for early founders validating an idea.</div>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-title">2. Launch — MVP Build</div>
+              <div class="solution-body">Design, code, deploy, and support your first product. Everything you need to
+                get real users and real feedback — fast.</div>
+              <div class="solution-price">From £18k</div>
+              <div class="solution-note">→ Best for funded startups ready to ship.</div>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-title">3. Partner — Fractional CTO</div>
+              <div class="solution-body">Keep a senior engineer in your corner as you grow. Technical direction,
+                architecture, and sprint delivery when you need it.</div>
+              <div class="solution-price">From £3k/month</div>
+              <div class="solution-note">→ Best for scaling teams needing long-term expertise.</div>
+            </div>
+          </div>
+
+          <div class="solutions-cta">
+            <div class="cta-headline">Ready to build something real?</div>
+            <div class="cta-subhead">Book a 20-minute scoping call — no sales pitch, just straight talk about your idea
+              and how to ship it.</div>
+            <a class="cta-button" href="/contact/">Start your build →</a>
+            <div class="cta-secondary">or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
 
-  <!-- Include the original theme's scripts -->
-  {{ partial "scripts.html" . }}
-  
-  <!-- Vanta.js initialization -->
+  <!-- WebGL Kinetic Typography Animation -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      VANTA.WAVES({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0x202020,
-        shininess: 26.00,
-        waveHeight: 30.00,
-        waveSpeed: 0.70,
-        zoom: 0.65
+    // Vertex shader
+    const vertexShader = `
+      uniform mat4 modelViewMatrix;
+      uniform mat4 projectionMatrix;
+      uniform float time;
+      uniform float index;
+      uniform float divisions;
+      uniform float tOffsetX;
+      uniform vec4 tween;
+      attribute vec3 position;
+      attribute vec2 uv;
+      varying vec2 vUv;
+
+      mat2 scale2D(vec2 scale) {
+        return mat2(scale.x, 0.0, 0.0, scale.y);
+      }
+
+      void main() {
+        vUv = uv;
+        vec3 pos = position;
+        float scaleX = tween.x;
+        pos.x += tOffsetX;
+        pos.xy *= scale2D(vec2(scaleX, 1.0));
+        pos.x -= tOffsetX;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+      }
+    `;
+
+    // Fragment shader
+    const fragmentShader = `
+      precision highp float;
+      uniform sampler2D texture;
+      uniform float time;
+      uniform float index;
+      uniform float divisions;
+      uniform vec4 tween;
+      varying vec2 vUv;
+
+      void main() {
+        vec2 uv = vUv;
+        float startV = index * (1.0 / divisions);
+        vec2 tuv = vec2(uv.x, startV + uv.y * (1.0 / divisions));
+        vec4 color = texture2D(texture, tuv);
+        gl_FragColor = color;
+      }
+    `;
+
+    // Settings
+    const width = 960;
+    const height = 540;
+    const aspectRatio = width / height;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const sceneWidth = 2;
+    const sceneHeight = sceneWidth / aspectRatio;
+    let scene, camera, renderer;
+
+    const titleWidth = 2.0;
+    const titleHeight = 0.5;
+    const numDivisions = 40;
+    const titleMeshes = [];
+    let numMeshes = 0;
+
+    const tweens1 = [];
+    const tweens2 = [];
+    const tweens3 = [];
+
+    function createCanvas() {
+      scene = new THREE.Scene();
+      camera = new THREE.OrthographicCamera(-sceneWidth / 2, sceneWidth / 2, sceneHeight / 2, -sceneHeight / 2, 0.01, 1000);
+      camera.position.set(0, 0, 1);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas: document.getElementById('Canvas')
       });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(dpr);
+
+      const texture1 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'READ' });
+      const texture2 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'WRITE' });
+      const texture3 = createFontTexture({ width: 1024, height: 256, fontSize: 230, text: 'EXECUTE' });
+
+      createTitle({ texture: texture1, tweens: tweens1 });
+      createTitle({ texture: texture2, tweens: tweens2 });
+      createTitle({ texture: texture3, tweens: tweens3 });
+
+      numMeshes = titleMeshes.length;
+      animateTitle();
+    }
+
+    function createFontTexture(options) {
+      const canvas = document.createElement('canvas');
+      const width = options.width * dpr;
+      const height = options.height * dpr;
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.font = `600 ${options.fontSize * dpr}px 'Muli'`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#000';
+      ctx.fillText(options.text, width / 2, height / 2 + 25);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.format = THREE.RGBAFormat;
+      texture.needsUpdate = false;
+
+      return texture;
+    }
+
+    function createTitle(params) {
+      for (let i = 0; i < numDivisions; i++) {
+        const dividedHeight = titleHeight / numDivisions;
+        const geometry = new THREE.PlaneBufferGeometry(titleWidth, dividedHeight);
+        geometry.removeAttribute('normal');
+
+        const material = new THREE.RawShaderMaterial({
+          uniforms: {
+            texture: { value: params.texture },
+            time: { value: 0 },
+            index: { value: i },
+            divisions: { value: numDivisions },
+            tOffsetX: { value: -1.0 },
+            tween: { value: new THREE.Vector4(0, 0, 1, 1) },
+          },
+          vertexShader,
+          fragmentShader,
+          transparent: true,
+        });
+
+        const y = -titleHeight * 0.5 + i * dividedHeight + dividedHeight * 0.5;
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.y = y;
+
+        scene.add(mesh);
+        titleMeshes.push(mesh);
+        params.tweens.push(material.uniforms.tween.value);
+      }
+    }
+
+    function animateTitle() {
+      const tl = gsap.timeline({
+        repeat: -1,
+        defaults: { ease: "power3.inOut", duration: 0.8, stagger: 0.01 }
+      });
+
+      const setTransformOffset = (titleIndex, value) => {
+        const startIndex = titleIndex * numDivisions;
+        const endIndex = startIndex + numDivisions;
+        for (let i = startIndex; i < endIndex; i++) {
+          titleMeshes[i].material.uniforms.tOffsetX.value = value;
+        }
+      };
+
+      tl.to(tweens1, { x: 1.0, onStart: () => { setTransformOffset(0, -1.0); } }, 'start');
+      tl.to(tweens1, { x: 0.0, onStart: () => { setTransformOffset(0, 1.0); } }, 'next1');
+      tl.to(tweens2, { x: 1.0, onStart: () => { setTransformOffset(1, -1.0); } }, 'next1');
+      tl.to(tweens2, { x: 0.0, onStart: () => { setTransformOffset(1, 1.0); } }, 'next2');
+      tl.to(tweens3, { x: 1.0, onStart: () => { setTransformOffset(2, -1.0); } }, 'next2');
+      tl.to(tweens3, { x: 0.0, onStart: () => { setTransformOffset(2, 1.0); } });
+    }
+
+    function updateCanvas() {
+      requestAnimationFrame(updateCanvas);
+      const time = performance.now() * 0.001;
+      for (let i = 0; i < numMeshes; i++) {
+        titleMeshes[i].material.uniforms.time.value = time;
+      }
+      renderer.render(scene, camera);
+    }
+
+    WebFont.load({
+      google: { families: ['Muli:600'] },
+      classes: false,
+      active: () => {
+        createCanvas();
+        updateCanvas();
+      }
+    });
+  </script>
+
+  <!-- Particle System + ScrollSmoother Animation -->
+  <script>
+    window.addEventListener('load', function () {
+
+      /*------------------------------
+      Register plugins
+      ------------------------------*/
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
+      const content = document.querySelector('#content')
+      const particleLayer = document.querySelector('#particle-layer')
+
+      /*------------------------------
+      Making some circles noise
+      ------------------------------*/
+      const simplex = new SimplexNoise()
+
+      // Create fragment to insert particles at the beginning
+      const fragment = document.createDocumentFragment()
+
+      for (let i = 0; i < 5000; i++) {
+        const div = document.createElement('div')
+        div.classList.add('circle')
+        const n1 = simplex.noise2D(i * 0.003, i * 0.0033)
+        const n2 = simplex.noise2D(i * 0.002, i * 0.001)
+
+        const style = {
+          transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${3 + n1 * 2}, ${3 + n2 * 2})`,
+          boxShadow: `0 0 0 .2px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`
+        }
+        Object.assign(div.style, style)
+        fragment.appendChild(div)
+      }
+
+      // Insert all circles into dedicated particle layer
+      particleLayer.appendChild(fragment)
+      const Circles = document.querySelectorAll('.circle')
+
+      /*------------------------------
+      Init ScrollSmoother
+      ------------------------------*/
+      ScrollSmoother.create({
+        content: content,
+        wrapper: '#wrapper',
+        smooth: 1,
+        effects: false
+      });
+
+      /*------------------------------
+      Scroll Trigger
+      ------------------------------*/
+      const main = gsap.timeline({
+        scrollTrigger: {
+          scrub: .7,
+          start: "top 25%",
+          end: "bottom bottom"
+        }
+      })
+      Circles.forEach((circle) => {
+        main.to(circle, {
+          opacity: 1,
+        })
+      })
+
+      /*------------------------------
+      About Section Animation
+      ------------------------------*/
+      gsap.to('.about-container', {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-container',
+          start: 'top 75%',
+          end: 'bottom 25%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      // Animate accent lines
+      gsap.to('.accent-line-1', {
+        x: 30,
+        opacity: 0.15,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      gsap.to('.accent-line-2', {
+        x: -30,
+        opacity: 0.15,
+        duration: 3.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 0.5
+      });
+
+      // Animate code fragments
+      gsap.to('.code-fragment-1', {
+        y: -10,
+        opacity: 0.1,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      gsap.to('.code-fragment-2', {
+        y: 10,
+        opacity: 0.1,
+        duration: 4.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 1
+      });
+
+      /*------------------------------
+      Process Section Animation
+      ------------------------------*/
+      const steps = gsap.utils.toArray('.process-step')
+      gsap.set(steps, { opacity: 0, y: 20 })
+      gsap.to(steps, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: '.process-section',
+          start: 'top 75%'
+        }
+      })
+
+      /*------------------------------
+      Solutions Section Animation
+      ------------------------------*/
+      const solutionCards = gsap.utils.toArray('.solution-card')
+      gsap.set(solutionCards, { opacity: 0, y: 20 })
+      gsap.to(solutionCards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        ease: 'power3.out',
+        stagger: 0.18,
+        scrollTrigger: {
+          trigger: '.solutions-section',
+          start: 'top 75%'
+        }
+      })
+
+    });
+  </script>
+
+  <!-- SVG Bezier Animation Script -->
+  <script>
+    window.addEventListener('load', function () {
+      gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+
+      var a = function (a) { return document.querySelector(a) };
+      var h = a(".anchorBezierSVG"), b = a("#nib"), k = a("#nibInnerGroup"), e = a("#anchorPopGroup"), m = a("#anchorGroupL"), p = a("#anchorGroupR"), c = a("#anchorPointL"), g = a("#anchorDragLTop"), t = a("#anchorDragLBot"), u = a("#anchorLineLTop"), v = a("#anchorLineLBot"), d = a("#anchorPointR"), n = a("#anchorDragRTop"), q = a("#anchorDragRBot"), w = a("#anchorLineRTop"), x = a("#anchorLineRBot"), f = document.querySelectorAll(".mainLineStart"), l = a("#mainLine");
+      a = document.querySelectorAll(".mainLineMask");
+      l = l.getAttribute("d");
+      var y = a[0].getAttribute("d"), r = e.cloneNode(!0);
+      e = e.cloneNode(!0);
+      TweenMax.set("svg", { visibility: "visible" });
+      h.appendChild(r);
+      h.appendChild(e);
+      h = r.querySelectorAll("line");
+      e = e.querySelectorAll("line");
+      TweenMax.staggerTo([h, e], 0, { drawSVG: "0% 0%", cycle: { x: [Number(c.getAttribute("x")) - 16, Number(d.getAttribute("x")) - 16], y: [Number(c.getAttribute("y")) - 16, Number(d.getAttribute("y")) - 16] } }, 0);
+      TweenLite.defaultEase = Sine.easeInOut;
+      (new TimelineMax({ repeat: -1, delay: 1 }))
+        .timeScale(2.13)
+        .to(b, 1, { x: Number(c.getAttribute("x")) + 7 })
+        .to(b, 1.5, { y: Number(c.getAttribute("y")) + 7 }, "-=1")
+        .from(c, 1, { scale: 0, transformOrigin: "50% 50%", ease: Elastic.easeOut.config(.5, .4) })
+        .to(b, .6, { x: g.getAttribute("cx"), y: g.getAttribute("cy") })
+        .from([u, v], .6, { drawSVG: "0% 0%" }, "-=0.6")
+        .from([g, t], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(.7, .5) })
+        .from(f, 1E-4, { drawSVG: "0% 0%" })
+        .to(b, 1, { x: Number(d.getAttribute("x")) + 7, y: Number(d.getAttribute("y")) + 7 })
+        .to(f, 1, { morphSVG: l }, "-=1")
+        .from(d, 1, { scale: 0, transformOrigin: "50% 50%", ease: Elastic.easeOut.config(.5, .4) })
+        .to(f, .01, { stroke: "#ededed", strokeWidth: 3 }, "-=1")
+        .to(b, .6, { x: n.getAttribute("cx"), y: n.getAttribute("cy") })
+        .from([w, x], .6, { drawSVG: "0% 0%" }, "-=0.6")
+        .from([n, q], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(.7, .5) })
+        .to(f, .6, { morphSVG: "M148,122.1c96.1-72.8,377,56.4,504,0" }, "-=1.6")
+        .to(a, .6, { morphSVG: "M148,122.5c82.2-71.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1.6")
+        .to(b, 1, { x: g.getAttribute("cx"), y: g.getAttribute("cy") })
+        .to(m, 1, { rotation: 90, transformOrigin: "50% 50%" })
+        .to(f, 1, { morphSVG: "M148,122.1c152.9,62.6,377,56.4,504,0" }, "-=1")
+        .to(a, 1, { morphSVG: "M148,122.5c152.9,63.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1")
+        .to(b, 1, { rotation: 90, svgOrigin: c.getAttribute("x") + " " + c.getAttribute("y") }, "-=1")
+        .to(k, 1, { rotation: -90, transformOrigin: "-28% -28%" }, "-=1")
+        .to(b, 1, { x: Number(q.getAttribute("cx")) })
+        .to(p, 1, { rotation: 90, transformOrigin: "50% 50%" })
+        .to(b, 1, { rotation: 180, svgOrigin: d.getAttribute("x") + " " + d.getAttribute("y") }, "-=1")
+        .to(k, 1, { rotation: -180, transformOrigin: "-28% -28%" }, "-=1")
+        .to(f, 1, { morphSVG: "M148,122.1c152.9,62.6,377-83.1,504,0" }, "-=1")
+        .to(a, 1, { morphSVG: "M148,122.5c152.9,63.6,377-84.7,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1")
+        .set(".maskText1", { textContent: "DESIGN" }, "-=1")
+        .to(b, 1, { x: g.getAttribute("cx"), y: g.getAttribute("cy"), rotation: 90 })
+        .to(k, 1, { rotation: -90, transformOrigin: "-28% -28%" }, "-=1")
+        .to(m, 1, { rotation: 0, transformOrigin: "50% 50%" })
+        .to(f, 1, { morphSVG: l }, "-=1")
+        .to(a, 1, { morphSVG: y }, "-=1")
+        .to(b, 1, { rotation: 0, svgOrigin: c.getAttribute("x") + " " + c.getAttribute("y") }, "-=1")
+        .to(k, 1, { rotation: -0, transformOrigin: "-28% -28%" }, "-=1")
+        .to(b, 1, { x: Number(d.getAttribute("x")) + 7, y: Number(d.getAttribute("y")) + 7 })
+        .to([p, d], .01, { alpha: 0 })
+        .to(e, .25, { drawSVG: "0% 50%", ease: Linear.easeNone })
+        .to(e, .75, { drawSVG: "100% 100%", ease: Power2.easeOut })
+        .set(f, { drawSVG: "0% 0%" }, "-=1")
+        .to(b, 1, { x: Number(c.getAttribute("x")) + 7, y: Number(c.getAttribute("y")) + 7, delay: .3 })
+        .to([m, c], .01, { alpha: 0 })
+        .to(h, .25, { drawSVG: "0% 50%", ease: Linear.easeNone })
+        .to(h, .75, { drawSVG: "100% 100%", ease: Power2.easeOut })
+        .to(b, 1, { x: 0, y: 0, delay: .3 })
+        .set(".maskText1", { textContent: "I DESIGN", delay: .3 });
+    });
+  </script>
+
+  <!-- 3D Fold Marquee Effect -->
+  <script>
+    window.addEventListener('load', function () {
+      gsap.utils.toArray('.marquee').forEach((el, index) => {
+        const w = el.querySelector('.track');
+        const [x, xEnd] = (index % 2 == 0) ? [-500, -1500] : [-500, 0];
+        gsap.fromTo(w, { x }, {
+          x: xEnd,
+          scrollTrigger: {
+            scrub: 1
+          }
+        });
+      });
+
+      // Set footer year
+      const yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
     });
   </script>
 </body>
+
 </html>
