@@ -340,6 +340,133 @@
       width: 100%;
     }
 
+    /* Solutions Section */
+    .solutions-section {
+      background: transparent;
+      padding: 120px 2rem 140px;
+    }
+
+    .solutions-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .solutions-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0f0f0f;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+
+    .solutions-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 2.5rem;
+      max-width: 720px;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .solution-card {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 10px;
+      padding: 28px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .solution-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .solution-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #2a2a2a;
+      margin-bottom: 0.75rem;
+    }
+
+    .solution-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: #555;
+    }
+
+    .solution-price {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #111;
+      margin: 0.35rem 0 0.25rem;
+    }
+
+    .solutions-cta {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .cta-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #0f0f0f;
+    }
+
+    .cta-subhead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      background: #111;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .cta-button:hover {
+      background: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cta-secondary {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 1024px) {
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .process-headline {
       font-family: 'JetBrains Mono', monospace;
       font-size: 2.2rem;
@@ -596,6 +723,8 @@
         <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
         <!-- Section 4 process light panel -->
         <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
+        <!-- Section 6 solutions light panel -->
+        <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
       </div>
       <div id="particle-layer"></div>
 
@@ -842,12 +971,53 @@
         </div>
       </section>
 
-      <section>
-        <div class="content-inner">
-          <h2>Keep Scrolling</h2>
-          <p>Continue scrolling to see more particles fade in.</p>
+      <!-- Solutions & Call to Action -->
+      <section class="solutions-section">
+        <div class="solutions-container">
+          <h2 class="solutions-headline">Solutions built for founders who move fast.</h2>
+          <p class="solutions-subhead">Choose the level of partnership that fits your stage — from prototype to scale.
+          </p>
+
+          <div class="solutions-grid">
+            <div class="solution-card">
+              <div class="solution-title">1. Spark — Prototype &amp; Validate</div>
+              <div class="solution-body">Turn ideas into clickable prototypes and investor decks. Scope your product,
+                map the core flow, and visualise it fast.</div>
+              <div class="solution-price">From £6k</div>
+              <div class="solution-note">→ Best for early founders validating an idea.</div>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-title">2. Launch — MVP Build</div>
+              <div class="solution-body">Design, code, deploy, and support your first product. Everything you need to
+                get real users and real feedback — fast.</div>
+              <div class="solution-price">From £18k</div>
+              <div class="solution-note">→ Best for funded startups ready to ship.</div>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-title">3. Partner — Fractional CTO</div>
+              <div class="solution-body">Keep a senior engineer in your corner as you grow. Technical direction,
+                architecture, and sprint delivery when you need it.</div>
+              <div class="solution-price">From £3k/month</div>
+              <div class="solution-note">→ Best for scaling teams needing long-term expertise.</div>
+            </div>
+          </div>
+
+          <div class="solutions-cta">
+            <div class="cta-headline">Ready to build something real?</div>
+            <div class="cta-subhead">Book a 20-minute scoping call — no sales pitch, just straight talk about your idea
+              and how to ship it.</div>
+            <a class="cta-button" href="#contact">Start your build →</a>
+            <div class="cta-secondary">or email <a
+                href="mailto:founder@readwritexecute.dev">founder@readwritexecute.dev</a></div>
+            <div class="cta-secondary" style="margin-top:24px; font-size:0.9rem; color:#888;">© read, write, execute. —
+              Launch fast. Ship right.</div>
+          </div>
         </div>
       </section>
+
+      <!-- Removed placeholder section -->
 
     </div>
   </div>
@@ -1171,6 +1341,23 @@
         stagger: 0.15,
         scrollTrigger: {
           trigger: '.process-section',
+          start: 'top 75%'
+        }
+      })
+
+      /*------------------------------
+      Solutions Section Animation
+      ------------------------------*/
+      const solutionCards = gsap.utils.toArray('.solution-card')
+      gsap.set(solutionCards, { opacity: 0, y: 20 })
+      gsap.to(solutionCards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        ease: 'power3.out',
+        stagger: 0.18,
+        scrollTrigger: {
+          trigger: '.solutions-section',
           start: 'top 75%'
         }
       })
