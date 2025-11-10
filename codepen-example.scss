@@ -1,36 +1,38 @@
-* {
+body {
+    background: #1d1d1d;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
 
-html {
-    background-color: #000;
-    font-family: 'Muli', sans-serif;
-    color: #fff;
+text {
+    text-anchor: middle;
+    font-family: "brandon-grotesque", Helvetica Neue, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: -1px;
 }
 
-.title {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 32px;
+svg {
+
+    width: 90%;
+    height: 90%;
+    visibility: hidden;
+    overflow: visible;
+    opacity: 1;
+
+
 }
 
-#Canvas {
-    display: block;
-    position: absolute;
-    top: calc(50% - 270px);
-    left: calc(50% - 480px);
-    width: 960px;
-    height: 540px;
-    z-index: -1;
-    /*   border: 1px solid #f00; */
-}
-
-.gsap-3-logo {
-    width: 20vw;
-    max-width: 150px;
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
+.maskText3 {
+    opacity: 0
 }
