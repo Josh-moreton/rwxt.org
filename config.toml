@@ -5,6 +5,11 @@ defaultContentLanguage = "en"
 theme = 'spectral'
 googleAnalytics = "G-T5VYH6J8WD"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [params]
 fancyTitle = "rwx_t"
 copyright = "Josh Moreton"

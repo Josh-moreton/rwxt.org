@@ -436,12 +436,42 @@
       display: flex;
       gap: 1.25rem;
       font-family: var(--font-mono);
-      font-size: 0.9rem;
-      color: var(--brand-muted);
+      font-size: 0.85rem;
+      margin-top: 1rem;
     }
 
-    .checklist-body .cl-status-legend input {
-      accent-color: var(--brand-blue);
+    .checklist-body .cl-status-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .checklist-body .cl-status-legend span::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .checklist-body .cl-status-legend span:nth-child(1)::before {
+      background: #10b981;
+      /* Done - green */
+    }
+
+    .checklist-body .cl-status-legend span:nth-child(2)::before {
+      background: #f59e0b;
+      /* In Progress - amber */
+    }
+
+    .checklist-body .cl-status-legend span:nth-child(3)::before {
+      background: #6b7280;
+      /* Not Started - gray */
     }
 
     .checklist-body .cl-sublist {
