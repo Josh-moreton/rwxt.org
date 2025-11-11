@@ -39,11 +39,14 @@ draft: false
 | Highlight single points of failure | [ ] | [EXAMPLE] Dev laptop is the only source of truth for code |
 
 **Checklist:**
-<ul class="cl-sublist">
-	<li><label><input type="checkbox"> Draw a simple stack diagram</label></li>
-	<li><label><input type="checkbox"> Mark critical nodes in red</label></li>
-	<li><label><input type="checkbox"> Identify weakest link in each major component</label></li>
-</ul>
+
+* [ ] List all systems that keep your product alive: app, database, hosting, billing, monitoring.
+* [ ] For each, write down: who owns it, what happens if it fails, and how long it would take to recover.
+* [ ] Ask your dev: “What’s the single riskiest thing in our stack?” — write that down.
+* [ ] Check every cloud account for forgotten services or old environments still charging money.
+* [ ] Identify where **knowledge is trapped in one person’s head** (bus factor = 1).
+* [ ] Draw a simple flow diagram showing the customer journey and mark every external dependency.
+* [ ] Highlight your top 3 technical dependencies and assign a risk colour (🟥, 🟨, 🟩).
 
 ---
 
@@ -56,12 +59,14 @@ draft: false
 | Key growth feature | Medium | Product | Could double conversion | [ ] | [EXAMPLE] Referral system not fully tracked, could drive signups |
 
 **Checklist:**
-<ul class="cl-sublist">
-	<li><label><input type="checkbox"> Identify top 3 revenue-generating features</label></li>
-	<li><label><input type="checkbox"> Identify 3 features protecting revenue</label></li>
-	<li><label><input type="checkbox"> Highlight hidden cost centres</label></li>
-	<li><label><input type="checkbox"> Find leverage points that secretly drive growth or hold it back</label></li>
-</ul>
+
+* [ ] Identify your **revenue-critical flows** (e.g. signup → checkout → payment success).
+* [ ] Mark which systems support or protect those flows (databases, payment gateways, CRMs).
+* [ ] List **non-revenue but high-cost systems** (idle servers, over-provisioned cloud, tools you don’t use).
+* [ ] Find at least one **growth lever** — a feature or insight that increases conversion or reduces churn.
+* [ ] Identify **one feature** that protects reputation (security, reliability, privacy).
+* [ ] Run a “what if we lost this feature?” test — what’s the revenue risk?
+* [ ] Tag all features as: *revenue generator*, *revenue protector*, or *cost centre*.
 
 ---
 
@@ -74,12 +79,14 @@ draft: false
 | Firefighting vs proactive | High urgent | Low urgent, high planned | [ ] | [EXAMPLE] 60% urgent fixes, aim <20% |
 
 **Checklist:**
-<ul class="cl-sublist">
-	<li><label><input type="checkbox"> Can new features be tested safely before release?</label></li>
-	<li><label><input type="checkbox"> Can you roll back broken features cleanly?</label></li>
-	<li><label><input type="checkbox"> Do you have automated CI/CD pipelines?</label></li>
-	<li><label><input type="checkbox"> Are metrics tracked for deployment success & errors?</label></li>
-</ul>
+
+* [ ] Count how often code is shipped to production — daily, weekly, or “when we have time”?
+* [ ] Identify all manual steps between “idea” and “live”. Anything manual = future pain.
+* [ ] Check if there’s a **staging environment** — if not, make that your first fix.
+* [ ] Ensure at least one **rollback path** (e.g. revert commit, feature flag off).
+* [ ] Review test coverage or at least ask your devs how they validate changes.
+* [ ] Add post-deploy notifications (Slack, email) for visibility.
+* [ ] Review the ratio of firefighting vs proactive work — track one week of dev time to prove it.
 
 ---
 
@@ -91,12 +98,14 @@ draft: false
 | Payment Gateway | Revenue loss / fraud | Limited admin | N/A | Transaction logs | [ ] [EXAMPLE] |
 
 **Checklist:**
-<ul class="cl-sublist">
-	<li><label><input type="checkbox"> Enable MFA across all critical accounts</label></li>
-	<li><label><input type="checkbox"> Validate backups restore correctly</label></li>
-	<li><label><input type="checkbox"> Run dependency vulnerability scans</label></li>
-	<li><label><input type="checkbox"> Review logging, monitoring, and alert coverage</label></li>
-</ul>
+
+* [ ] Enable **multi-factor authentication (MFA)** for all production systems, cloud accounts, and admin tools.
+* [ ] Confirm **backups actually restore** — not just that they run.
+* [ ] Run an automated **dependency vulnerability scan** (npm audit, GitHub Dependabot, Snyk).
+* [ ] Check for **secrets in code** (API keys, passwords). If found, rotate them immediately.
+* [ ] Review access levels: “who can delete production data?” should have a very short list.
+* [ ] Add a **basic monitoring and alerting setup** for uptime, errors, and cost spikes.
+* [ ] Define your **incident response process** — who’s on call, how to communicate, when to escalate.
 
 ---
 
@@ -109,11 +118,13 @@ draft: false
 | Long-term (60–90d+) | Visionary Play | 1. Modular architecture refactor [EXAMPLE] | Big-picture bet to position the startup | [ ] |
 
 **Checklist:**
-<ul class="cl-sublist">
-	<li><label><input type="checkbox"> Define top 3 leverage items for short-term</label></li>
-	<li><label><input type="checkbox"> Define 3 medium-term bets to strengthen tech & ops</label></li>
-	<li><label><input type="checkbox"> Define 1 long-term play for growth / resilience</label></li>
-</ul>
+
+* [ ] Write down your **3 short-term leverage items** (things you can do in 30 days that reduce risk or speed delivery).
+* [ ] Choose **3 medium-term bets** (next 60 days) that improve scalability, reliability, or investor confidence.
+* [ ] Pick **1 long-term play** (next 90+ days) that positions you for growth (e.g. architecture shift, automation, data platform).
+* [ ] Define how each strategic item connects to your business outcome (speed, cost, growth, resilience).
+* [ ] Add owners and deadlines for each item.
+* [ ] Revisit these every 30 days to confirm they still make sense.
 
 ---
 
