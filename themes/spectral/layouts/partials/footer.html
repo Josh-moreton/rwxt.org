@@ -4,6 +4,15 @@
     <div class="footer-brand">
       <div class="logo">rwx_t</div>
       <p>Production-grade digital products, shipped fast. From first commit to live release.</p>
+      <div class="social-links">
+        <a href="https://github.com/Josh-moreton" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i data-lucide="github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/joshua-stuart-moreton/" target="_blank" rel="noopener noreferrer"
+          aria-label="LinkedIn">
+          <i data-lucide="linkedin"></i>
+        </a>
+      </div>
     </div>
 
     <div class="footer-column">
@@ -83,6 +92,35 @@
     line-height: 1.6;
     max-width: 320px;
     margin: 0;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+  }
+
+  .social-links a:hover {
+    background: #5783FC;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .social-links svg {
+    width: 20px;
+    height: 20px;
   }
 
   .footer-column h4 {
@@ -176,3 +214,9 @@
     }
   }
 </style>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
