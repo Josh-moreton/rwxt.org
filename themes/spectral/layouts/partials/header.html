@@ -222,6 +222,38 @@
       color: var(--brand-blue);
     }
 
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--brand-dark);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
     /* Ensure all header links never get dotted/bordered underlines from theme CSS */
     .site-header a {
       text-decoration: none !important;
@@ -565,18 +597,83 @@
         position: sticky;
       }
 
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
       .site-nav {
-        width: 100%;
-        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5rem 2rem 2rem;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(15, 23, 42, 0.1);
+      }
+
+      .site-nav.active {
+        right: 0;
       }
 
       .nav-list {
-        gap: 1.25rem;
-        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+      }
+
+      .nav-list li {
+        width: 100%;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .nav-list a {
+        display: block;
+        padding: 1rem 0;
+        width: 100%;
+      }
+
+      .nav-dropdown>a::after {
+        position: absolute;
+        right: 0;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        margin-top: 0.5rem;
+        background: transparent;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .nav-dropdown.active .dropdown-menu {
+        max-height: 300px;
+      }
+
+      .dropdown-menu a {
+        padding: 0.75rem 0 0.75rem 1.5rem;
+        font-size: 0.88rem;
       }
 
       .nav-cta {
-        display: none;
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        display: inline-block;
       }
 
       .single-hero {
@@ -630,9 +727,14 @@
       <div class="site-brand">
         <a href="{{ " /" | relURL }}">rwx_t</a>
       </div>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav class="site-nav" aria-label="Primary navigation">
         <ul class="nav-list" id="site-menu">
-          <li class="nav-dropdown">
+          <li class="nav-dropdown" onclick="toggleDropdown(event)">
             <a>Resources</a>
             <div class="dropdown-menu">
               <a href="{{ " /90-day-checklist/" | relURL }}">90-Day Tech Checklist</a>
@@ -648,3 +750,43 @@
         {{ end }}
       </nav>
     </header>
+
+    <script>
+      function toggleMobileMenu() {
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('.site-nav');
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+      }
+
+      function toggleDropdown(e) {
+        if (window.innerWidth <= 900 && e.target.tagName !== 'A') {
+          e.currentTarget.classList.toggle('active');
+        }
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function (e) {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        if (window.innerWidth <= 900 && nav && nav.classList.contains('active')) {
+          if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+
+      // Close menu on window resize
+      window.addEventListener('resize', function () {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        if (window.innerWidth > 900 && nav) {
+          toggle.classList.remove('active');
+          nav.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    </script>
