@@ -42,7 +42,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css" />
 
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
@@ -389,15 +388,7 @@
       font-size: 0.93em;
     }
 
-    .single-body input[type="checkbox"] {
-      width: 1.1rem;
-      height: 1.1rem;
-      border-radius: 0.3rem;
-      accent-color: var(--brand-blue);
-      margin-right: 0.5rem;
-      position: relative;
-      top: 0.15rem;
-    }
+    /* Removed interactive task list styling */
 
     .single-body .download-cta {
       display: inline-flex;
@@ -534,6 +525,7 @@
       }
     }
   </style>
+  <!-- Removed interactive checklist script -->
 </head>
 
 <body class="rwxt-page">
