@@ -96,9 +96,8 @@
       position: sticky;
       top: 0;
       z-index: 200;
-      padding: 1.25rem clamp(1.5rem, 5vw, 3rem);
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
+      padding: 1.5rem clamp(1.5rem, 5vw, 3rem);
+      background: rgba(255, 255, 255, 0.98);
       border-bottom: 1px solid rgba(15, 23, 42, 0.08);
       display: flex;
       align-items: center;
@@ -168,23 +167,25 @@
     .nav-cta {
       font-family: var(--font-mono);
       font-size: 0.85rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      padding: 0.55rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid rgba(87, 131, 252, 0.4);
-      color: var(--brand-blue);
-      transition: all 0.18s ease;
+      padding: 0.7rem 1.4rem;
+      background: var(--brand-blue);
+      color: #fff;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: inline-block;
+      box-shadow: 0 2px 8px rgba(87, 131, 252, 0.25);
     }
 
     .nav-cta:hover,
     .nav-cta:focus {
-      background: var(--brand-blue);
+      background: #345fe2;
       color: #fff;
-      border-color: transparent;
       text-decoration: none;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(87, 131, 252, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
     }
 
     main {
