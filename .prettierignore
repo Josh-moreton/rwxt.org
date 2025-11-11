@@ -1,0 +1,3 @@
+# Ignore Hugo template partials to prevent breaking template syntax
+themes/spectral/layouts/partials/*.html
+layouts/partials/*.html
