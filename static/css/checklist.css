@@ -25,10 +25,6 @@
     max-width: var(--checklist-content-width);
     margin: 0 auto var(--checklist-spacing-lg);
     padding: clamp(2rem, 5vw, 3rem);
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid rgba(87, 131, 252, 0.12);
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
 .single-eyebrow {
