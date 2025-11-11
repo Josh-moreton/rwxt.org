@@ -1,20 +1,30 @@
 {{ partial "header.html" . }}
-<article id="main">
-  <header
-    {{
-    with
-    .Params.image
-    }}style="background-image: url('{{ . }}')"
-    {{
-    end
-    }}>
-    <h2>{{ .Title }}</h2>
-    {{ with .Params.subtitle }}
-    <p>{{ . }}</p>
+<main class="single-page" id="main-content">
+  <div class="single-hero">
+    {{ with .Section }}
+    <div class="single-eyebrow">{{ . | humanize }}</div>
     {{ end }}
-  </header>
-  <section class="wrapper style5">
-    <div class="inner">{{ .Content }}</div>
-  </section>
-</article>
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}
+    <p class="lead">{{ . }}</p>
+    {{ else }}
+    {{ with .Description }}
+    <p class="lead">{{ . }}</p>
+    {{ end }}
+    {{ end }}
+    <div class="single-meta">
+      {{ with .Date }}
+      <span>{{ .Format "2 Jan 2006" }}</span>
+      {{ end }}
+      <span>{{ .ReadingTime }} min read</span>
+      {{ with .Params.author }}
+      <span>{{ . }}</span>
+      {{ end }}
+    </div>
+  </div>
+
+  <article class="single-body" aria-label="{{ .Title }}">
+    {{ .Content }}
+  </article>
+</main>
 {{ partial "footer.html" . }}

@@ -1,74 +1,559 @@
 <!DOCTYPE html>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html lang="{{ .Site.Language.Lang | default "en-us" }}">
+<html lang="{{ .Site.Language.Lang | default " en" }}">
+
 <head>
-  <title>{{ .Title }}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="origin" />
+  <title>
+    {{- if .IsHome -}}
+    {{ .Site.Title }}
+    {{- else -}}
+    {{ with .Title }}{{ . }} · {{ end }}{{ .Site.Title }}
+    {{- end -}}
+  </title>
 
-  {{ template "_internal/google_analytics.html" . }} {{ with
-  .Site.Params.description }}
+  {{ with .Params.description }}
   <meta name="description" content="{{ . | plainify }}" />
-  {{ end }} {{ with .Site.Params.author }}
+  {{ else }}
+  {{ with .Site.Params.description }}
+  <meta name="description" content="{{ . | plainify }}" />
+  {{ end }}
+  {{ end }}
+  {{ with .Site.Params.author }}
   <meta name="author" content="{{ . }}" />
-  {{ end }} {{ range .AlternativeOutputFormats -}} {{ printf `
+  {{ end }}
+
+  {{ range .AlternativeOutputFormats -}}
+  {{ printf `
   <link rel="%s" type="%s" href="%s" title="%s" />
-  ` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }} {{ end -}} {{
-  hugo.Generator }} {{ partial "stylesheets.html" . }} {{ range .Translations }}
-  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
-  {{ end }} {{ template "_internal/twitter_cards.html" . }} {{ template
-  "_internal/opengraph.html" . }} {{ partial "hooks/head-end.html" . }}
+  ` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{- end }}
+
+  {{ hugo.Generator }}
+  {{ template "_internal/google_analytics.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ template "_internal/opengraph.html" . }}
+
+  {{ partial "stylesheets.html" . }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css" />
+
+  {{ range .Translations }}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
+  {{ end }}
+
+  {{ partial "hooks/head-end.html" . }}
+
+  <style>
+    :root {
+      --brand-blue: #5783FC;
+      --brand-dark: #0f172a;
+      --brand-muted: rgba(15, 23, 42, 0.6);
+      --surface-100: #f4f7ff;
+      --surface-0: #ffffff;
+      --font-sans: 'Inter', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--surface-0);
+      color: var(--brand-dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--brand-blue);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    a:hover,
+    a:focus {
+      color: #345fe2;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      padding: 1.25rem clamp(1.5rem, 5vw, 3rem);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .site-brand a {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--brand-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      border-bottom: none !important;
+      box-shadow: none !important;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      flex: 1 1 auto;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-list a {
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--brand-dark);
+      text-decoration: none;
+      border-bottom: none !important;
+      box-shadow: none !important;
+    }
+
+    .nav-list a:hover,
+    .nav-list a:focus {
+      color: var(--brand-blue);
+      text-decoration: none;
+      border-bottom: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Ensure all header links never get dotted/bordered underlines from theme CSS */
+    .site-header a {
+      text-decoration: none !important;
+      border-bottom: none !important;
+      box-shadow: none !important;
+    }
+
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.55rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(87, 131, 252, 0.4);
+      color: var(--brand-blue);
+      transition: all 0.18s ease;
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus {
+      background: var(--brand-blue);
+      color: #fff;
+      border-color: transparent;
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(87, 131, 252, 0.2);
+    }
+
+    main {
+      flex: 1 1 auto;
+    }
+
+    .single-page {
+      padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 6vw, 4.5rem) clamp(4rem, 7vw, 6rem);
+      background: linear-gradient(180deg, rgba(244, 247, 255, 0.35), #ffffff 32%);
+    }
+
+    .single-hero {
+      max-width: 980px;
+      margin: 0 auto clamp(3rem, 6vw, 5rem);
+      padding: clamp(2.5rem, 5vw, 4rem);
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(87, 131, 252, 0.18);
+      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.08);
+    }
+
+    .single-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-blue);
+      margin-bottom: 1rem;
+    }
+
+    .single-hero h1 {
+      font-family: var(--font-mono);
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      line-height: 1.18;
+      margin: 0 0 1.25rem;
+      color: var(--brand-dark);
+    }
+
+    .single-hero .lead {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(15, 23, 42, 0.78);
+      max-width: 640px;
+      margin: 0 0 1.75rem;
+    }
+
+    .single-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand-muted);
+      font-family: var(--font-mono);
+    }
+
+    .single-body {
+      max-width: 820px;
+      margin: 0 auto;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: rgba(15, 23, 42, 0.92);
+    }
+
+    .single-body h2,
+    .single-body h3,
+    .single-body h4 {
+      font-family: var(--font-mono);
+      letter-spacing: -0.01em;
+      color: var(--brand-dark);
+      margin: 2.5rem 0 1.2rem;
+    }
+
+    .single-body h2 {
+      font-size: clamp(1.85rem, 3.5vw, 2.25rem);
+    }
+
+    .single-body h3 {
+      font-size: clamp(1.35rem, 3vw, 1.6rem);
+    }
+
+    .single-body h4 {
+      font-size: 1.2rem;
+    }
+
+    .single-body p,
+    .single-body li {
+      margin-bottom: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .single-body strong {
+      font-weight: 700;
+      color: var(--brand-blue);
+    }
+
+    .single-body b {
+      color: var(--brand-blue);
+      font-weight: 700;
+    }
+
+    .single-body ul,
+    .single-body ol {
+      padding-left: 1.25rem;
+      margin: 1.1rem 0;
+      display: block;
+    }
+
+    .single-body ul {
+      list-style: disc;
+    }
+
+    .single-body ol {
+      list-style: decimal;
+    }
+
+    .single-body li {
+      margin: 0.35rem 0;
+    }
+
+    /* Kill theme pseudo-number bullets that add huge spacing */
+    .single-body li::before {
+      content: none !important;
+    }
+
+    .single-body ul ul,
+    .single-body ol ol {
+      margin: 0.75rem 0 0.75rem;
+    }
+
+    .single-body a {
+      font-weight: 500;
+    }
+
+    .single-body blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem 1.75rem;
+      border-left: 4px solid var(--brand-blue);
+      background: rgba(87, 131, 252, 0.08);
+      border-radius: 12px;
+      color: rgba(15, 23, 42, 0.88);
+      font-style: normal;
+    }
+
+    .single-body table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 2.5rem 0;
+      font-size: 0.95rem;
+      background: #fff;
+      border: 1px solid rgba(87, 131, 252, 0.22);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+    }
+
+    .single-body table thead {
+      background: rgba(87, 131, 252, 0.08);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--brand-blue);
+    }
+
+    .single-body table thead th,
+    .single-body table thead td {
+      color: var(--brand-blue) !important;
+      font-weight: 700;
+    }
+
+    .single-body table th,
+    .single-body table td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .single-body table tbody tr:nth-child(odd) {
+      background: rgba(87, 131, 252, 0.04);
+    }
+
+    .single-body table tbody tr:hover {
+      background: rgba(87, 131, 252, 0.1);
+    }
+
+    .single-body hr {
+      border: none;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      margin: 2.75rem 0;
+    }
+
+    .single-body code {
+      font-family: var(--font-mono);
+      background: rgba(15, 23, 42, 0.08);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.93em;
+    }
+
+    .single-body input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 0.3rem;
+      accent-color: var(--brand-blue);
+      margin-right: 0.5rem;
+      position: relative;
+      top: 0.15rem;
+    }
+
+    .single-body .download-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 2rem;
+      padding: 0.8rem 1.4rem;
+      border: 1px solid rgba(87, 131, 252, 0.4);
+      border-radius: 999px;
+    }
+
+    .single-body .download-cta:hover,
+    .single-body .download-cta:focus {
+      background: var(--brand-blue);
+      color: #fff;
+      box-shadow: 0 15px 24px rgba(87, 131, 252, 0.25);
+      text-decoration: none;
+    }
+
+    .single-body .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 3rem 0 0;
+    }
+
+    .single-body .callout {
+      border: 1px solid rgba(87, 131, 252, 0.25);
+      padding: 1.5rem 1.75rem;
+      border-radius: 14px;
+      background: rgba(87, 131, 252, 0.06);
+    }
+
+    /* Checklist page refinements */
+    .checklist-body .cl-intro {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .checklist-body .cl-status-legend {
+      display: flex;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--brand-muted);
+    }
+
+    .checklist-body .cl-status-legend input {
+      accent-color: var(--brand-blue);
+    }
+
+    .checklist-body .cl-sublist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist-body .cl-sublist li {
+      margin: 0.25rem 0;
+    }
+
+    .checklist-body table {
+      font-size: 0.95rem;
+    }
+
+    .checklist-body thead th {
+      position: sticky;
+      top: 0;
+      background: rgba(87, 131, 252, 0.08);
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        padding: 1rem 1.5rem;
+        position: sticky;
+      }
+
+      .site-nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .nav-list {
+        gap: 1.25rem;
+        justify-content: flex-start;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .single-hero {
+        padding: clamp(2rem, 6vw, 3.25rem);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header {
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.96);
+      }
+
+      .site-brand a {
+        font-size: 0.95rem;
+        letter-spacing: 0.16em;
+      }
+
+      .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .single-page {
+        padding: 3rem 1.4rem 4rem;
+      }
+
+      .single-body {
+        font-size: 1rem;
+      }
+
+      .single-body table {
+        font-size: 0.92rem;
+        overflow-x: auto;
+        display: block;
+      }
+
+      .single-body table th,
+      .single-body table td {
+        padding: 0.75rem 0.85rem;
+      }
+    }
+  </style>
 </head>
-<body class="landing is-preload">
-  <!-- Page Wrapper -->
-  <div id="page-wrapper">
-    <!-- Header -->
-    <header id="header" {{ if .Page.IsHome }} class="alt" {{ end }}>
-      <h1>
-        <a href="{{ .Site.BaseURL }}" style="display: flex; align-items: center"
-          ><img
-            src="/img/logo-white.svg"
-            alt="{{ .Site.Title }}"
-            class="logo"
-            style="max-width: 100%; height: 30px"
-        /></a>
-      </h1>
-      <nav id="nav">
-        <ul>
-          <li class="special">
-            <a href="#menu" class="menuToggle" aria-label='{{ i18n "menu" }}'
-              ><span>{{ i18n "menu" }}</span></a
-            >
-            <div id="menu">
-              <ul>
-                {{ range .Site.Params.menu.main }}
-                <li><a href="{{ .url | relURL }}">{{ .title }}</a></li>
-                {{ end }}
-              </ul>
-            </div>
-          </li>
+
+<body class="rwxt-page">
+  <div class="page-wrapper">
+    <header class="site-header">
+      <div class="site-brand">
+        <a href="{{ " /" | relURL }}">rwx_t</a>
+      </div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-list" id="site-menu">
+          {{ range .Site.Params.menu.main }}
+          <li><a href="{{ .url | relURL }}">{{ .title }}</a></li>
+          {{ end }}
         </ul>
+        {{ with .Site.Params.contact.cta }}
+        {{ $ctaURL := .url | default "/book-call/" }}
+        <a class="nav-cta" href="{{ if hasPrefix $ctaURL " http" }}{{ $ctaURL }}{{ else }}{{ $ctaURL | relURL }}{{ end
+          }}">{{ .text | default "Book a call" }}</a>
+        {{ else }}
+        <a class="nav-cta" href="{{ " /book-call/" | relURL }}">Book a call</a>
+        {{ end }}
       </nav>
     </header>
-  </div>
-  <script
-    src="//code.tidio.co/ba25ralqm9iybtdmfwzusfi6xuyd2qag.js"
-    async></script>
-  <!-- Calendly link widget begin -->
-  <link
-    href="https://assets.calendly.com/assets/external/widget.css"
-    rel="stylesheet" />
-  <script
-    src="https://assets.calendly.com/assets/external/widget.js"
-    type="text/javascript"
-    async></script>
-  <!-- Calendly link widget end -->
-</body>
