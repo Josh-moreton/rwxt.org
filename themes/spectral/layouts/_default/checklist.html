@@ -1,0 +1,19 @@
+{{ partial "header.html" . }}
+<main class="single-page" id="main-content">
+    <div class="single-hero">
+        <div class="single-eyebrow">Checklist</div>
+        <h1>{{ .Title }}</h1>
+        {{ with .Params.description }}
+        <p class="lead">{{ . }}</p>
+        {{ end }}
+        <div class="single-meta">
+            {{ with .Date }}<span>{{ .Format "2 Jan 2006" }}</span>{{ end }}
+            <span>{{ .ReadingTime }} min read</span>
+        </div>
+    </div>
+
+    <article class="single-body checklist-body" aria-label="{{ .Title }}">
+        {{ .Content }}
+    </article>
+</main>
+{{ partial "footer.html" . }}
