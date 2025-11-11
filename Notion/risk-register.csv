@@ -1,0 +1,19 @@
+Component,Risk Level,Risk if Fails,Access Control,Backup Status,Monitoring,Related Pillar,Action Required,Owner
+AWS/Cloud Account,Critical,Complete outage,MFA enabled for 2/5 users,Daily snapshots, not tested,CloudWatch basic,Security,Enable MFA for all; Test restore,Unassigned
+Payment Gateway (Stripe),Critical,No revenue,API keys in .env file,Webhook logs retained 30d,Error alerts to Slack,Revenue Map,Rotate keys; Add backup gateway,Unassigned
+Primary Database,Critical,Data loss / outage,Admin access: 3 people,RDS auto backup, 7d retention,CPU/memory alerts,System Intelligence,Test restore; Add replica,Unassigned
+Authentication Service,Critical,Users locked out,Auth0 with MFA,User data exported weekly,Login failure alerts,Security,Add backup auth method,Unassigned
+API Keys & Secrets,High,Service interruptions,Stored in AWS Secrets Manager,Versioned, can rollback,No monitoring,Security,Add secret rotation; Monitor access,Unassigned
+Customer Data Storage,High,Compliance breach,Role-based access (RBAC),S3 versioning enabled,Access logs to CloudTrail,Security,Audit access logs monthly,Unassigned
+Admin Panel,High,Unauthorized access,Password only, no MFA,N/A,Failed login attempts logged,Security,Add MFA; IP whitelist,Unassigned
+CI/CD Pipeline,Medium,Cannot deploy,GitHub Actions, 2 admins,Pipeline as code in repo,Build failure notifications,Delivery Review,Add staging deploy,Unassigned
+Third-party APIs,Medium,Feature degradation,Various API keys,N/A,No unified monitoring,System Intelligence,Centralize monitoring; Add fallbacks,Unassigned
+Email Service (SendGrid),Medium,Comms fail,Shared account, 1 user knows,Email logs 30d,Bounce rate alerts,System Intelligence,Add backup (Mailgun); Document,Unassigned
+Logging System,Medium,No visibility,Splunk, 4 users,Logs retained 30d,Disk space alerts,Delivery Review,Extend retention; Add security alerts,Unassigned
+Caching Layer (Redis),Low,Performance hit,No password set,Not backed up,Memory usage alerts,System Intelligence,Add password; Enable persistence,Unassigned
+Analytics Platform,Low,No insights,Google Analytics, shared login,Data retained by Google,None,Revenue Map,Switch to dedicated accounts,Unassigned
+Development Tools,Low,Productivity drop,GitHub, Slack, Notion - MFA enabled,N/A,None,Delivery Review,N/A,Unassigned
+Legacy Reporting Tool,Low,Minor inconvenience,2 users, rarely used,None,None,Revenue Map,Consider deprecating,Unassigned
+Static Assets (CDN),Low,Slow page loads,Cloudflare, MFA enabled,Origin in S3 (versioned),Cache hit rate dashboard,Delivery Review,N/A,Unassigned
+Customer Support System,Low,Support delays,Zendesk, 5 agents,Zendesk handles backups,SLA alerts,System Intelligence,N/A,Unassigned
+Internal Wiki,Low,Knowledge gap,Notion, entire team,Notion handles backups,None,Tech Strategy,N/A,Unassigned

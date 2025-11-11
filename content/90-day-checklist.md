@@ -285,6 +285,6 @@ If you'd like **20 minutes of free guidance**, I'll walk you through your Tech H
 👉 [Book a free 20-minute review call](/book-call)
 
 <div class="cl-footer-cta">
-<p><strong>Download:</strong> <a href="/downloads/90-day-checklist-advanced" class="download-cta">Get the Notion / Sheet template →</a></p>
+<p><strong>Download:</strong> <a href="https://stone-editorial-03b.notion.site/90-day-tech-review-2a8929e05e538063891bedb49dd574ba" class="download-cta">Get the Notion template →</a></p>
 <p class="cl-author"><strong>Author:</strong> Josh - Fractional CTO helping early-stage founders derisk tech, stabilise MVPs, and scale with confidence.</p>
 </div>

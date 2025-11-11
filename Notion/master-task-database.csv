@@ -1,0 +1,36 @@
+Task Name,Pillar,Week,Status,Priority,Owner,Due Date,Notes,Example Answer
+Inventory all tech systems,System Intelligence,1,Not Started,High,,,"Map out every component, service, and dependency",_AWS RDS, Redis cache, Auth0, Stripe, S3 buckets_
+Document single points of failure,System Intelligence,1,Not Started,High,,,"Identify bus-factor-one components",_Payment processing - only CEO knows; Email service - no backup provider_
+Audit tech debt,System Intelligence,2,Not Started,Medium,,,"List outdated libraries, deprecated code",_React v16 (EOL), jQuery still used, no TypeScript_
+Create system diagram,System Intelligence,2,Not Started,Medium,,,"Visualize dependencies and data flows",_Architecture diagram showing microservices and DBs_
+Calculate risk scores,System Intelligence,2,Not Started,High,,,"Score each component by impact and likelihood",_Payment API: 9/10 (high impact, medium likelihood)_
+Build recovery runbook,System Intelligence,2,Not Started,High,,,"Document steps for critical failures",_If DB fails: 1. Switch to replica 2. Alert team 3. Debug_
+Trace revenue path,Revenue Map,3,Not Started,High,,,"Follow user journey from signup to payment",_Signup form → Email verify → Trial → Upgrade prompt → Stripe_
+Calculate feature revenue attribution,Revenue Map,3,Not Started,High,,,"Link tech components to revenue contribution",_Dashboard feature drives 40% of upgrades_
+Identify cost centers,Revenue Map,4,Not Started,Medium,,,"Find tech that costs but doesn't generate revenue",_Legacy reporting tool - $500/mo, 3 users_
+Map hidden leverage points,Revenue Map,4,Not Started,High,,,"Find small improvements with big revenue impact",_Fix onboarding bug = 10% conversion boost = $5k/mo_
+Run revenue what-if scenarios,Revenue Map,4,Not Started,Medium,,,"Model tech changes on revenue",_If we add mobile app: +25% user base_
+Tag systems as generator/protector/cost,Revenue Map,4,Not Started,Low,,,"Categorize each tech component",_Payment API: Protector; Analytics: Generator; Old CMS: Cost_
+Measure current release frequency,Delivery Review,5,Not Started,High,,,"Track: how often do you ship?",_Deploy every 2 weeks; want: weekly_
+Map delivery pipeline,Delivery Review,5,Not Started,High,,,"Visualize: code → test → staging → prod",_Git push → Jenkins → Manual QA → Friday deploy_
+Set up staging environment,Delivery Review,6,Not Started,High,,,"Create prod-like test environment",_Staging DB with sanitized prod data_
+Implement automated testing,Delivery Review,6,Not Started,High,,,"Add unit/integration tests to CI",_Jest for frontend, pytest for backend_
+Create rollback plan,Delivery Review,6,Not Started,High,,,"Document how to undo bad deploys",_Git revert → redeploy previous tag_
+Set up deployment visibility,Delivery Review,6,Not Started,Medium,,,"Add monitoring and alerts",_Slack notification on deploy + error spike alerts_
+Track firefighting ratio,Delivery Review,6,Not Started,Low,,,"Measure unplanned vs planned work",_60% firefighting, 40% features (want: 20/80)_
+Enable MFA for all accounts,Security,7,Not Started,Critical,,,"Mandate 2FA on AWS, GitHub, admin panel",_Use 1Password/Authy for team_
+Test backup restoration,Security,7,Not Started,Critical,,,"Actually restore from backup to verify",_Restored staging DB from yesterday's backup in 15min_
+Run vulnerability scan,Security,8,Not Started,High,,,"Use Snyk/Dependabot to find issues",_Found 3 critical CVEs in dependencies_
+Audit IAM permissions,Security,8,Not Started,High,,,"Review who has access to what",_2 ex-employees still have AWS access - revoke_
+Set up security monitoring,Security,8,Not Started,High,,,"Alerts for suspicious activity",_Cloudflare rate limiting + AWS GuardDuty_
+Create incident response plan,Security,8,Not Started,Medium,,,"Document: breach detected → now what?",_1. Isolate 2. Alert team 3. Investigate 4. Patch 5. Notify_
+Review compliance requirements,Security,8,Not Started,Medium,,,"Check: GDPR, SOC2, PCI if applicable",_Need SOC2 Type II for enterprise deals_
+Define short-term quick wins,Tech Strategy,9,Not Started,High,,,"3 items achievable in 0-30 days",_Automate backups; Fix top 3 bugs; Add feature flags_
+Plan medium-term upgrades,Tech Strategy,9,Not Started,High,,,"3 projects for 30-60 days",_CI/CD pipeline; Staging env; Logging system_
+Select long-term strategic play,Tech Strategy,10,Not Started,High,,,"1 big bet for 60-90+ days",_Migrate to microservices architecture_
+Connect initiatives to business goals,Tech Strategy,10,Not Started,High,,,"Link each tech item to revenue/growth",_CI/CD → ship 2x faster → capture market_
+Assign owners and deadlines,Tech Strategy,10,Not Started,Medium,,,"Make strategy actionable",_CI/CD project: Sarah, complete by Week 12_
+Schedule monthly strategy reviews,Tech Strategy,10,Not Started,Low,,,"Set recurring check-ins",_Tech roadmap review: 1st Monday each month_
+Conduct Week 4 progress review,All Pillars,4,Not Started,Medium,,,"First checkpoint: review all progress"
+Conduct Week 8 progress review,All Pillars,8,Not Started,Medium,,,"Midpoint check-in"
+Conduct Week 13 final review,All Pillars,13,Not Started,Medium,,,"Final assessment and scoring"
