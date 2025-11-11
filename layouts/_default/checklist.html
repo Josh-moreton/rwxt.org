@@ -1,0 +1,110 @@
+{{ partial "header.html" . }}
+<link rel="stylesheet" href="/css/checklist.css">
+
+<main class="single-page checklist-page" id="main-content">
+    <div class="single-hero">
+        <div class="single-eyebrow">Checklist</div>
+        <h1>{{ .Title }}</h1>
+        {{ with .Params.description }}
+        <p class="lead">{{ . }}</p>
+        {{ end }}
+        <div class="single-meta">
+            {{ with .Date }}<span>{{ .Format "2 Jan 2006" }}</span>{{ end }}
+            <span>{{ .ReadingTime }} min read</span>
+        </div>
+
+        <div class="checklist-cta-row">
+            <a href="/book-call/" class="cta-button primary">Book a Call</a>
+            <a href="https://stone-editorial-03b.notion.site/90-day-tech-review-2a8929e05e538063891bedb49dd574ba"
+                class="cta-button secondary">Download Template</a>
+        </div>
+    </div>
+
+    <div class="checklist-container">
+        <aside class="checklist-toc" id="toc">
+            <div class="toc-sticky">
+                <h3>On This Page</h3>
+                <nav class="toc-nav" aria-label="Table of contents">
+                    <!-- Will be populated by JS -->
+                </nav>
+            </div>
+        </aside>
+
+        <article class="single-body checklist-body" aria-label="{{ .Title }}">
+            {{ .Content }}
+
+            <button class="back-to-top" aria-label="Back to top" title="Back to top">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 15V5M10 5L5 10M10 5L15 10" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </article>
+    </div>
+</main>
+
+<script>
+    // Generate TOC from h2 headings
+    document.addEventListener('DOMContentLoaded', function () {
+        const content = document.querySelector('.checklist-body');
+        const tocNav = document.querySelector('.toc-nav');
+        const headings = content.querySelectorAll('h2');
+
+        if (headings.length > 0) {
+            const tocList = document.createElement('ul');
+            tocList.className = 'toc-list';
+
+            headings.forEach((heading, index) => {
+                // Add ID if missing
+                if (!heading.id) {
+                    heading.id = 'heading-' + index;
+                }
+
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + heading.id;
+                a.textContent = heading.textContent;
+                a.className = 'toc-link';
+
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+
+            tocNav.appendChild(tocList);
+
+            // Highlight active section
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        document.querySelectorAll('.toc-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-80px 0px -80% 0px' });
+
+            headings.forEach(heading => observer.observe(heading));
+        }
+
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+</script>
+
+{{ partial "footer.html" . }}

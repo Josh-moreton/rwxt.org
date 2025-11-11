@@ -1,0 +1,622 @@
+/* ============================================
+   Checklist Page Specific Styles
+   ============================================ */
+
+:root {
+    --checklist-spacing-xs: 0.75rem;
+    --checklist-spacing-sm: 1.5rem;
+    --checklist-spacing-md: 2.5rem;
+    --checklist-spacing-lg: 4rem;
+    --checklist-spacing-xl: 6rem;
+    --checklist-max-width: 1400px;
+    --checklist-content-width: 820px;
+}
+
+/* ============================================
+   Layout Structure
+   ============================================ */
+
+.checklist-page {
+    padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3rem) var(--checklist-spacing-lg);
+    background: linear-gradient(180deg, rgba(244, 247, 255, 0.2), #ffffff 20%);
+}
+
+.single-hero {
+    max-width: var(--checklist-content-width);
+    margin: 0 auto var(--checklist-spacing-lg);
+    padding: clamp(2rem, 5vw, 3rem);
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(87, 131, 252, 0.12);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.single-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand-blue);
+    margin-bottom: 0.75rem;
+}
+
+.single-hero h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    color: var(--brand-dark);
+}
+
+.single-hero .lead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(15, 23, 42, 0.75);
+    margin: 0 0 1.25rem;
+}
+
+.single-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brand-muted);
+    font-family: var(--font-mono);
+    margin-bottom: var(--checklist-spacing-sm);
+}
+
+/* CTA Buttons in Hero */
+.checklist-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.cta-button.primary {
+    background: var(--brand-blue);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(87, 131, 252, 0.25);
+}
+
+.cta-button.primary:hover {
+    background: #345fe2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
+}
+
+.cta-button.secondary {
+    background: transparent;
+    color: var(--brand-blue);
+    border: 1px solid rgba(87, 131, 252, 0.4);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(87, 131, 252, 0.08);
+    border-color: var(--brand-blue);
+}
+
+/* Container with TOC */
+.checklist-container {
+    max-width: var(--checklist-max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* ============================================
+   Table of Contents
+   ============================================ */
+
+.checklist-toc {
+    position: relative;
+    display: none;
+    /* Hidden on mobile, shown on desktop */
+}
+
+.toc-sticky {
+    position: sticky;
+    top: 100px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(87, 131, 252, 0.1);
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.toc-sticky h3 {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--brand-blue);
+    margin: 0 0 1rem;
+    font-weight: 600;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(15, 23, 42, 0.7);
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+}
+
+.toc-link:hover {
+    color: var(--brand-blue);
+    background: rgba(87, 131, 252, 0.06);
+}
+
+.toc-link.active {
+    color: var(--brand-blue);
+    background: rgba(87, 131, 252, 0.08);
+    border-left-color: var(--brand-blue);
+    font-weight: 500;
+}
+
+/* ============================================
+   Content Area
+   ============================================ */
+
+.checklist-body {
+    max-width: var(--checklist-content-width);
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: rgba(15, 23, 42, 0.9);
+}
+
+/* Typography Improvements */
+.checklist-content h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    line-height: 1.25;
+    margin: 0 0 var(--checklist-spacing-md);
+    color: var(--brand-dark);
+}
+
+.checklist-content h2 {
+    font-family: var(--font-mono);
+    font-size: clamp(1.6rem, 3vw, 1.9rem);
+    line-height: 1.3;
+    margin: var(--checklist-spacing-xl) 0 var(--checklist-spacing-md);
+    color: var(--brand-dark);
+    padding-top: var(--checklist-spacing-sm);
+    border-top: 2px solid rgba(87, 131, 252, 0.15);
+}
+
+.checklist-content h2:first-child {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+}
+
+.checklist-content h3 {
+    font-family: var(--font-mono);
+    font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+    line-height: 1.4;
+    margin: var(--checklist-spacing-lg) 0 var(--checklist-spacing-sm);
+    color: var(--brand-dark);
+}
+
+.checklist-content h4 {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: var(--checklist-spacing-md) 0 var(--checklist-spacing-sm);
+    color: var(--brand-dark);
+}
+
+.checklist-content p {
+    margin: 0 0 var(--checklist-spacing-sm);
+}
+
+.checklist-content ul,
+.checklist-content ol {
+    margin: var(--checklist-spacing-sm) 0;
+    padding-left: 1.5rem;
+}
+
+.checklist-content li {
+    margin: var(--checklist-spacing-xs) 0;
+}
+
+.checklist-content hr {
+    border: none;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    margin: var(--checklist-spacing-lg) 0;
+}
+
+/* ============================================
+   Tables - Lighter, More Spacious
+   ============================================ */
+
+.checklist-content table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: var(--checklist-spacing-md) 0;
+    font-size: 0.95rem;
+    background: #fff;
+    border: 1px solid rgba(87, 131, 252, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.checklist-content table thead {
+    background: rgba(87, 131, 252, 0.06);
+}
+
+.checklist-content table thead th {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--brand-blue) !important;
+    font-weight: 600;
+    position: sticky;
+    top: 80px;
+    background: rgba(87, 131, 252, 0.06);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+.checklist-content table th,
+.checklist-content table td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+    text-align: left;
+    vertical-align: top;
+}
+
+.checklist-content table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.checklist-content table tbody tr:nth-child(even) {
+    background: rgba(87, 131, 252, 0.02);
+}
+
+.checklist-content table tbody tr:hover {
+    background: rgba(87, 131, 252, 0.06);
+}
+
+.checklist-content table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Mobile table scroll */
+@media (max-width: 768px) {
+    .checklist-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ============================================
+   Intro & Legend
+   ============================================ */
+
+.cl-intro {
+    background: linear-gradient(135deg, rgba(87, 131, 252, 0.08), rgba(87, 131, 252, 0.04));
+    padding: var(--checklist-spacing-md);
+    border-radius: 12px;
+    border: 1px solid rgba(87, 131, 252, 0.2);
+    margin: 0 0 var(--checklist-spacing-lg);
+}
+
+.cl-purpose {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0 0 var(--checklist-spacing-sm);
+}
+
+.cl-status-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-top: var(--checklist-spacing-sm);
+}
+
+.cl-status-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.cl-status-legend span::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+}
+
+.cl-status-legend span:nth-child(1)::before {
+    background: #10b981;
+}
+
+.cl-status-legend span:nth-child(2)::before {
+    background: #f59e0b;
+}
+
+.cl-status-legend span:nth-child(3)::before {
+    background: #6b7280;
+}
+
+/* ============================================
+   Footer CTA
+   ============================================ */
+
+.cl-footer-cta {
+    background: linear-gradient(135deg, rgba(87, 131, 252, 0.08), rgba(87, 131, 252, 0.04));
+    padding: var(--checklist-spacing-md);
+    border-radius: 12px;
+    border: 1px solid rgba(87, 131, 252, 0.2);
+    margin: var(--checklist-spacing-xl) 0 var(--checklist-spacing-md);
+    text-align: center;
+}
+
+.cl-footer-cta p {
+    margin: 0.75rem 0;
+}
+
+.cl-footer-cta .download-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    padding: 0.9rem 1.6rem;
+    background: var(--brand-blue);
+    color: #fff;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(87, 131, 252, 0.25);
+}
+
+.cl-footer-cta .download-cta:hover {
+    background: #345fe2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
+}
+
+.cl-author {
+    font-size: 0.9rem;
+    color: rgba(15, 23, 42, 0.7);
+    font-style: italic;
+}
+
+/* ============================================
+   Back to Top Button
+   ============================================ */
+
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(87, 131, 252, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 100;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: #345fe2;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(87, 131, 252, 0.4);
+}
+
+/* ============================================
+   Accordions for Progressive Disclosure
+   ============================================ */
+
+.accordion {
+    margin: var(--checklist-spacing-md) 0;
+    border: 1px solid rgba(87, 131, 252, 0.15);
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.accordion:hover {
+    border-color: rgba(87, 131, 252, 0.25);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.accordion-header {
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: rgba(87, 131, 252, 0.04);
+    transition: all 0.2s ease;
+    list-style: none;
+    user-select: none;
+}
+
+.accordion-header::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-header:hover {
+    background: rgba(87, 131, 252, 0.08);
+}
+
+.accordion-title {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-dark);
+    letter-spacing: -0.01em;
+}
+
+.accordion-icon {
+    flex-shrink: 0;
+    color: var(--brand-blue);
+    transition: transform 0.2s ease;
+}
+
+.accordion[open] .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 0 1.5rem 1.5rem;
+    animation: accordionOpen 0.3s ease;
+}
+
+@keyframes accordionOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.accordion-content>*:first-child {
+    margin-top: 0.5rem;
+}
+
+.accordion-content>*:last-child {
+    margin-bottom: 0;
+}
+
+/* Nested lists in accordions */
+.accordion-content ul,
+.accordion-content ol {
+    margin: 1rem 0;
+}
+
+.accordion-content li {
+    margin: 0.5rem 0;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (min-width: 1024px) {
+    .checklist-toc {
+        display: block;
+    }
+}
+
+@media (max-width: 1023px) {
+    .checklist-container {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .checklist-content {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --checklist-spacing-md: 2rem;
+        --checklist-spacing-lg: 3rem;
+        --checklist-spacing-xl: 4rem;
+    }
+
+    .checklist-page {
+        padding: 2rem 1.25rem 3rem;
+    }
+
+    .checklist-hero {
+        padding: 2rem;
+    }
+
+    .checklist-content {
+        font-size: 1rem;
+    }
+
+    .checklist-cta-row {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cl-status-legend {
+        flex-direction: column;
+    }
+
+    .back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 44px;
+        height: 44px;
+    }
+}

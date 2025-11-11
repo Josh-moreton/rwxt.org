@@ -47,7 +47,7 @@ draft: false
 - Draw a simple flow diagram showing the customer journey and mark every external dependency.
 - Highlight your top 3 technical dependencies and assign a risk colour (🟥, 🟨, 🟩).
 
-### 📋 How to Do It
+{{< accordion title="📋 How to Do It" open="true" >}}
 
 - **Inventory everything:** List every app, service, database, API, library, and third-party service that your product relies on. Include infrastructure (like your cloud hosting on AWS/Azure, servers, Firebase), external APIs (payments, analytics, messaging), and major frameworks or libraries in your code. This comprehensive inventory is the foundation of your risk map.
 - **Assess failure impact:** For each dependency on your list, note who is responsible for it (internal team or third-party), what happens to the user experience if it fails, and how long it would take to restore service. Essentially, answer "if this goes down, what breaks and how bad is it?" for every item. This exercise highlights your most fragile points and where you need contingency plans.
@@ -56,7 +56,9 @@ draft: false
 - **Visualize the system:** Draw a simple diagram of how data and requests flow through your product, from a user action to your backend systems. Mark each external service or module along that journey. This visual map makes it easier to spot dependencies and chokepoints. Pay attention to any component that multiple things rely on-those can be bottlenecks or single points of failure. Even a basic boxes-and-arrows sketch on paper can clarify a lot.
 - **Prioritize and label risks:** From your findings, pick the top 3 most critical dependencies or failure points in your stack. Maybe it's a third-party API that, if down, would cripple your product, or a part of the codebase only one person understands. Assign a risk level to each (for example, 🟥 high risk, 🟨 medium, 🟩 low). These are the areas you'll want to address first. By the end of 90 days, you should aim to turn those reds to yellows or greens by adding redundancies or mitigations.
 
-### 💭 Questions to Ask
+{{< /accordion >}}
+
+{{< accordion title="💭 Questions to Ask" >}}
 
 - **What happens if X goes down tomorrow?** - Pick each major dependency and imagine it failing. Do you know the user impact and how to recover?
 - **Is any one person a single point of knowledge?** - If our lead dev disappeared for a week, could we still deploy and fix things? Where is institutional knowledge lacking backup?
@@ -64,13 +66,17 @@ draft: false
 - **Which part of our system keeps me up at night?** - Your gut often knows the riskiest component. Identify it explicitly and plan to shore it up.
 - **What's our plan for disaster recovery?** - If our database got wiped or our main server died, do we have backups and a process to get back online? Who would do what?
 
-### 🔍 Where to Look
+{{< /accordion >}}
+
+{{< accordion title="🔍 Where to Look" >}}
 
 - **Cloud provider console (AWS, GCP, Azure):** Review all running services, servers, databases, and their configurations. The AWS dashboard, for example, can show you every resource - check for any you don't recognize or no longer need. Also look at your cloud billing summary to catch unused resources (e.g. an idle EC2 instance or old storage bucket).
 - **Hosting platforms (Heroku, Vercel, Netlify):** If you use any platform-as-a-service, log in and list all your apps, environments, and add-ons. Ensure each one is known and necessary. Sometimes test apps or old versions linger online unknowingly.
 - **Code repository (GitHub, GitLab):** Scan your repositories (and their README or docs) for mentions of external services, APIs, or keys. Your package.json/requirements.txt can reveal third-party libraries or SDKs in use (e.g. Stripe, SendGrid). This helps map dependencies that aren't immediately obvious.
 - **Third-party service dashboards:** Consider services like Stripe (payments), Auth0 (authentication), Firebase, etc. Visit their dashboards to remind yourself what parts of your product rely on them. Note any webhooks, API keys, or integrations set up - these are all dependencies.
 - **Ask the team:** A quick Q&A with your developers can surface hidden dependencies ("Oh, we also use an IP geolocation API for that feature") and unwritten knowledge ("Only John's laptop has the push notification certs"). Encourage them to think of "what would break if you went on vacation" to identify obscure single points of failure.
+
+{{< /accordion >}}
 
 ---
 
@@ -92,7 +98,7 @@ draft: false
 - Run a "what if we lost this feature?" test - what's the revenue risk?
 - Tag all features as: _revenue generator_, _revenue protector_, or _cost centre_.
 
-### 📋 How to Do It
+{{< accordion title="📋 How to Do It" open="true" >}}
 
 - **Trace the money path:** Outline the journey a user takes from discovering your product to completing a payment. This is your core **funnel** for revenue. For example, it might be _Landing Page → Sign Up → Onboard → Use Feature → Upgrade to Paid → Enter Payment_. Write down each step and which part of your system enables it (e.g. signup form, onboarding emails, checkout page, Stripe API). These are your revenue-critical moments; any hiccup here directly costs you money.
 - **Link tech to each revenue step:** For every step identified, list the supporting systems or services. If your checkout page is crucial, note the payment gateway (e.g. Stripe) and database that it depends on. If user onboarding affects conversion, note the email service or frontend code for that flow. The goal is to map **which tech components are tied to making or saving money**. This shows you where to focus reliability and performance efforts.
@@ -102,7 +108,9 @@ draft: false
 - **Run "what-if" scenarios:** For each major feature or system in your revenue map, ask "What if we turned this off for a day?" If removing a feature doesn't meaningfully drop revenue or engagement, perhaps it's not as critical as you thought (and might be a cost centre). If shutting something down would be catastrophic, ensure you have safeguards around it. This exercise forces you to prioritize the truly important parts of your product.
 - **Categorize and act:** Tag everything in your list as either a **revenue generator** (directly brings in money, like core features or conversion steps), a **revenue protector** (keeps revenue safe, like security/stability measures), or a **cost centre** (consumes resources without directly contributing to revenue). Once tagged, step back and review: Are you investing enough in the generators and protectors? Can you reduce or optimize the cost centres? Use these tags to guide where you spend your development time and budget in the coming weeks.
 
-### 💭 Questions to Ask
+{{< /accordion >}}
+
+{{< accordion title="💭 Questions to Ask" >}}
 
 - **Where do users drop out before paying?** - Look at your user funnel. Are lots of users signing up but not converting to paid? Pinpoint the drop-off and ask what might fix that (speed, clarity, incentives?).
 - **What feature could increase revenue _this month_ if improved?** - Identify a part of the product that, with a quick optimization (better UX, faster load, clearer call-to-action), could yield a measurable bump in conversion or upsells.
@@ -110,13 +118,17 @@ draft: false
 - **Are we paying for tech that customers wouldn't miss?** - Challenge every expense. If you turned off a non-critical service or tool, would anyone (internally or externally) notice? If the answer is no, that cost may not be justified.
 - **What would an investor question about our revenue model?** - If you pitched an investor, what part of "how you make money" would they be most skeptical of? For example, reliance on a single customer or a very manual process in the funnel. Use that perspective to strengthen those weak points now.
 
-### 🔍 Where to Look
+{{< /accordion >}}
+
+{{< accordion title="🔍 Where to Look" >}}
 
 - **Analytics & funnel metrics (e.g. Google Analytics, Mixpanel):** Inspect your sign-up and conversion funnels. Look at where users drop off - for instance, if many add to cart but don't complete checkout, that's a high-leverage point to investigate (maybe a bug or UX issue).
 - **Payment gateway dashboards (Stripe, PayPal, etc.):** Review your revenue reports and failure rates. Check how many payments fail (and why), your churn rate on subscriptions, and if there are any patterns (e.g. higher failures on certain cards or regions). This can reveal technical issues to fix, like adding a retry mechanism for failed charges.
 - **CRM or database usage stats:** Query your database or use your CRM to see which features customers use most and which hardly get touched. If a feature is rarely used but costs a lot to maintain (or uses expensive infrastructure), note that as a potential cut or rework. Conversely, if a feature is heavily used and tied to paid plans, ensure it's rock solid.
 - **AWS/Cloud cost explorer:** Dive into your cloud billing details. Identify the top 3 costs - are they aligned with your busiest features? For example, if you're spending a lot on a server that supports an add-on feature few use, that's a flag. Cloud cost tools can show idle resources or over-provisioned systems that you can scale down to save money.
 - **Customer feedback & support tickets:** Scan support inquiries or user feedback for revenue-related issues. Complaints like "I tried to pay but it didn't work" or "The site was slow so I gave up" directly point to lost revenue. Also look for requests that could be opportunities ("Do you have Feature X? I'd pay for that!"). This qualitative data can guide you to tech improvements that have clear business value.
+
+{{< /accordion >}}
 
 ---
 
@@ -138,7 +150,7 @@ draft: false
 - Add post-deploy notifications (Slack, email) for visibility.
 - Review the ratio of firefighting vs proactive work - track one week of dev time to prove it.
 
-### 📋 How to Do It
+{{< accordion title="📋 How to Do It" open="true" >}}
 
 - **Gauge your release pace:** Determine how often you actually deploy new code to production. Is it daily, weekly, bi-weekly, or just whenever things accumulate? Look at your commit history or ask your dev team for an average. This gives you a baseline. If it's "not often" or erratic, set a goal (e.g. "ship at least one small improvement or fix every week") to create a more predictable cadence.
 - **Map the delivery process:** Write down every step between having a new idea and seeing it live for users. Include things like coding, code review, testing (QA), approval steps, deployment, and verification. Any step that is manual or overly ad-hoc is a potential delay or failure point. For example, if deploying involves a developer running commands from their laptop, that's a risk. By mapping this out, you can spot which parts of your pipeline need automation or clearer process.
@@ -148,7 +160,9 @@ draft: false
 - **Increase visibility of deployments:** Set up notifications (via Slack, email, etc.) to announce when code is deployed and what changes were included. This way, everyone on the team knows what's going out and can quickly connect the dots if a user reports a new bug ("Oh, we just changed the upload function, that might be why…"). It also helps create a culture of accountability and celebration around shipping. If you use a tool like GitHub, you can tie this into push or CI notifications easily.
 - **Track firefighting vs planned work:** For one week (or sprint), log how much time the team spends on unplanned "firefighting" tasks (bug fixes, urgent issues) versus planned project work. You can do this by having a daily standup where each dev says if they worked on any surprise issues, or by tagging tickets as "bug" vs "feature" in your tracker. After the week, calculate the rough ratio. If you discover, say, 50% of time is going to emergencies, that's a sign your tech debt or quality issues are forcing too much reactive work. Over the 90 days, aim to drive that down (e.g. to 20% or less), by fixing root causes of frequent bugs or automating repetitive fixes.
 
-### 💭 Questions to Ask
+{{< /accordion >}}
+
+{{< accordion title="💭 Questions to Ask" >}}
 
 - **Could we deploy on a Friday afternoon?** - This question probes confidence. If deploying right before the weekend sounds terrifying, you likely lack safety nets (tests, monitoring, rollback). Why are you afraid, and which parts of the process need improvement so that deployments aren't scary?
 - **What's our single biggest bottleneck to shipping faster?** - Identify the step in your development pipeline that consistently slows things down. Is it waiting for manual QA? Code review backlogs? Deployment pain? Once you name it, you can target it for improvement (e.g. invest in automated tests to ease the QA bottleneck).
@@ -156,7 +170,9 @@ draft: false
 - **Are we fixing the same bugs repeatedly?** - Think about whether you've encountered the _"didn't we patch this before?"_ situation. Recurring bugs or firefights indicate underlying issues not fully resolved. Those areas likely need a strategic fix (maybe a rewrite or more tests) rather than band-aids.
 - **What keeps the team from planning ahead?** - If you're always in reactive mode, ask why. Are outages or urgent customer issues eating all your time? Or are priorities shifting too often? Understanding this will help you either stabilize the tech or adjust workflow so you can be proactive, not just reactive.
 
-### 🔍 Where to Look
+{{< /accordion >}}
+
+{{< accordion title="🔍 Where to Look" >}}
 
 - **Git repository (commit history):** Check how frequently code is being committed and merged. Do you see daily commits? Weekly big drops? This can hint at whether work is happening continuously or in big risky batches. Also look at release tags or deployment notes to see actual production deploy frequency.
 - **CI/CD pipeline:** If you have continuous integration set up (Jenkins, GitHub Actions, etc.), review the build logs and test results. Frequent failing tests or pipelines can indicate unstable code or poor test coverage. If you don't have CI, that's a sign to implement at least a basic one (even just running the app's build process and some linters).
@@ -164,6 +180,8 @@ draft: false
 - **Error monitoring and logs:** Use tools like Sentry, Rollbar, or even your server logs to see how many errors are happening in production. If there's a lot of noise (many errors, even if minor), it means things are slipping through testing. Also, if you set up alerts (e.g. when the error rate jumps or when response time slows), check how often those alerts fire - that's a measure of system stability after deployments.
 - **Staging site or testing workflow:** If a staging environment exists, observe how it's being used. Are new features actually tested there, or is it neglected? If it doesn't exist, look at whatever process substitutes for it (maybe a "dev" environment or just local testing) and note its shortcomings. Improving this will directly improve delivery confidence.
 - **Team communications:** Scroll through Slack or team emails for the past incidents. Do you see a pattern like "Hotfix deployed" or "Production issue - investigating now" happening often? That record will highlight common trouble spots (e.g. always the database, or always after deploying the mobile app) that you should focus on stabilizing in the 90-day plan.
+
+{{< /accordion >}}
 
 ---
 
@@ -184,7 +202,7 @@ draft: false
 - Add a **basic monitoring and alerting setup** for uptime, errors, and cost spikes.
 - Define your **incident response process** - who's on call, how to communicate, when to escalate.
 
-### 📋 How to Do It
+{{< accordion title="📋 How to Do It" open="true" >}}
 
 - **Mandate multi-factor authentication:** Enable MFA on every account that has access to production systems or sensitive data. This includes your cloud provider console (AWS/Azure/GCP), GitHub or version control, third-party services, admin dashboards - basically anywhere a login could alter your product or data. It might take a few minutes per account to set up (using an app like Google Authenticator or SMS codes), but it dramatically lowers the risk of an account takeover. Make sure your team is on board and understands how crucial this is.
 - **Verify backups (and test restores):** Don't just assume backups are happening - double-check. Identify all critical data (database contents, user-uploaded files, configuration data) and confirm they are being backed up on a schedule. Next, perform a test restore of a recent backup. This could mean importing a database dump into a test database, or retrieving files from backup storage and loading them somewhere. Many startups learn too late that their backups were incomplete or corrupted. Prove now that you can recover your data quickly if the worst happens.
@@ -193,7 +211,9 @@ draft: false
 - **Set up monitoring & alerts:** Establish basic monitoring for security-relevant events. For example, turn on login alerts for important accounts (so you get an email if an unrecognized device signs in to the AWS console). Use any built-in cloud alerts: AWS CloudWatch can alert on unusual spikes in CPU (could indicate an attack or runaway process) and CloudTrail can alert on certain sensitive actions (like someone changing security groups or downloading user data). Also monitor your application for common security signals - e.g., many failed logins could mean a brute-force attempt, so have your app or an auth service watch for that. The key is to get notified automatically about anything that looks like a breach or critical failure, so you're not reliant on manual checks.
 - **Plan your incident response:** Create a simple document outlining what to do in a security incident or major outage. Include: who coordinates the response (assign a lead), how to contact team members outside of email (in case email is compromised - consider having phone numbers or an alternate channel), and a checklist of immediate steps (e.g., remove public access, post a status update, etc.). Even if you're a tiny team, decide now "who does what" if things go wrong. Also decide on how to communicate with customers - drafting a generic "We're investigating an issue" message in advance can save stress. Having this plan means that in a crisis, you won't waste precious time figuring out process; you'll just execute the steps.
 
-### 💭 Questions to Ask
+{{< /accordion >}}
+
+{{< accordion title="💭 Questions to Ask" >}}
 
 - **Are all our admin accounts MFA-protected?** - If there's any account (cloud provider, code repo, SaaS tool) without two-factor authentication, that's a door an attacker can more easily open. Find it and fix it.
 - **When did we last test our backups?** - It's not enough to _have_ backups. Ask if you've tried restoring one end-to-end in the last few months. If the answer is "never," schedule a fire drill to do it.
@@ -201,13 +221,17 @@ draft: false
 - **Who could wreak havoc with a single mistake?** - Identify if any one person (or account) has the power to, say, drop the production database or charge \$50k to your AWS account or publish to your app store account. If so, consider safeguards (permissions, required reviews, or at least double-confirmation processes for dangerous actions).
 - **How quickly would we know we were hacked?** - If an attacker was inside your system, poking around or siphoning data, would we catch it? Think about what monitors are in place - if the answer is effectively none, consider setting up some intrusion detection or at least audit logs that you review periodically.
 
-### 🔍 Where to Look
+{{< /accordion >}}
+
+{{< accordion title="🔍 Where to Look" >}}
 
 - **Cloud IAM and security center:** In AWS, check the IAM dashboard for users without MFA, unused credentials, or overly broad policies. AWS Trusted Advisor and Security Hub can highlight glaring issues (like open ports or old access keys). Similarly, GCP's Security Command Center or Azure Security Center will flag common security misconfigurations.
 - **Backup logs and storage:** Verify your backups by looking at wherever they're stored (S3 buckets, database backup files, etc.). Check timestamps and file sizes - are they recent? Do they seem like complete data? Look at logs from backup jobs for any errors. If you use a managed database, use its console to see when the last successful snapshot occurred.
 - **GitHub Security tab (or equivalent):** For each repo, review reported vulnerabilities under "Dependabot alerts" if enabled. Also check the code scanning results if you have something like CodeQL set up. These automated checks often surface things developers might miss.
 - **Codebase and config files:** Search your code for any hardcoded credentials (API keys, secrets). Common places to slip are config files, old scripts, or test code. Make sure all secrets are instead stored in environment variables or a secure vault. If you find any, rotate those secrets (generate new ones) because they may have been exposed.
 - **Audit logs and alerts:** Look at your product's admin logs or your cloud's audit logs (e.g., AWS CloudTrail) for unusual activities - like repeated failed logins, or someone changing security settings. Make sure you have alerts set on key events: e.g., if a new user is created in your AWS account, you get notified. If you use an error tracking tool, see if it has flagged any security-relevant errors (like "database connection failed" could hint at a config issue or attack). Essentially, comb the places that record activity in your system to ensure you're watching the right things and nothing odd is currently happening.
+
+{{< /accordion >}}
 
 ---
 
@@ -228,7 +252,7 @@ draft: false
 - Add owners and deadlines for each item.
 - Revisit these every 30 days to confirm they still make sense.
 
-### 📋 How to Do It
+{{< accordion title="📋 How to Do It" open="true" >}}
 
 - **Identify short-term quick wins (0-30 days):** Look for up to three high-impact improvements you can make in the next month. These should be "low-hanging fruit" that either remove a major risk or significantly speed up development. Good examples: automate something manual (e.g. daily backup scripts instead of remembering to do it), tackle a couple of the most critical bug fixes that are causing customer pain, or refactor a tiny module that's causing lots of errors. The key is they are achievable quickly and give a lot of bang for the buck.
 - **Plan medium-term upgrades (30-60 days):** Choose about three initiatives to undertake in the next one to two months that will improve your system's scalability and stability. These might require more effort or coordination, but will pay off by making your tech stack more robust (and impressing any technical due diligence). Examples: implement a continuous integration/continuous deployment (CI/CD) pipeline to streamline releases, set up comprehensive logging and monitoring, improve your testing framework, or rework part of the architecture to handle growth (maybe moving from a single server to a load-balanced setup).
@@ -237,7 +261,9 @@ draft: false
 - **Assign owners and deadlines:** Take each initiative and assign a responsible person (or yourself) and a target completion date. Even if dates are rough, it turns nebulous ideas into concrete goals. If you're a solo founder, this might feel odd - but even then, try to commit to a timeline (e.g. "Feature flag system automation - me - by Feb 15"). If you have a team, get their buy-in on these deadlines. This creates accountability. Treat these strategic items like you would important features - track progress, check in on blockers, and celebrate completions.
 - **Review and adjust monthly:** Tech strategy isn't set in stone. Schedule a brief review every 30 days to evaluate progress on these items and whether they're still the right priorities. Maybe a new opportunity arose or a risk manifested that changes your plan - that's fine. The point is to keep the strategy alive and responsive. At week 4, 8, and 12 of your 90-day plan, revisit your lists: mark done items complete, update statuses, and possibly add new items or re-prioritize as you learn more. This ensures you remain agile and focused on what matters most over the quarter.
 
-### 💭 Questions to Ask
+{{< /accordion >}}
+
+{{< accordion title="💭 Questions to Ask" >}}
 
 - **What ugly tech issues are lurking on our horizon?** - Think a few months out: are there scaling bottlenecks or maintenance nightmares you're aware of but haven't addressed? (E.g., "We're fine with 100 users, but at 1,000 our current server would crash.") Identifying these now means you can plan to fix them before they bite.
 - **If we got 10× more users overnight, what would break first?** - This question helps prioritize medium-term scalability tasks. It might reveal that your database would choke, or customer support can't handle volume (so maybe build better self-service tools). Use the answer to guide your 60-day projects.
@@ -246,13 +272,17 @@ draft: false
 - **Do we have the right people for what's next?** - Look at your roadmap and ask if there's any skill set or knowledge gap. For instance, if one long-term goal is to leverage AI, do you have anyone who's dabbled in ML? If not, your strategy might include "consult with an expert" or plan a hire. This is less about coding and more about team readiness, but it's crucial for execution.
 - **What's one thing our competitors are doing technologically that we aren't?** - Maybe others have mobile apps, or have automated the onboarding process, or boast about their uptime. Should we be doing that too? This can illuminate a possible strategic item - not to copy for its own sake, but to catch up where you're behind or differentiate where you can leap ahead.
 
-### 🔍 Where to Look
+{{< /accordion >}}
+
+{{< accordion title="🔍 Where to Look" >}}
 
 - **Product & business roadmap:** Align your tech strategy with your product plans. If the business side expects to launch in a new market or add a major feature in six months, the tech strategy should include the foundational work for that (e.g. internationalization support, API refactoring, compliance prep). Examine your product roadmap and ensure your tech initiatives pave the road for it.
 - **Engineering backlog & wishlists:** Developers often have a "wish list" of improvements or nagging issues they want to fix. Review your backlog or even ask your team, "What's one thing you wish we could take time to improve?" You might discover strategic items that improve morale and efficiency (like upgrading a framework or paying off a particular tech debt) that should be in your plan.
 - **Past incidents and outages:** Look at any history of downtime, performance issues, or security scares. Those often point to strategic investments needed. For example, if you had an outage because a single server got overwhelmed, a strategic item might be implementing auto-scaling or better load balancing. If a bug in one module caused a lot of trouble, maybe a re-architecture of that module is a long-term play.
 - **Advisor or investor feedback:** If you have access to advisors or previous investor comments, revisit what concerns or suggestions they've raised about your tech. They might have pointed out, for instance, that you will need SOC2 compliance to sell to enterprise - that could translate into a strategic item around security improvements or documentation. Or maybe they worried about your lack of mobile presence - strategic item: explore a mobile app or PWA. Use external perspectives to refine your tech priorities.
 - **Industry trends:** Keep an eye on broader technology trends in your industry space. If all your competitors are moving to a certain technology (say, adopting AI features, or migrating to a new programming language that offers productivity), evaluate if it's something you should plan for long-term. Resources like tech blogs, competitor press releases, and industry reports can spark ideas for strategic tech opportunities that align with where the market is going.
+
+{{< /accordion >}}
 
 ---
 
