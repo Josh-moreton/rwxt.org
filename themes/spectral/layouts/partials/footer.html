@@ -1,187 +1,172 @@
-      <!-- prettier-ignore-file -->
-      <!-- Footer -->
-      <footer class="site-footer">
-        <div class="footer-container">
-          <div class="footer-brand">
-            <div class="logo">rwx_t</div>
-            <p>Production-grade digital products, shipped fast. From first commit to live release.</p>
-          </div>
+<!-- prettier-ignore-file -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <div class="logo">rwx_t</div>
+      <p>Production-grade digital products, shipped fast. From first commit to live release.</p>
+    </div>
 
-          <div class="footer-column">
-            <h4>Product</h4>
-            <ul>
-              <li><a href="/#solutions">Solutions</a></li>
-              <li><a href="/#process">How it Works</a></li>
-              <li><a href="{{ "/book-call/" | relURL }}">Book a Call</a></li>
-            </ul>
-          </div>
+    <div class="footer-column">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/#solutions">Solutions</a></li>
+        <li><a href="/#process">How it Works</a></li>
+        <li><a href="{{ " /book-call/" | relURL }}">Book a Call</a></li>
+      </ul>
+    </div>
 
-          <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="{{ "/90-day-checklist/" | relURL }}">90-Day Tech Checklist</a></li>
-            </ul>
-          </div>
+    <div class="footer-column">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="{{ " /90-day-checklist/" | relURL }}">90-Day Tech Checklist</a></li>
+      </ul>
+    </div>
 
-          <div class="footer-column">
-            <h4>Contact</h4>
-            <ul>
-              {{ with .Site.Params.contact.email }}
-              <li><a href="mailto:{{ . }}">{{ . }}</a></li>
-              {{ else }}
-              <li><a href="mailto:founder@rwxt.org">founder@rwxt.org</a></li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <ul>
+        {{ with .Site.Params.contact.email }}
+        <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+        {{ else }}
+        <li><a href="mailto:founder@rwxt.org">founder@rwxt.org</a></li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
 
-        <div class="footer-bottom">
-          <p>&copy; <span id="footer-year">{{ now.Year }}</span> {{ .Site.Params.copyright | default "rwx_t. All rights reserved." | safeHTML }}</p>
-          <div class="footer-legal">
-            <a href="{{ "/privacy-policy/" | relURL }}">Privacy Policy</a>
-            <a href="{{ "/cookie-policy/" | relURL }}">Cookie Policy</a>
-          </div>
-        </div>
-      </footer>
+  <div class="footer-bottom">
+    <p>&copy; <span>{{ now.Year }}</span> {{ .Site.Params.copyright | default "rwx_t. All rights reserved." | safeHTML
+      }}</p>
+    <div class="footer-legal">
+      <a href="{{ " /privacy-policy/" | relURL }}">Privacy Policy</a>
+      <a href="{{ " /cookie-policy/" | relURL }}">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
 
-      <style>
-        .site-footer {
-          background: #0f172a;
-          color: rgba(255, 255, 255, 0.7);
-          padding: 4rem 2rem 2rem;
-          font-family: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
-        }
+<style>
+  .site-footer {
+    background: #0f172a;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 4rem 2rem 2rem;
+    font-family: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
+    position: relative;
+    z-index: 25;
+  }
 
-        .footer-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr;
-          gap: 3rem;
-          margin-bottom: 3rem;
-        }
+  .footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
 
-        .footer-brand {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-        .footer-brand .logo {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 1.2rem;
-          font-weight: 600;
-          letter-spacing: 0.18em;
-          color: #5783FC;
-          margin-bottom: 0.5rem;
-        }
+  .footer-brand .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: #5783FC;
+    margin-bottom: 0.5rem;
+  }
 
-        .footer-brand p {
-          font-size: 0.95rem;
-          line-height: 1.6;
-          max-width: 320px;
-          margin: 0;
-        }
+  .footer-brand p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0;
+  }
 
-        .footer-column h4 {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.85rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #fff;
-          margin-bottom: 1.25rem;
-        }
+  .footer-column h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
 
-        .footer-column ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 
-        .footer-column a {
-          color: rgba(255, 255, 255, 0.7);
-          text-decoration: none;
-          font-size: 0.95rem;
-          transition: color 0.2s ease;
-        }
+  .footer-column a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
 
-        .footer-column a:hover {
-          color: #5783FC;
-        }
+  .footer-column a:hover {
+    color: #5783FC;
+  }
 
-        .footer-bottom {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding-top: 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 
-        .footer-bottom p {
-          margin: 0;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.5);
-        }
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
 
-        .footer-legal {
-          display: flex;
-          gap: 1.5rem;
-          font-size: 0.9rem;
-        }
+  .footer-legal {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
 
-        .footer-legal a {
-          color: rgba(255, 255, 255, 0.5);
-          text-decoration: none;
-          transition: color 0.2s ease;
-        }
+  .footer-legal a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
 
-        .footer-legal a:hover {
-          color: #5783FC;
-        }
+  .footer-legal a:hover {
+    color: #5783FC;
+  }
 
-        @media (max-width: 900px) {
-          .footer-container {
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-          }
+  @media (max-width: 900px) {
+    .footer-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
 
-          .footer-brand {
-            grid-column: 1 / -1;
-          }
-        }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
 
-        @media (max-width: 640px) {
-          .footer-container {
-            grid-template-columns: 1fr;
-          }
+  @media (max-width: 640px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+    }
 
-          .footer-bottom {
-            flex-direction: column;
-            text-align: center;
-          }
-
-          .footer-legal {
-            flex-direction: column;
-            gap: 0.75rem;
-          }
-        }
-      </style>
-
-      </div>
-
-      {{ partial "scripts.html" . }}
-
-      </body>
-
-      </html>
+    .footer-bottom {
+      flex-direction: column;
       text-align: center;
     }
 
@@ -191,11 +176,3 @@
     }
   }
 </style>
-
-</div>
-
-{{ partial "scripts.html" . }}
-
-</body>
-
-</html>
