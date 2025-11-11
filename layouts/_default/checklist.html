@@ -32,13 +32,6 @@
 
         <article class="single-body checklist-body" aria-label="{{ .Title }}">
             {{ .Content }}
-
-            <button class="back-to-top" aria-label="Back to top" title="Back to top">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 15V5M10 5L5 10M10 5L15 10" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
         </article>
     </div>
 </main>
@@ -89,21 +82,6 @@
 
             headings.forEach(heading => observer.observe(heading));
         }
-
-        // Back to top button
-        const backToTop = document.querySelector('.back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     });
 </script>
 
