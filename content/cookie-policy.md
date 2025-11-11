@@ -8,7 +8,7 @@ draft: false
 
 **Effective Date: 23 May 2025**
 
-RWXT is committed to providing a transparent and user-friendly experience. This Cookie Policy explains how we use cookies and similar technologies on our website.
+Read, write, execute technologies is committed to providing a transparent and user-friendly experience. This Cookie Policy explains how we use cookies and similar technologies on our website.
 
 ---
 
