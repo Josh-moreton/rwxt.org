@@ -16,9 +16,14 @@
     "addressCountry": "GB"
   },
   "sameAs": [
-    {{- with .Site.Params.social.github }}"https://github.com/{{ . }}"{{ end }}
-    {{- with .Site.Params.social.linkedin }},
-    "https://linkedin.com/in/{{ . }}"{{ end }}
+    {{- $.Scratch.Set "sameAs" slice -}}
+    {{- with .Site.Params.social.github -}}
+      {{- $.Scratch.Add "sameAs" (printf "\"https://github.com/%s\"" .) -}}
+    {{- end -}}
+    {{- with .Site.Params.social.linkedin -}}
+      {{- $.Scratch.Add "sameAs" (printf "\"https://linkedin.com/in/%s\"" .) -}}
+    {{- end -}}
+    {{- $.Scratch.Get "sameAs" | delimit ", " -}}
   ],
   "serviceType": ["Fractional CTO", "MVP Development", "Startup Technical Consulting"],
   "areaServed": {
