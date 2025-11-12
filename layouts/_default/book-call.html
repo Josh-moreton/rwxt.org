@@ -1,167 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <title>{{ .Title }} — {{ .Site.Title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Book a 20-minute scoping call with read, write, execute." />
 
     <!-- Google Fonts - JetBrains Mono + Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- GSAP for optional animations -->
     <script src="/gsap-public/minified/gsap.min.js"></script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #f8f7f6;
+        color: #0f0f0f;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        overflow-x: hidden;
+      }
+
+      .contact-container {
+        max-width: 900px;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .contact-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2.5rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.75rem;
+        color: #0f0f0f;
+      }
+
+      .contact-subhead {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.1rem;
+        color: #444;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+
+      .booking-embed {
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        background: #fff;
+        margin-bottom: 2rem;
+      }
+
+      .chat-note {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        color: #666;
+        font-style: italic;
+        margin-top: 1.5rem;
+        padding-bottom: 100px;
+      }
+
+      .back-link {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        color: #0ea5a4;
+        text-decoration: none;
+        margin-top: 2rem;
+        transition: opacity 0.2s ease;
+      }
+
+      .back-link:hover {
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #F8F7F6;
-            color: #0f0f0f;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            overflow-x: hidden;
-        }
-
-        .contact-container {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
+          padding: 1.5rem;
         }
 
         .contact-headline {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.75rem;
-            color: #0f0f0f;
+          font-size: 1.8rem;
         }
 
         .contact-subhead {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            color: #444;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
+          font-size: 1rem;
+          margin-bottom: 2rem;
         }
 
-        .booking-embed {
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            background: #fff;
-            margin-bottom: 2rem;
+        .booking-embed iframe {
+          height: 600px !important;
         }
 
         .chat-note {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 1.5rem;
-            padding-bottom: 100px;
+          padding-bottom: 120px;
         }
-
-        .back-link {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #0EA5A4;
-            text-decoration: none;
-            margin-top: 2rem;
-            transition: opacity 0.2s ease;
-        }
-
-        .back-link:hover {
-            opacity: 0.7;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1.5rem;
-            }
-
-            .contact-headline {
-                font-size: 1.8rem;
-            }
-
-            .contact-subhead {
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .booking-embed iframe {
-                height: 600px !important;
-            }
-
-            .chat-note {
-                padding-bottom: 120px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="contact-container">
-        <h1 class="contact-headline">Book your 20-minute call.</h1>
-        <p class="contact-subhead">Let's talk through your idea, scope the build, and see how fast we can ship it.</p>
+      <h1 class="contact-headline">Book your 20-minute call.</h1>
+      <p class="contact-subhead">
+        Let's talk through your idea, scope the build, and see how fast we can ship it.
+      </p>
 
-        <div class="booking-embed">
-            <iframe src="https://cal.com/readwriteexecute/20min?embed=true" width="100%" height="700" frameborder="0"
-                scrolling="no" style="border:none;display:block;">
-            </iframe>
-        </div>
+      <div class="booking-embed">
+        <iframe
+          src="https://cal.com/readwriteexecute/20min?embed=true"
+          width="100%"
+          height="700"
+          frameborder="0"
+          scrolling="no"
+          style="border:none;display:block;"
+        >
+        </iframe>
+      </div>
 
-        <p class="chat-note">Prefer to message instead? Use the chat bubble below.</p>
+      <p class="chat-note">Prefer to message instead? Use the chat bubble below.</p>
 
-        <a href="/" class="back-link">← Back to home</a>
+      <a href="/" class="back-link">← Back to home</a>
     </div>
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/6911f207794228195a1e2962/1j9n1irrb';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement('script'),
+          s0 = document.getElementsByTagName('script')[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/6911f207794228195a1e2962/1j9n1irrb';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+      })();
     </script>
     <!--End of Tawk.to Script-->
 
     <!-- Fade-in animation -->
     <script>
-        window.addEventListener('load', function () {
-            gsap.to('.contact-container', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power3.out'
-            });
+      window.addEventListener('load', function () {
+        gsap.to('.contact-container', {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
         });
+      });
     </script>
-
-</body>
-
+  </body>
 </html>

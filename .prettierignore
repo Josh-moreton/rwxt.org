@@ -1,3 +1,17 @@
-# Ignore Hugo template partials to prevent breaking template syntax
+public/
+node_modules/
+
+# Third-party/minified assets
+static/js/*.min.js
+static/css/*.min.css
+static/gsap-public/
+static/highlight-js/
+simplex-noise.min.js
+*.ico
+
+# Ignore the theme to avoid parser errors and unnecessary diffs
+themes/spectral/
+
+# Optionally ignore template partials to avoid accidental changes
 themes/spectral/layouts/partials/*.html
 layouts/partials/*.html

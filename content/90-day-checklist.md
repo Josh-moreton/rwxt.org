@@ -1,10 +1,10 @@
 ---
-title: "Advanced 90-Day Tech Checklist for Startup Founders | rwxt"
-description: "Deep, actionable, non-technical tech checklist with example data to derisk your startup, stabilise your MVP, and get investor-ready in 90 days. Free Notion template included."
-layout: "checklist"
+title: 'Advanced 90-Day Tech Checklist for Startup Founders | rwxt'
+description: 'Deep, actionable, non-technical tech checklist with example data to derisk your startup, stabilise your MVP, and get investor-ready in 90 days. Free Notion template included.'
+layout: 'checklist'
 date: 2025-11-11
 draft: false
-author: "rwxt"
+author: 'rwxt'
 keywords:
   - 90-day technical review
   - startup tech audit
@@ -16,8 +16,8 @@ keywords:
   - delivery pipeline optimization
   - revenue mapping
   - tech strategy for founders
-ogImage: "/img/og-checklist.jpg"
-ogType: "article"
+ogImage: '/img/og-checklist.jpg'
+ogType: 'article'
 ---
 
 # Advanced 90-Day Tech Checklist for Startup Founders
@@ -43,13 +43,13 @@ ogType: "article"
 
 ## Pillar 1: System Intelligence - Risk Map
 
-| Task | Done? | Notes |
-| --- | --- | --- |
-| Map all core dependencies (hosting, APIs, frameworks) |  | _AWS, Stripe, Firebase, React_ |
-| Identify bottlenecks (tech, process, people) |  | _Only one dev knows deployment; manual testing_ |
-| Identify tech debt silently increasing spend |  | _Old Firebase functions still running, unused AWS instances_ |
-| Ask: "If this fails tomorrow, what breaks?" |  | _Checkout fails → revenue stops; notifications fail → UX drops_ |
-| Highlight single points of failure |  | _Dev laptop is the only source of truth for code_ |
+| Task                                                  | Done? | Notes                                                           |
+| ----------------------------------------------------- | ----- | --------------------------------------------------------------- |
+| Map all core dependencies (hosting, APIs, frameworks) |       | _AWS, Stripe, Firebase, React_                                  |
+| Identify bottlenecks (tech, process, people)          |       | _Only one dev knows deployment; manual testing_                 |
+| Identify tech debt silently increasing spend          |       | _Old Firebase functions still running, unused AWS instances_    |
+| Ask: "If this fails tomorrow, what breaks?"           |       | _Checkout fails → revenue stops; notifications fail → UX drops_ |
+| Highlight single points of failure                    |       | _Dev laptop is the only source of truth for code_               |
 
 ### 📋 Action Checklist
 
@@ -96,11 +96,11 @@ ogType: "article"
 
 ## Pillar 2: Revenue Map
 
-| Feature / System | Revenue Impact | Cost Centre | Hidden Leverage | Done? | Action |
-| --- | --- | --- | --- | --- | --- |
-| _Signup flow_ | _High_ | _Engineering_ | _Optimisation potential_ |  | _Improve form UX → +10% conversion_ |
-| _Checkout/payment_ | _Critical_ | _Finance_ | _Retry/failover hidden risk_ |  | _Add Stripe retry → fewer failed payments_ |
-| _Key growth feature_ | _Medium_ | _Product_ | _Could double conversion_ |  | _Referral system not fully tracked, could drive signups_ |
+| Feature / System     | Revenue Impact | Cost Centre   | Hidden Leverage              | Done? | Action                                                   |
+| -------------------- | -------------- | ------------- | ---------------------------- | ----- | -------------------------------------------------------- |
+| _Signup flow_        | _High_         | _Engineering_ | _Optimisation potential_     |       | _Improve form UX → +10% conversion_                      |
+| _Checkout/payment_   | _Critical_     | _Finance_     | _Retry/failover hidden risk_ |       | _Add Stripe retry → fewer failed payments_               |
+| _Key growth feature_ | _Medium_       | _Product_     | _Could double conversion_    |       | _Referral system not fully tracked, could drive signups_ |
 
 ### 📋 Action Checklist
 
@@ -148,11 +148,11 @@ ogType: "article"
 
 ## Pillar 3: Delivery Review
 
-| Aspect | Current | Desired | Done? | Notes |
-| --- | --- | --- | --- | --- |
-| Feature shipping frequency | _Weekly / Ad hoc_ | _Predictable cadence_ |  | _Currently 1-2 features per month, aim weekly_ |
-| Testing before production | _Manual / Limited_ | _Staging / Feature flags_ |  | _Use staging environment & feature toggles_ |
-| Firefighting vs proactive | _High urgent_ | _Low urgent, high planned_ |  | _60% urgent fixes, aim <20%</em> |
+| Aspect                     | Current            | Desired                    | Done? | Notes                                          |
+| -------------------------- | ------------------ | -------------------------- | ----- | ---------------------------------------------- |
+| Feature shipping frequency | _Weekly / Ad hoc_  | _Predictable cadence_      |       | _Currently 1-2 features per month, aim weekly_ |
+| Testing before production  | _Manual / Limited_ | _Staging / Feature flags_  |       | _Use staging environment & feature toggles_    |
+| Firefighting vs proactive  | _High urgent_      | _Low urgent, high planned_ |       | \_60% urgent fixes, aim <20%</em>              |
 
 ### 📋 Action Checklist
 
@@ -201,10 +201,10 @@ ogType: "article"
 
 ## Pillar 4: Security
 
-| Component | Risk if fails | Access Control | Backup Status | Monitoring | Done? |
-| --- | --- | --- | --- | --- | --- |
-| _AWS / Cloud_ | _Service downtime_ | _MFA enabled_ | _Daily backup tested_ | _Alerts active_ |  |
-| _Payment Gateway_ | _Revenue loss / fraud_ | _Limited admin_ | _N/A_ | _Transaction logs_ |  |
+| Component         | Risk if fails          | Access Control  | Backup Status         | Monitoring         | Done? |
+| ----------------- | ---------------------- | --------------- | --------------------- | ------------------ | ----- |
+| _AWS / Cloud_     | _Service downtime_     | _MFA enabled_   | _Daily backup tested_ | _Alerts active_    |       |
+| _Payment Gateway_ | _Revenue loss / fraud_ | _Limited admin_ | _N/A_                 | _Transaction logs_ |       |
 
 ### 📋 Action Checklist
 
@@ -251,11 +251,11 @@ ogType: "article"
 
 ## Pillar 5: Tech Strategy
 
-| Timeframe | Focus | 3 Key Items | Notes | Done? |
-| --- | --- | --- | --- | --- |
-| Short-term (0-30d) | Leverage / Risk Reduction | _1. Backup automation; 2. Fix critical bugs; 3. Improve feature flag setup_ | Quick wins that reduce risk or speed up delivery |  |
-| Medium-term (30-60d) | Scale & Stability | _1. Staging environment; 2. CI/CD pipeline; 3. Logging & alerting_ | Improvements for investor confidence & growth |  |
-| Long-term (60-90d+) | Visionary Play | _1. Modular architecture refactor_ | Big-picture bet to position the startup |  |
+| Timeframe            | Focus                     | 3 Key Items                                                                 | Notes                                            | Done? |
+| -------------------- | ------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------ | ----- |
+| Short-term (0-30d)   | Leverage / Risk Reduction | _1. Backup automation; 2. Fix critical bugs; 3. Improve feature flag setup_ | Quick wins that reduce risk or speed up delivery |       |
+| Medium-term (30-60d) | Scale & Stability         | _1. Staging environment; 2. CI/CD pipeline; 3. Logging & alerting_          | Improvements for investor confidence & growth    |       |
+| Long-term (60-90d+)  | Visionary Play            | _1. Modular architecture refactor_                                          | Big-picture bet to position the startup          |       |
 
 ### 📋 Action Checklist
 
@@ -302,25 +302,25 @@ ogType: "article"
 
 ## Weekly Breakdown Example
 
-| Week | Pillar | Focus / Checklist | Done? |
-| --- | --- | --- | --- |
-| 1-2 | System Intelligence | _Map dependencies, identify bottlenecks, sketch risk map_ |  |
-| 3-4 | Revenue Map | _Map revenue/cost, find leverage points, highlight risks_ |  |
-| 5-6 | Delivery Review | _Audit CI/CD, rollback, testing, metrics tracking_ |  |
-| 7-8 | Security | _MFA, backups, dependency scan, monitoring review_ |  |
-| 9-10 | Tech Strategy | _Short- and medium-term bets defined & prioritised_ |  |
-| 11-12 | Implementation | _Execute high-leverage changes, reduce firefighting_ |  |
-| 13  | Final Review | _Tech Health Snapshot, ready-for-investors review, long-term strategy_ |  |
+| Week  | Pillar              | Focus / Checklist                                                      | Done? |
+| ----- | ------------------- | ---------------------------------------------------------------------- | ----- |
+| 1-2   | System Intelligence | _Map dependencies, identify bottlenecks, sketch risk map_              |       |
+| 3-4   | Revenue Map         | _Map revenue/cost, find leverage points, highlight risks_              |       |
+| 5-6   | Delivery Review     | _Audit CI/CD, rollback, testing, metrics tracking_                     |       |
+| 7-8   | Security            | _MFA, backups, dependency scan, monitoring review_                     |       |
+| 9-10  | Tech Strategy       | _Short- and medium-term bets defined & prioritised_                    |       |
+| 11-12 | Implementation      | _Execute high-leverage changes, reduce firefighting_                   |       |
+| 13    | Final Review        | _Tech Health Snapshot, ready-for-investors review, long-term strategy_ |       |
 
 ## Scoring / Output Template
 
-| Pillar | Week 0 Score | Week 13 Score | Change | Notes | Done? |
-| --- | --- | --- | --- | --- | --- |
-| System Intelligence | _2_ | _4_ | _+2_ | _Critical bottlenecks resolved_ |  |
-| Revenue Map | _3_ | _5_ | _+2_ | _Leverage points optimised_ |  |
-| Delivery Review | _2_ | _4_ | _+2_ | _CI/CD & rollback improved_ |  |
-| Security | _3_ | _5_ | _+2_ | _MFA & monitoring enforced_ |  |
-| Tech Strategy | _1_ | _4_ | _+3_ | _Short & medium-term bets executed_ |  |
+| Pillar              | Week 0 Score | Week 13 Score | Change | Notes                               | Done? |
+| ------------------- | ------------ | ------------- | ------ | ----------------------------------- | ----- |
+| System Intelligence | _2_          | _4_           | _+2_   | _Critical bottlenecks resolved_     |       |
+| Revenue Map         | _3_          | _5_           | _+2_   | _Leverage points optimised_         |       |
+| Delivery Review     | _2_          | _4_           | _+2_   | _CI/CD & rollback improved_         |       |
+| Security            | _3_          | _5_           | _+2_   | _MFA & monitoring enforced_         |       |
+| Tech Strategy       | _1_          | _4_           | _+3_   | _Short & medium-term bets executed_ |       |
 
 ## Want help running through it?
 

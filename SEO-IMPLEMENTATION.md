@@ -1,10 +1,13 @@
 # SEO Implementation Guide for rwxt.org
 
 ## Overview
+
 Complete SEO structure implemented for rwxt.org, optimized for target keywords related to fractional CTO services, MVP development, and startup technical consulting.
 
 ## Target Keywords
+
 Primary focus on UK market with these key terms:
+
 - Fractional CTO UK
 - MVP development for startups
 - Startup technical audit / technical due diligence
@@ -19,9 +22,11 @@ Primary focus on UK market with these key terms:
 ## Implementation Checklist
 
 ### ✅ 1. Meta Tags & Open Graph
+
 **Location**: `/layouts/partials/seo.html`
 
 **Features**:
+
 - Unique page titles with consistent branding
 - Optimized meta descriptions (160 characters)
 - Complete Open Graph tags for Facebook/LinkedIn
@@ -33,11 +38,13 @@ Primary focus on UK market with these key terms:
 **Usage**: Automatically included in all pages via theme header
 
 ### ✅ 2. Structured Data (JSON-LD Schema)
+
 **Location**: `/layouts/partials/schema-*.html`
 
 **Schemas Implemented**:
 
 #### Organization Schema (`schema-organization.html`)
+
 - Business name, description, logo
 - Contact information
 - Social media profiles (GitHub, LinkedIn)
@@ -48,19 +55,23 @@ Primary focus on UK market with these key terms:
 - Knowledge areas and expertise
 
 #### Article Schema (`schema-article.html`)
+
 - Applied to content pages (like 90-day checklist)
 - Proper date published/modified
 - Author attribution
 - Article image and description
 
 #### Breadcrumb Schema (`schema-breadcrumb.html`)
+
 - Navigation hierarchy for SEO
 - Helps Google understand site structure
 
 ### ✅ 3. Site Configuration
+
 **Location**: `/config.toml`
 
 **Updates**:
+
 - Enhanced site title with keywords
 - Comprehensive meta description
 - 15 target keywords defined
@@ -70,11 +81,12 @@ Primary focus on UK market with these key terms:
 - Social profile links configured
 
 **Parameters Added**:
+
 ```toml
 [params]
   author = "rwxt"
   keywords = [array of 15 target keywords]
-  
+
 [params.social]
   github = "Josh-moreton"
   linkedin = ""
@@ -84,13 +96,17 @@ Primary focus on UK market with these key terms:
 ### ✅ 4. Technical SEO
 
 #### robots.txt
+
 **Location**: `/static/robots.txt`
+
 - Allows all crawlers
 - Points to sitemap
 - Ready for future disallow rules
 
 #### Site Manifest
+
 **Location**: `/site.webmanifest`
+
 - Complete PWA metadata
 - Proper name and description
 - Theme color (#5783FC - brand blue)
@@ -98,6 +114,7 @@ Primary focus on UK market with these key terms:
 - Icons configured (192×192 and 512×512)
 
 #### Sitemap
+
 - Hugo auto-generates at `/sitemap.xml`
 - Weekly changefreq default
 - Priority set to 0.5 default
@@ -106,31 +123,34 @@ Primary focus on UK market with these key terms:
 ### ✅ 5. Content Optimization
 
 #### Homepage (`/content/_index.md`)
+
 ```yaml
-title: "rwxt | Fractional CTO & MVP Development for Startups"
-description: "Fractional CTO and MVP development for non-technical founders..."
+title: 'rwxt | Fractional CTO & MVP Development for Startups'
+description: 'Fractional CTO and MVP development for non-technical founders...'
 keywords: [9 primary keywords]
-ogImage: "/img/og-home.jpg"
-ogType: "website"
+ogImage: '/img/og-home.jpg'
+ogType: 'website'
 ```
 
 #### 90-Day Checklist (`/content/90-day-checklist.md`)
+
 ```yaml
-title: "Advanced 90-Day Tech Checklist for Startup Founders | rwxt"
-description: "Deep, actionable, non-technical tech checklist..."
-author: "rwxt"
+title: 'Advanced 90-Day Tech Checklist for Startup Founders | rwxt'
+description: 'Deep, actionable, non-technical tech checklist...'
+author: 'rwxt'
 keywords: [10 related keywords]
-ogImage: "/img/og-checklist.jpg"
-ogType: "article"
+ogImage: '/img/og-checklist.jpg'
+ogType: 'article'
 ```
 
 #### Book Call Page (`/content/book-call.md`)
+
 ```yaml
-title: "Book a Free 20-Minute Tech Review | rwxt"
-description: "Book a 20-minute scoping call with rwxt..."
+title: 'Book a Free 20-Minute Tech Review | rwxt'
+description: 'Book a 20-minute scoping call with rwxt...'
 keywords: [5 conversion-focused keywords]
-ogImage: "/img/og-book-call.jpg"
-ogType: "website"
+ogImage: '/img/og-book-call.jpg'
+ogType: 'website'
 ```
 
 ### ⚠️ 6. Open Graph Images (ACTION REQUIRED)
@@ -138,6 +158,7 @@ ogType: "website"
 **Status**: HTML templates created, JPG files need generation
 
 **Required Images** (1200×630px):
+
 - `/static/img/og-home.jpg`
 - `/static/img/og-checklist.jpg`
 - `/static/img/og-book-call.jpg`
@@ -146,6 +167,7 @@ ogType: "website"
 **Generation Instructions**: See `/static/img/OG-IMAGES-README.md`
 
 **Quick Options**:
+
 1. Open HTML templates in browser, screenshot at 1200×630
 2. Use Puppeteer script (included in README)
 3. Design in Figma/Canva using brand colors
@@ -155,6 +177,7 @@ ogType: "website"
 ### Test Your SEO Implementation
 
 1. **Build and serve locally**:
+
    ```bash
    hugo server
    ```
@@ -197,12 +220,14 @@ ogType: "website"
 ## Performance Optimization
 
 ### Current Considerations
+
 - Hugo generates static HTML (fast)
 - Inline critical CSS in header
 - Google Fonts loaded with preconnect
 - GSAP animations may affect load time
 
 ### Recommendations
+
 1. **Image optimization**:
    - Compress OG images to <300KB
    - Use WebP format for hero images
@@ -259,6 +284,7 @@ ogType: "website"
 If targeting specific UK regions:
 
 1. **Update Organization schema** with:
+
    ```json
    "address": {
      "@type": "PostalAddress",
@@ -278,18 +304,21 @@ If targeting specific UK regions:
 ## Monitoring & Maintenance
 
 ### Monthly Tasks
+
 - Review Google Search Console for errors
 - Check top-performing keywords
 - Monitor page load speed
 - Update content based on user behavior
 
 ### Quarterly Tasks
+
 - Audit backlinks
 - Update structured data if services change
 - Review competitor SEO strategies
 - Refresh older content with new data
 
 ### Ongoing
+
 - Publish new blog content (1-2x/month)
 - Build quality backlinks through guest posts
 - Engage on social media with link to content
@@ -298,15 +327,18 @@ If targeting specific UK regions:
 ## Support & Resources
 
 ### Hugo SEO Resources
+
 - [Hugo SEO Best Practices](https://gohugo.io/templates/internal/#configure-google-analytics)
 - [Hugo Internal Templates](https://gohugo.io/templates/internal/)
 
 ### Schema.org Documentation
+
 - [Organization Schema](https://schema.org/ProfessionalService)
 - [Article Schema](https://schema.org/Article)
 - [Offer Schema](https://schema.org/Offer)
 
 ### Testing Tools
+
 - [Google Rich Results Test](https://search.google.com/test/rich-results)
 - [Schema Markup Validator](https://validator.schema.org/)
 - [PageSpeed Insights](https://pagespeed.web.dev/)

@@ -10,43 +10,48 @@
 
 ## 📈 Your Progress at a Glance
 
-*[Insert Linked Database: Scoring Database - Table View]*
+_[Insert Linked Database: Scoring Database - Table View]_
 
 ---
 
 ## 🗓️ This Week's Focus
 
-*[Insert Linked Database: Master Task Database - Board View, Filtered by Current Week, Grouped by Status]*
+_[Insert Linked Database: Master Task Database - Board View, Filtered by Current Week, Grouped by Status]_
 
 ---
 
 ## 🎯 The 5 Pillars
 
 ### 🧠 Pillar 1: System Intelligence - Risk Map
+
 Map dependencies, identify bottlenecks, and create your risk map.
 **Weeks 1-2** | Status: ⬜
 
 ---
 
 ### 💰 Pillar 2: Revenue Map
+
 Connect tech to revenue, find leverage points, and identify cost centres.
 **Weeks 3-4** | Status: ⬜
 
 ---
 
 ### 🚀 Pillar 3: Delivery Review
+
 Audit your delivery pipeline, improve release confidence, and reduce firefighting.
 **Weeks 5-6** | Status: ⬜
 
 ---
 
 ### 🔒 Pillar 4: Security
+
 Enable MFA, verify backups, and establish monitoring.
 **Weeks 7-8** | Status: ⬜
 
 ---
 
 ### 🎯 Pillar 5: Tech Strategy
+
 Define short, medium, and long-term tech bets that align with business goals.
 **Weeks 9-10** | Status: ⬜
 
@@ -54,15 +59,15 @@ Define short, medium, and long-term tech bets that align with business goals.
 
 ## 📅 Weekly Breakdown
 
-| Week | Pillar | Focus |
-|------|--------|-------|
-| 1-2 | System Intelligence | Map dependencies, identify bottlenecks, sketch risk map |
-| 3-4 | Revenue Map | Map revenue/cost, find leverage points, highlight risks |
-| 5-6 | Delivery Review | Audit CI/CD, rollback, testing, metrics tracking |
-| 7-8 | Security | MFA, backups, dependency scan, monitoring review |
-| 9-10 | Tech Strategy | Short- and medium-term bets defined & prioritised |
-| 11-12 | Implementation | Execute high-leverage changes, reduce firefighting |
-| 13 | Final Review | Tech Health Snapshot, ready-for-investors review, long-term strategy |
+| Week  | Pillar              | Focus                                                                |
+| ----- | ------------------- | -------------------------------------------------------------------- |
+| 1-2   | System Intelligence | Map dependencies, identify bottlenecks, sketch risk map              |
+| 3-4   | Revenue Map         | Map revenue/cost, find leverage points, highlight risks              |
+| 5-6   | Delivery Review     | Audit CI/CD, rollback, testing, metrics tracking                     |
+| 7-8   | Security            | MFA, backups, dependency scan, monitoring review                     |
+| 9-10  | Tech Strategy       | Short- and medium-term bets defined & prioritised                    |
+| 11-12 | Implementation      | Execute high-leverage changes, reduce firefighting                   |
+| 13    | Final Review        | Tech Health Snapshot, ready-for-investors review, long-term strategy |
 
 ---
 
