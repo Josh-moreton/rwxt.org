@@ -7,6 +7,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 ## 📦 What's Included
 
 **Markdown Files (Content Pages):**
+
 - `dashboard-template.md` - Main overview page
 - `01-system-intelligence.md` - Pillar 1: Risk & Dependency Mapping
 - `02-revenue-map.md` - Pillar 2: Revenue Attribution
@@ -15,6 +16,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 - `05-tech-strategy.md` - Pillar 5: Strategic Roadmap
 
 **CSV Files (Databases):**
+
 - `master-task-database.csv` - All 36 tasks across pillars (main database)
 - `scoring-database.csv` - Pillar scoring tracker (Week 0 vs Week 13)
 - `risk-register.csv` - Security & infrastructure risk assessment (18 components)
@@ -32,6 +34,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 ### Step 2: Import Content Pages
 
 **Import each markdown file:**
+
 1. In Notion, click **"Import"** at the bottom of the left sidebar
 2. Select **"Markdown & CSV"**
 3. Upload `dashboard-template.md`
@@ -44,6 +47,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 **For each CSV file, create a database:**
 
 #### Master Task Database
+
 1. Create a new page called **"Master Task Database"**
 2. Type `/table` and select **"Table - Full page"**
 3. In the table, click the `•••` menu → **Import** → **CSV**
@@ -54,6 +58,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 8. **Convert Priority to Select:** Add options `Critical`, `High`, `Medium`, `Low`
 
 #### Scoring Database
+
 1. Create a new page called **"Scoring Database"**
 2. Type `/table` and select **"Table - Full page"**
 3. Import `scoring-database.csv`
@@ -61,6 +66,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 5. Convert Status to Select: `Not Started`, `In Progress`, `Done`
 
 #### Risk Register
+
 1. Create a new page called **"Risk Register"**
 2. Type `/table` and select **"Table - Full page"**
 3. Import `risk-register.csv`
@@ -68,6 +74,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 5. Convert Risk Level to Select: `Critical`, `High`, `Medium`, `Low`
 
 #### Weekly Breakdown
+
 1. Create a new page called **"Weekly Breakdown"**
 2. Type `/table` and select **"Table - Full page"**
 3. Import `weekly-breakdown.csv`
@@ -81,6 +88,7 @@ This guide will walk you through importing the 90-Day Technical Checklist templa
 Now you'll add filtered views of the Master Task Database to each pillar page.
 
 **For each pillar page (01-05):**
+
 1. Open the pillar page (e.g., `01-system-intelligence`)
 2. Find the placeholder text: `*[Insert Linked Database: Master Task Database, Filtered by Pillar = "X"]*`
 3. Delete this placeholder
@@ -91,6 +99,7 @@ Now you'll add filtered views of the Master Task Database to each pillar page.
 8. Hide columns you don't need (e.g., hide Example Answer once you've filled in real data)
 
 **Repeat for all 5 pillars** with appropriate filters:
+
 - Pillar 1: Filter by `Pillar = "System Intelligence"`
 - Pillar 2: Filter by `Pillar = "Revenue Map"`
 - Pillar 3: Filter by `Pillar = "Delivery Review"`
@@ -100,6 +109,7 @@ Now you'll add filtered views of the Master Task Database to each pillar page.
 ### Step 5: Link Progress Tracking to Dashboard
 
 **On the Dashboard page:**
+
 1. Find the placeholder: `*[Insert Progress Summary - linked to Scoring Database]*`
 2. Delete this text
 3. Type `/linked` → Select **"Scoring Database"**
@@ -116,12 +126,14 @@ Now you'll add filtered views of the Master Task Database to each pillar page.
 To create relations between databases:
 
 **Link Risk Register to Master Tasks:**
+
 1. Open **Risk Register**
 2. Add new property → **Relation** → Link to **Master Task Database**
 3. Name it "Related Tasks"
 4. Now you can link specific risks to action items
 
 **Link Scoring Database to Master Tasks:**
+
 1. Open **Scoring Database**
 2. Add property → **Rollup**
 3. Select relation to Master Task Database (you'll need to create the relation first)
@@ -134,23 +146,28 @@ To create relations between databases:
 ## ✏️ Customization Tips
 
 **Remove Example Data:**
+
 - The CSV files contain example/placeholder data (marked with `_italics_`)
 - Once you've filled in your real data, delete the example rows
 
 **Add Team Members:**
+
 - In Master Task Database, add team members to the Owner column
 - Notion will suggest converting to a Person property - do this for avatars
 
 **Create Dashboard Views:**
+
 - Add a **Board view** of Master Task Database grouped by Status
 - Add a **Calendar view** grouped by Due Date
 - Create **Filtered views** like "This Week" or "My Tasks"
 
 **Color Code:**
+
 - Use Notion's color options to highlight critical items
 - Apply colors to database rows or add an Icon to each pillar page
 
 **Templates:**
+
 - Create a **Task Template** in Master Task Database with default properties
 - Create a **Risk Template** in Risk Register
 
@@ -159,12 +176,14 @@ To create relations between databases:
 ## 🎯 Using the Template
 
 ### Week 0: Setup
+
 1. Import all files following steps above
 2. Review dashboard and understand structure
 3. Set your Week 0 scores in Scoring Database
 4. Assign owners to tasks
 
 ### Weeks 1-13: Execute
+
 1. Check dashboard weekly to see progress
 2. Update task statuses as you complete items
 3. Fill in assessment tables in each pillar page
@@ -172,6 +191,7 @@ To create relations between databases:
 5. Adjust weekly breakdown as needed
 
 ### Week 4, 8, 13: Reviews
+
 1. Run progress review meeting
 2. Update Scoring Database with new scores
 3. Update Key Wins column
@@ -182,21 +202,25 @@ To create relations between databases:
 ## 🆘 Troubleshooting
 
 **CSV won't import?**
+
 - Make sure you're importing into a **Table database**, not a page
 - Check that CSV has proper headers in first row
 - Try opening CSV in a text editor to verify format
 
 **Linked database not filtering?**
+
 - Verify filter is set: click `Filter` button → ensure condition matches
 - Check that source database has data in the Pillar column
 - Make sure Pillar names match exactly (case-sensitive)
 
 **Progress formula not working?**
+
 - Ensure Completed and Total columns are **Number** properties
 - Double-check formula syntax in Progress % property
 - Try: `format(round(prop("Completed") / prop("Total") * 100)) + "%"`
 
 **Lost the placeholder text?**
+
 - Don't worry! Just add linked databases wherever makes sense
 - The key is linking Master Task Database to each pillar with filters
 
@@ -205,6 +229,7 @@ To create relations between databases:
 ## 📚 Next Steps
 
 Once import is complete:
+
 1. Read `README.md` for usage guidance
 2. Schedule your Week 0 kickoff
 3. Customize to your startup's needs

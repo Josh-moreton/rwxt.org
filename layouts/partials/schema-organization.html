@@ -1,0 +1,127 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "{{ .Site.Title }}",
+  "alternateName": "Read, Write, Execute Technologies",
+  "description": "{{ .Site.Params.descriptionParagraph }}",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ "/img/logo.png" | absURL }}",
+  "image": "{{ "/img/og-home.jpg" | absURL }}",
+  "priceRange": "£££",
+  "telephone": "",
+  "email": "",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "GB"
+  },
+  "sameAs": [
+    {{- $.Scratch.Set "sameAs" slice -}}
+    {{- with .Site.Params.social.github -}}
+      {{- $.Scratch.Add "sameAs" (printf "\"https://github.com/%s\"" .) -}}
+    {{- end -}}
+    {{- with .Site.Params.social.linkedin -}}
+      {{- $.Scratch.Add "sameAs" (printf "\"https://linkedin.com/in/%s\"" .) -}}
+    {{- end -}}
+    {{- $.Scratch.Get "sameAs" | delimit ", " -}}
+  ],
+  "serviceType": ["Fractional CTO", "MVP Development", "Startup Technical Consulting"],
+  "areaServed": {
+    "@type": "Place",
+    "name": "United Kingdom"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Development Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Spark - Prototype & Validate",
+          "description": "Turn ideas into clickable prototypes and investor decks. Perfect for early-stage founders validating concepts.",
+          "provider": {
+            "@type": "ProfessionalService",
+            "name": "{{ .Site.Title }}"
+          },
+          "serviceType": "Prototype Development",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Early-stage founders"
+          }
+        },
+        "price": "6000",
+        "priceCurrency": "GBP",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "6000",
+          "priceCurrency": "GBP",
+          "valueAddedTaxIncluded": "false"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Launch - MVP Build",
+          "description": "Design, code, deploy, and support your first product. Full-stack MVP development from concept to production.",
+          "provider": {
+            "@type": "ProfessionalService",
+            "name": "{{ .Site.Title }}"
+          },
+          "serviceType": "MVP Development",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Funded startups"
+          }
+        },
+        "price": "18000",
+        "priceCurrency": "GBP",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "18000",
+          "priceCurrency": "GBP",
+          "valueAddedTaxIncluded": "false"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Partner - Fractional CTO",
+          "description": "Keep a senior engineer in your corner as you grow. Ongoing technical leadership and development support.",
+          "provider": {
+            "@type": "ProfessionalService",
+            "name": "{{ .Site.Title }}"
+          },
+          "serviceType": "Fractional CTO",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Scaling startups"
+          }
+        },
+        "price": "3000",
+        "priceCurrency": "GBP",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "3000",
+          "priceCurrency": "GBP",
+          "unitText": "MONTH",
+          "valueAddedTaxIncluded": "false"
+        }
+      }
+    ]
+  },
+  "knowsAbout": [
+    "MVP Development",
+    "Technical Due Diligence",
+    "Startup CTO Services",
+    "Full-Stack Development",
+    "Technical Strategy",
+    "Security Audits",
+    "System Architecture",
+    "Revenue Operations",
+    "Delivery Pipeline Optimization"
+  ]
+}
+</script>

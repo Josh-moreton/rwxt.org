@@ -1,1966 +1,2214 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <title>{{ .Site.Title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ .Site.Params.description }}" />
 
-<head>
-  <title>{{ .Site.Title }}</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="{{ .Site.Params.description }}" />
+    <!-- Google Fonts - IBM Plex Sans + Muli + Brandon Grotesque + JetBrains Mono + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css" />
 
-  <!-- Google Fonts - IBM Plex Sans + Muli + Brandon Grotesque + JetBrains Mono + Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css">
+    <!-- WebFont Loader -->
+    <script src="/js/webfontloader.js"></script>
 
-  <!-- WebFont Loader -->
-  <script src="/js/webfontloader.js"></script>
+    <!-- GSAP + ScrollTrigger + ScrollSmoother + MorphSVG + DrawSVG (Local) -->
+    <script src="/gsap-public/minified/gsap.min.js"></script>
+    <script src="/gsap-public/minified/ScrollTrigger.min.js"></script>
+    <script src="/gsap-public/minified/ScrollSmoother.min.js"></script>
+    <script src="/gsap-public/minified/MorphSVGPlugin.min.js"></script>
+    <script src="/gsap-public/minified/DrawSVGPlugin.min.js"></script>
 
-  <!-- GSAP + ScrollTrigger + ScrollSmoother + MorphSVG + DrawSVG (Local) -->
-  <script src="/gsap-public/minified/gsap.min.js"></script>
-  <script src="/gsap-public/minified/ScrollTrigger.min.js"></script>
-  <script src="/gsap-public/minified/ScrollSmoother.min.js"></script>
-  <script src="/gsap-public/minified/MorphSVGPlugin.min.js"></script>
-  <script src="/gsap-public/minified/DrawSVGPlugin.min.js"></script>
+    <!-- SimplexNoise (Local) -->
+    <script src="/js/simplex-noise.js"></script>
 
-  <!-- SimplexNoise (Local) -->
-  <script src="/js/simplex-noise.js"></script>
+    <!-- Styles -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <!-- Styles -->
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      body {
+        font-family:
+          'IBM Plex Sans',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #fff;
+        color: #000;
+        overflow-x: hidden;
+      }
 
-    body {
-      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff;
-      color: #000;
-      overflow-x: hidden;
-    }
-
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 1.5rem clamp(1.5rem, 5vw, 3rem);
-      background: rgba(255, 255, 255, 0.98);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .site-brand a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      color: #5783FC;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .site-nav {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 1.5rem;
-      flex: 1 1 auto;
-    }
-
-    .nav-list {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: clamp(1rem, 3vw, 2.5rem);
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-list li {
-      position: relative;
-    }
-
-    .nav-list a {
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #0f172a;
-      text-decoration: none;
-    }
-
-    .nav-list a:hover,
-    .nav-list a:focus {
-      color: #5783FC;
-    }
-
-    .nav-dropdown>a {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .nav-dropdown>a::after {
-      content: '▾';
-      font-size: 0.7rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-dropdown:hover>a::after {
-      transform: translateY(2px);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 0.75rem);
-      left: 50%;
-      transform: translateX(-50%) translateY(-8px);
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 8px;
-      padding: 0.5rem 0;
-      min-width: 200px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-      z-index: 100;
-    }
-
-    .nav-dropdown:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .dropdown-menu a {
-      display: block;
-      padding: 0.65rem 1.25rem;
-      font-size: 0.9rem;
-      text-transform: none;
-      letter-spacing: 0.02em;
-      color: #0f172a;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .dropdown-menu a:hover {
-      background: rgba(87, 131, 252, 0.08);
-      color: #5783FC;
-    }
-
-    .nav-cta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 0.7rem 1.4rem;
-      background: #5783FC;
-      color: #fff;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-      display: inline-block;
-      box-shadow: 0 2px 8px rgba(87, 131, 252, 0.25);
-    }
-
-    .nav-cta:hover,
-    .nav-cta:focus {
-      background: #345fe2;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
-    }
-
-    .mobile-menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-      z-index: 1001;
-    }
-
-    .mobile-menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: #0f172a;
-      transition: all 0.3s ease;
-      border-radius: 2px;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    @media (max-width: 900px) {
       .site-header {
-        padding: 1rem 1.5rem;
-      }
-
-      .mobile-menu-toggle {
-        display: flex;
-      }
-
-      .site-nav {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(12px);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 5rem 2rem 2rem;
-        gap: 2rem;
-        transition: right 0.3s ease;
-        box-shadow: -4px 0 20px rgba(15, 23, 42, 0.1);
-      }
-
-      .site-nav.active {
+        left: 0;
         right: 0;
-      }
-
-      .nav-list {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        gap: 0;
-      }
-
-      .nav-list li {
-        width: 100%;
+        z-index: 1000;
+        padding: 1.5rem clamp(1.5rem, 5vw, 3rem);
+        background: rgba(255, 255, 255, 0.98);
         border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-      }
-
-      .nav-list a {
-        display: block;
-        padding: 1rem 0;
-        width: 100%;
-      }
-
-      .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-        padding: 0;
-        margin-top: 0.5rem;
-        background: transparent;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-
-      .nav-dropdown.active .dropdown-menu {
-        max-height: 300px;
-      }
-
-      .dropdown-menu a {
-        padding: 0.75rem 0 0.75rem 1.5rem;
-        font-size: 0.88rem;
-      }
-
-      .nav-cta {
-        width: 100%;
-        text-align: center;
-        margin-top: 1rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .site-header {
-        background: rgba(255, 255, 255, 0.96);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        flex-wrap: wrap;
       }
 
       .site-brand a {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        color: #5783fc;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .site-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1.5rem;
+        flex: 1 1 auto;
+      }
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: clamp(1rem, 3vw, 2.5rem);
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-list li {
+        position: relative;
+      }
+
+      .nav-list a {
         font-size: 0.95rem;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #0f172a;
+        text-decoration: none;
       }
-    }
 
-    #wrapper {
-      overflow: hidden;
-    }
+      .nav-list a:hover,
+      .nav-list a:focus {
+        color: #5783fc;
+      }
 
-    #smooth-content {
-      position: relative;
-      width: 100%;
-    }
+      .nav-dropdown > a {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
 
-    #content {
-      overflow: visible;
-      width: 100%;
-      min-height: 600vh;
-      position: relative;
-    }
+      .nav-dropdown > a::after {
+        content: '▾';
+        font-size: 0.7rem;
+        transition: transform 0.2s ease;
+      }
 
-    /* Global layered architecture */
-    #bg-panels {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      /* below particles and content */
-      pointer-events: none;
-    }
+      .nav-dropdown:hover > a::after {
+        transform: translateY(2px);
+      }
 
-    #bg-panels .panel {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-    }
+      .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        min-width: 200px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease,
+          transform 0.2s ease;
+        z-index: 100;
+      }
 
-    #particle-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      /* above backgrounds, below content */
-      pointer-events: none;
-    }
-
-    .scroll {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 4rem;
-      position: absolute;
-      z-index: 10;
-      font-family: 'IBM Plex Sans', Roboto, sans-serif;
-      letter-spacing: 0.2em;
-      font-size: 11px;
-      pointer-events: none;
-    }
-
-    .scroll span {
-      display: block;
-    }
-
-    .scroll svg {
-      margin-top: 10px;
-      width: 18px;
-      height: 18px;
-      animation: scroll 0.95s ease-in-out alternate infinite;
-      fill: none;
-      stroke: #000000;
-      stroke-linecap: round;
-      stroke-miterlimit: 10;
-      stroke-width: 1;
-    }
-
-    .circle {
-      width: 20px;
-      height: 20px;
-      border-radius: 40%;
-      opacity: 0;
-      margin: -19px auto;
-      margin-left: 66.66%;
-      transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
-      z-index: 0;
-      position: relative;
-    }
-
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 2rem;
-      position: absolute;
-      width: 100%;
-      z-index: 20;
-    }
-
-    section:nth-of-type(1) {
-      top: 0;
-    }
-
-    section:nth-of-type(2) {
-      top: 100vh;
-    }
-
-    section:nth-of-type(3) {
-      top: 200vh;
-    }
-
-    section:nth-of-type(4) {
-      top: 300vh;
-    }
-
-    section:nth-of-type(5) {
-      top: 400vh;
-    }
-
-    section:nth-of-type(6) {
-      top: 500vh;
-    }
-
-    .content-inner {
-      max-width: 800px;
-      text-align: center;
-    }
-
-    section h1 {
-      font-size: 3rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-      border-top: 2px solid #000;
-      border-bottom: 2px solid #000;
-      padding: 0.5rem 0;
-      display: inline-block;
-    }
-
-    section h2 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-
-    section p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #333;
-      margin: 1rem 0;
-    }
-
-    section a {
-      color: #000;
-      text-decoration: underline;
-    }
-
-    section a:hover {
-      color: #555;
-    }
-
-    /* Typewriter Effect Container - Replaces previous WebGL animation */
-    #typewriter-container {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-70%, -50%);
-      width: 100%;
-      max-width: 90vw;
-      justify-content: center;
-      align-items: center;
-      gap: 0.12em;
-      padding: 0 1rem;
-      font-size: clamp(3.2rem, 8vw, 6.5rem);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Typewriter text element - animated with GSAP using SteppedEase */
-    #typewriter-text {
-      font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
-      font-size: inherit;
-      font-weight: 600;
-      color: #000;
-      white-space: nowrap;
-      overflow: hidden;
-      display: inline-block;
-      line-height: 1;
-      min-width: 1ch;
-      will-change: width;
-      backface-visibility: hidden;
-      font-variant-ligatures: none;
-    }
-
-    /* Blinking cursor effect */
-    .typewriter-cursor {
-      display: inline-block;
-      width: 3px;
-      height: 1em;
-      background-color: currentColor;
-      margin-left: 0.12em;
-      align-self: center;
-      animation: blink 0.7s steps(1) infinite;
-    }
-
-    /* CSS-based cursor blink animation */
-    @keyframes blink {
-
-      0%,
-      100% {
+      .nav-dropdown:hover .dropdown-menu {
         opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
       }
 
-      50% {
+      .dropdown-menu a {
+        display: block;
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+        text-transform: none;
+        letter-spacing: 0.02em;
+        color: #0f172a;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+
+      .dropdown-menu a:hover {
+        background: rgba(87, 131, 252, 0.08);
+        color: #5783fc;
+      }
+
+      .nav-cta {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding: 0.7rem 1.4rem;
+        background: #5783fc;
+        color: #fff;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(87, 131, 252, 0.25);
+      }
+
+      .nav-cta:hover,
+      .nav-cta:focus {
+        background: #345fe2;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
+      }
+
+      .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1001;
+      }
+
+      .mobile-menu-toggle span {
+        width: 24px;
+        height: 2px;
+        background: #0f172a;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+      }
+
+      .mobile-menu-toggle.active span:nth-child(2) {
         opacity: 0;
       }
-    }
 
-    @keyframes scroll {
-      0% {
-        transform: translateY(0);
+      .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
       }
 
-      100% {
-        transform: translateY(10px);
-      }
-    }
+      @media (max-width: 900px) {
+        .site-header {
+          padding: 1rem 1.5rem;
+        }
 
-    /* SVG Bezier Animation Styles */
-    .anchorBezierSVG {
-      width: 90%;
-      height: 90%;
-      visibility: hidden;
-      overflow: visible;
-      opacity: 1;
-    }
+        .mobile-menu-toggle {
+          display: flex;
+        }
 
-    .anchorBezierSVG text {
-      text-anchor: middle;
-      font-family: "brandon-grotesque", Helvetica Neue, Arial, sans-serif;
-      font-weight: 700;
-      font-size: 42px;
-      letter-spacing: -1px;
-    }
+        .site-nav {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 280px;
+          height: 100vh;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(12px);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 5rem 2rem 2rem;
+          gap: 2rem;
+          transition: right 0.3s ease;
+          box-shadow: -4px 0 20px rgba(15, 23, 42, 0.1);
+        }
 
-    .maskText3 {
-      opacity: 0;
-    }
+        .site-nav.active {
+          right: 0;
+        }
 
-    /* About / Value Proposition Section */
-    section:nth-of-type(2) {
-      background: transparent;
-      padding: 80px 2rem;
-      /* reclaimed vertical space */
-    }
+        .nav-list {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          gap: 0;
+        }
 
-    .about-container {
-      max-width: 60%;
-      margin: 0 auto;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(40px);
-      position: relative;
-      z-index: 1;
-    }
+        .nav-list li {
+          width: 100%;
+          border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
 
-    .about-headline {
-      font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-      color: #000;
-    }
+        .nav-list a {
+          display: block;
+          padding: 1rem 0;
+          width: 100%;
+        }
 
-    .about-body {
-      font-family: 'Inter', 'IBM Plex Sans', sans-serif;
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: #1a1a1a;
-      margin-bottom: 2rem;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        .dropdown-menu {
+          position: static;
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+          box-shadow: none;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          margin-top: 0.5rem;
+          background: transparent;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
 
-    .about-subtext {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: #666;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
+        .nav-dropdown.active .dropdown-menu {
+          max-height: 300px;
+        }
 
-    /* Animated accent elements */
-    .accent-line {
-      position: absolute;
-      opacity: 0.08;
-      pointer-events: none;
-    }
+        .dropdown-menu a {
+          padding: 0.75rem 0 0.75rem 1.5rem;
+          font-size: 0.88rem;
+        }
 
-    .accent-line-1 {
-      top: 15%;
-      left: 10%;
-      width: 120px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #000, transparent);
-    }
-
-    .accent-line-2 {
-      bottom: 20%;
-      right: 12%;
-      width: 100px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #000, transparent);
-    }
-
-    .code-fragment {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #000;
-      opacity: 0.06;
-      white-space: pre;
-      pointer-events: none;
-    }
-
-    .code-fragment-1 {
-      top: 25%;
-      right: 8%;
-    }
-
-    .code-fragment-2 {
-      bottom: 30%;
-      left: 8%;
-    }
-
-    /* Process Section */
-    .process-section {
-      background: transparent;
-      padding: 90px 2rem;
-      /* reclaimed vertical space */
-    }
-
-    .process-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Solutions Section */
-    .solutions-section {
-      background: transparent;
-      padding: 90px 2rem 110px;
-      /* reclaimed vertical space */
-    }
-
-    .solutions-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .solutions-headline {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #0f0f0f;
-      margin-bottom: 0.75rem;
-      text-align: left;
-    }
-
-    .solutions-subhead {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.05rem;
-      color: #444;
-      margin-bottom: 3rem;
-      max-width: 820px;
-    }
-
-    .solutions-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
-      margin-bottom: 3.5rem;
-      align-items: stretch;
-    }
-
-    .solution-card {
-      background: #fff;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 12px;
-      padding: 38px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-      opacity: 0;
-      transform: translateY(20px);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      height: 100%;
-    }
-
-    .solution-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-      color: #111;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .solution-body {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.98rem;
-      line-height: 1.75;
-      color: #2a2a2a;
-      margin: 0;
-      flex-grow: 1;
-    }
-
-    .solution-note {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.92rem;
-      color: #555;
-    }
-
-    .solution-price {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      color: #111;
-      margin: 0.35rem 0 0.1rem;
-    }
-
-    .solutions-cta {
-      text-align: center;
-      margin-top: 3.5rem;
-      padding: 3.5rem 0 5.5rem;
-    }
-
-    .cta-headline {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-      color: #0f0f0f;
-    }
-
-    .cta-subhead {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      color: #444;
-      margin-bottom: 1.25rem;
-    }
-
-    .cta-button {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      background: #111;
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-
-    .cta-button:hover {
-      background: #000;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .cta-secondary {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: #666;
-      margin-top: 1.25rem;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 1024px) {
-      .solutions-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .process-headline {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #0f0f0f;
-      margin-bottom: 0.75rem;
-      text-align: left;
-    }
-
-    .process-subhead {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.05rem;
-      color: #444;
-      margin-bottom: 3rem;
-      max-width: 720px;
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      position: relative;
-    }
-
-    /* Progress line */
-    .process-grid::before {
-      content: '';
-      position: absolute;
-      top: 36px;
-      /* aligns with icon centers */
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.08));
-    }
-
-    .process-step {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .step-icon {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 1rem;
-      color: #111;
-    }
-
-    .step-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #111;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .step-body {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.98rem;
-      line-height: 1.7;
-      color: #2a2a2a;
-    }
-
-    @media (max-width: 900px) {
-      .process-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        .nav-cta {
+          width: 100%;
+          text-align: center;
+          margin-top: 1rem;
+        }
       }
 
-      .process-grid::before {
-        display: none;
+      @media (max-width: 640px) {
+        .site-header {
+          background: rgba(255, 255, 255, 0.96);
+        }
+
+        .site-brand a {
+          font-size: 0.95rem;
+          letter-spacing: 0.16em;
+        }
       }
 
-      .process-headline {
-        text-align: center;
+      #wrapper {
+        overflow: hidden;
       }
 
-      .process-subhead {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
+      #smooth-content {
+        position: relative;
+        width: 100%;
       }
-    }
 
-    section:nth-of-type(3) {
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      z-index: 20;
-    }
+      #content {
+        overflow: visible;
+        width: 100%;
+        min-height: 600vh;
+        position: relative;
+      }
 
-    section:nth-of-type(3) .anchorBezierSVG {
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-    }
+      /* Global layered architecture */
+      #bg-panels {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        /* below particles and content */
+        pointer-events: none;
+      }
 
-    /* Marquee Stack */
-    :root {
-      --step--2: clamp(2.6rem, 2.1rem + 2.2vw, 4.8rem);
-      --step--1: clamp(3.0rem, 2.5rem + 2.8vw, 5.6rem);
-      --step-0: clamp(3.4rem, 2.9rem + 3.3vw, 6.4rem);
-    }
+      #bg-panels .panel {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+      }
 
-    .marquee {
-      border-bottom: 1px solid #1a1a1a;
-      color: #ccc;
-      font-size: var(--step-0);
-      font-weight: 700;
-      height: clamp(120px, 21vh, 200px);
-      overflow: hidden;
-      position: relative;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-    }
-
-    .marquee:last-child {
-      border-bottom: none;
-    }
-
-    .marquee img {
-      object-fit: cover;
-      max-height: 150px;
-    }
-
-    .track {
-      height: 100%;
-      overflow: hidden;
-      padding: clamp(1rem, 2vh, 1.75rem) 0;
-      position: absolute;
-      white-space: nowrap;
-    }
-
-    .track .text {
-      animation: marquee 50000ms linear infinite;
-      align-items: center;
-      display: inline-flex;
-      will-change: transform;
-    }
-
-    .-focus {
-      color: #1a1a1a;
-      font-weight: 900;
-    }
-
-    .screen {
-      position: relative;
-      width: 100%;
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: center;
-      gap: 0;
-    }
-
-    #fold-effect {
-      width: 100%;
-    }
-
-    .marquee-stack {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      padding: 1.5rem 0 2.5rem;
-    }
-
-    section:nth-of-type(4) {
-      background: transparent;
-      padding: 0;
-      z-index: 20;
-    }
-
-    @media (max-width: 820px) {
-      section {
-        padding: 4.5rem 1.75rem;
+      #particle-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        /* above backgrounds, below content */
+        pointer-events: none;
       }
 
       .scroll {
-        font-size: 9px;
-        padding-bottom: 3rem;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 4rem;
+        position: absolute;
+        z-index: 10;
+        font-family: 'IBM Plex Sans', Roboto, sans-serif;
+        letter-spacing: 0.2em;
+        font-size: 11px;
+        pointer-events: none;
       }
 
-      #typewriter-container {
-        max-width: 95vw;
-        transform: translate(-50%, -50%);
-        font-size: clamp(2.8rem, 9vw, 5.2rem);
-      }
-
-      .about-container {
-        max-width: 88%;
-      }
-
-      .about-headline {
-        font-size: clamp(1.95rem, 6vw, 2.4rem);
-        line-height: 1.2;
-        border-top-width: 1px;
-        border-bottom-width: 1px;
-      }
-
-      .about-body {
-        font-size: 1.02rem;
-        line-height: 1.7;
-        padding: 0 12px;
-      }
-
-      .marquee {
-        height: calc(130px + 2rem);
-      }
-
-      .process-section {
-        padding: 80px 1.75rem;
-      }
-
-      .solutions-section {
-        padding: 80px 1.75rem 96px;
-      }
-
-      .cta-headline {
-        font-size: 1.6rem;
-        margin-bottom: 1.1rem;
-      }
-
-      .cta-subhead {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-      }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .about-container {
-        max-width: 90%;
-      }
-
-      .about-headline {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .about-body {
-        font-size: 1rem;
-        padding: 0 24px;
-      }
-
-      .about-subtext {
-        font-size: 0.85rem;
-      }
-
-      .accent-line,
-      .code-fragment {
-        display: none;
-      }
-    }
-
-    /* Mid-size phones ≤600px: tighten Process section */
-    @media (max-width: 600px) {
-      .scroll {
-        display: none;
-      }
-
-      #typewriter-container {
-        top: 45%;
-        transform: translate(-50%, -50%);
-        font-size: clamp(2.4rem, 11vw, 4.4rem);
-      }
-
-      .process-section {
-        padding: 80px 1.85rem 64px;
-      }
-
-      .process-container {
-        max-width: 680px;
-        text-align: center;
-        padding: 0 0.5rem;
-        padding-top: 24px;
-      }
-
-      .process-headline {
-        font-size: 1.85rem;
-        line-height: 1.2;
-        letter-spacing: -0.01em;
-        text-wrap: balance;
-        hyphens: auto;
-        text-align: center;
-      }
-
-      .process-subhead {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.75rem;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .marquee {
-        height: calc(110px + 2rem);
-      }
-
-      .track {
-        padding: 1.25rem 0;
-      }
-
-      .process-grid {
-        gap: 1.75rem;
-      }
-
-      .process-step {
-        text-align: center;
-      }
-
-      .step-icon {
-        width: 42px;
-        height: 42px;
-        margin: 0 auto 0.6rem;
-      }
-
-      .step-title {
-        font-size: 1rem;
-        margin-bottom: 0.35rem;
-      }
-
-      .step-body {
-        font-size: 0.95rem;
-        line-height: 1.6;
-      }
-
-    }
-
-    /* Mobile polish ≤420px */
-    @media (max-width: 420px) {
-      section {
-        padding: 3.5rem 1.25rem;
-        min-height: 100vh;
-      }
-
-      #typewriter-container {
-        top: 48%;
-        max-width: 96vw;
-        transform: translate(-50%, -50%);
-        font-size: clamp(2rem, 12vw, 3.5rem);
-      }
-
-      .screen {
-        min-height: 60vh;
-      }
-
-      .about-container {
-        max-width: 100%;
-      }
-
-      .about-headline {
-        font-size: clamp(1.55rem, 7vw, 1.95rem);
-        line-height: 1.18;
-        letter-spacing: -0.01em;
-        text-wrap: balance;
-        hyphens: auto;
-        border-top: 0;
-        border-bottom: 0;
-        padding: 0;
+      .scroll span {
         display: block;
       }
 
-      h1.about-headline {
-        border-top: 0;
-        border-bottom: 0;
+      .scroll svg {
+        margin-top: 10px;
+        width: 18px;
+        height: 18px;
+        animation: scroll 0.95s ease-in-out alternate infinite;
+        fill: none;
+        stroke: #000000;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 1;
+      }
+
+      .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 40%;
+        opacity: 0;
+        margin: -19px auto;
+        margin-left: 66.66%;
+        transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
+        z-index: 0;
+        position: relative;
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        position: absolute;
+        width: 100%;
+        z-index: 20;
+      }
+
+      section:nth-of-type(1) {
+        top: 0;
+      }
+
+      section:nth-of-type(2) {
+        top: 100vh;
+      }
+
+      section:nth-of-type(3) {
+        top: 200vh;
+      }
+
+      section:nth-of-type(4) {
+        top: 300vh;
+      }
+
+      section:nth-of-type(5) {
+        top: 400vh;
+      }
+
+      section:nth-of-type(6) {
+        top: 500vh;
+      }
+
+      .content-inner {
+        max-width: 800px;
+        text-align: center;
+      }
+
+      section h1 {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+        padding: 0.5rem 0;
+        display: inline-block;
+      }
+
+      section h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      section p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+        margin: 1rem 0;
+      }
+
+      section a {
+        color: #000;
+        text-decoration: underline;
+      }
+
+      section a:hover {
+        color: #555;
+      }
+
+      /* Typewriter Effect Container - Replaces previous WebGL animation */
+      #typewriter-container {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+        width: 100%;
+        max-width: 90vw;
+        justify-content: center;
+        align-items: center;
+        gap: 0.12em;
+        padding: 0 1rem;
+        font-size: clamp(3.2rem, 8vw, 6.5rem);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* Typewriter text element - animated with GSAP using SteppedEase */
+      #typewriter-text {
+        font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+        font-size: inherit;
+        font-weight: 600;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        line-height: 1;
+        min-width: 1ch;
+        will-change: width;
+        backface-visibility: hidden;
+        font-variant-ligatures: none;
+      }
+
+      /* Blinking cursor effect */
+      .typewriter-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 1em;
+        background-color: currentColor;
+        margin-left: 0.12em;
+        align-self: center;
+        animation: blink 0.7s steps(1) infinite;
+      }
+
+      /* CSS-based cursor blink animation */
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateY(0);
+        }
+
+        100% {
+          transform: translateY(10px);
+        }
+      }
+
+      /* SVG Bezier Animation Styles */
+      .anchorBezierSVG {
+        width: 90%;
+        height: 90%;
+        visibility: hidden;
+        overflow: visible;
+        opacity: 1;
+      }
+
+      .anchorBezierSVG text {
+        text-anchor: middle;
+        font-family:
+          'brandon-grotesque',
+          Helvetica Neue,
+          Arial,
+          sans-serif;
+        font-weight: 700;
+        font-size: 42px;
+        letter-spacing: -1px;
+      }
+
+      .maskText3 {
+        opacity: 0;
+      }
+
+      /* About / Value Proposition Section */
+      section:nth-of-type(2) {
+        background: transparent;
+        padding: 80px 2rem;
+        /* reclaimed vertical space */
+      }
+
+      .about-container {
+        max-width: 60%;
+        margin: 0 auto;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(40px);
+        position: relative;
+        z-index: 1;
+      }
+
+      .about-headline {
+        font-family: 'JetBrains Mono', 'IBM Plex Sans', monospace;
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        line-height: 1.35;
+        letter-spacing: -0.02em;
+        color: #000;
       }
 
       .about-body {
-        font-size: 0.98rem;
-        line-height: 1.65;
-        margin-bottom: 1.25rem;
-        padding: 0;
-      }
-
-      .about-subtext {
-        font-size: 0.78rem;
-      }
-
-      /* Optionally hide particles for clarity/performance */
-      #particle-layer {
-        display: none;
-      }
-
-      .process-section {
-        padding: 72px 1.6rem 56px;
-      }
-
-      .process-container {
-        padding: 0 0.5rem;
-        padding-top: 24px;
-      }
-
-      .process-headline {
-        font-size: 1.65rem;
-        margin-bottom: 0.75rem;
-        padding-top: 1rem;
-        text-align: center;
-      }
-
-      .process-subhead {
-        font-size: 0.98rem;
-        margin-bottom: 1.75rem;
-        max-width: 100%;
-        text-align: center;
+        font-family: 'Inter', 'IBM Plex Sans', sans-serif;
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #1a1a1a;
+        margin-bottom: 2rem;
+        max-width: 680px;
         margin-left: auto;
         margin-right: auto;
       }
 
-      .process-grid {
-        gap: 1.75rem;
-      }
-
-      .step-icon {
-        width: 44px;
-        height: 44px;
-        margin: 0 auto 0.75rem;
-      }
-
-      .step-title {
-        font-size: 0.95rem;
-        text-align: center;
-      }
-
-      .step-body {
+      .about-subtext {
+        font-family: 'JetBrains Mono', monospace;
         font-size: 0.9rem;
-        line-height: 1.55;
-        text-align: center;
+        color: #666;
+        font-weight: 400;
+        letter-spacing: 0.02em;
       }
 
-      :root {
-        --step-0: clamp(2.4rem, 12vw, 3.3rem);
+      /* Animated accent elements */
+      .accent-line {
+        position: absolute;
+        opacity: 0.08;
+        pointer-events: none;
       }
 
-      .marquee {
-        height: calc(90px + 2rem);
+      .accent-line-1 {
+        top: 15%;
+        left: 10%;
+        width: 120px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #000, transparent);
       }
 
-      .track {
-        padding: 1rem 0;
+      .accent-line-2 {
+        bottom: 20%;
+        right: 12%;
+        width: 100px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #000, transparent);
       }
 
+      .code-fragment {
+        position: absolute;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: #000;
+        opacity: 0.06;
+        white-space: pre;
+        pointer-events: none;
+      }
+
+      .code-fragment-1 {
+        top: 25%;
+        right: 8%;
+      }
+
+      .code-fragment-2 {
+        bottom: 30%;
+        left: 8%;
+      }
+
+      /* Process Section */
+      .process-section {
+        background: transparent;
+        padding: 90px 2rem;
+        /* reclaimed vertical space */
+      }
+
+      .process-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Solutions Section */
       .solutions-section {
-        padding: 56px 1.25rem 72px;
+        background: transparent;
+        padding: 90px 2rem 110px;
+        /* reclaimed vertical space */
       }
 
-      .solutions-cta {
-        margin-top: 3rem;
-        padding: 2.75rem 0 4.5rem;
+      .solutions-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
       }
 
       .solutions-headline {
-        font-size: 1.65rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: #0f0f0f;
+        margin-bottom: 0.75rem;
+        text-align: left;
       }
 
       .solutions-subhead {
-        font-size: 0.98rem;
-        margin-bottom: 2rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.05rem;
+        color: #444;
+        margin-bottom: 3rem;
+        max-width: 820px;
       }
 
       .solutions-grid {
-        gap: 1.25rem;
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 3.5rem;
+        align-items: stretch;
       }
 
       .solution-card {
-        padding: 22px;
-        border-radius: 10px;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        padding: 38px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        opacity: 0;
+        transform: translateY(20px);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        height: 100%;
       }
 
       .solution-title {
-        font-size: 0.9rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        color: #111;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
       }
 
       .solution-body {
-        font-size: 0.9rem;
-        line-height: 1.6;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: #2a2a2a;
+        margin: 0;
+        flex-grow: 1;
       }
 
       .solution-note {
-        font-size: 0.85rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.92rem;
+        color: #555;
       }
 
       .solution-price {
-        font-size: 0.85rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        color: #111;
+        margin: 0.35rem 0 0.1rem;
+      }
+
+      .solutions-cta {
+        text-align: center;
+        margin-top: 3.5rem;
+        padding: 3.5rem 0 5.5rem;
       }
 
       .cta-headline {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #0f0f0f;
       }
 
       .cta-subhead {
-        font-size: 0.95rem;
-        margin-bottom: 1.35rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 1.25rem;
+      }
+
+      .cta-button {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        background: #111;
+        color: #fff;
+        padding: 12px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.15s ease;
+      }
+
+      .cta-button:hover {
+        background: #000;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
       }
 
       .cta-secondary {
-        font-size: 0.8rem;
-        margin-top: 1rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        color: #666;
+        margin-top: 1.25rem;
+        line-height: 1.6;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <header class="site-header">
-    <div class="site-brand">
-      <a href="/">rwx_t</a>
-    </div>
-    <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav class="site-nav" aria-label="Primary navigation">
-      <ul class="nav-list">
-        <li class="nav-dropdown" onclick="toggleDropdown(event)">
-          <a>Resources</a>
-          <div class="dropdown-menu">
-            <a href="/90-day-checklist/">90-Day Tech Checklist</a>
-          </div>
-        </li>
-      </ul>
-      <a class="nav-cta" href="/book-call/">Book A Call</a>
-    </nav>
-  </header>
-
-  <script>
-    function toggleMobileMenu() {
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      const nav = document.querySelector('.site-nav');
-      if (!toggle || !nav) return;
-      toggle.classList.toggle('active');
-      nav.classList.toggle('active');
-      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-    }
-
-    function toggleDropdown(event) {
-      const dropdown = event.currentTarget;
-      if (window.innerWidth <= 900) {
-        dropdown.classList.toggle('active');
+      @media (max-width: 1024px) {
+        .solutions-grid {
+          grid-template-columns: 1fr;
+        }
       }
-    }
 
-    document.addEventListener('click', (event) => {
-      const nav = document.querySelector('.site-nav');
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      if (!nav || !toggle) return;
-      const menuOpen = nav.classList.contains('active');
-      if (window.innerWidth <= 900 && menuOpen) {
-        if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+      .process-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: #0f0f0f;
+        margin-bottom: 0.75rem;
+        text-align: left;
+      }
+
+      .process-subhead {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.05rem;
+        color: #444;
+        margin-bottom: 3rem;
+        max-width: 720px;
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        position: relative;
+      }
+
+      /* Progress line */
+      .process-grid::before {
+        content: '';
+        position: absolute;
+        top: 36px;
+        /* aligns with icon centers */
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.08),
+          rgba(0, 0, 0, 0.14),
+          rgba(0, 0, 0, 0.08)
+        );
+      }
+
+      .process-step {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .step-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 1rem;
+        color: #111;
+      }
+
+      .step-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #111;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .step-body {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        color: #2a2a2a;
+      }
+
+      @media (max-width: 900px) {
+        .process-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .process-grid::before {
+          display: none;
+        }
+
+        .process-headline {
+          text-align: center;
+        }
+
+        .process-subhead {
+          margin-left: auto;
+          margin-right: auto;
+          text-align: center;
+        }
+      }
+
+      section:nth-of-type(3) {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        z-index: 20;
+      }
+
+      section:nth-of-type(3) .anchorBezierSVG {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      /* Marquee Stack */
+      :root {
+        --step--2: clamp(2.6rem, 2.1rem + 2.2vw, 4.8rem);
+        --step--1: clamp(3rem, 2.5rem + 2.8vw, 5.6rem);
+        --step-0: clamp(3.4rem, 2.9rem + 3.3vw, 6.4rem);
+      }
+
+      .marquee {
+        border-bottom: 1px solid #1a1a1a;
+        color: #ccc;
+        font-size: var(--step-0);
+        font-weight: 700;
+        height: clamp(120px, 21vh, 200px);
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+      }
+
+      .marquee:last-child {
+        border-bottom: none;
+      }
+
+      .marquee img {
+        object-fit: cover;
+        max-height: 150px;
+      }
+
+      .track {
+        height: 100%;
+        overflow: hidden;
+        padding: clamp(1rem, 2vh, 1.75rem) 0;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .track .text {
+        animation: marquee 50000ms linear infinite;
+        align-items: center;
+        display: inline-flex;
+        will-change: transform;
+      }
+
+      .-focus {
+        color: #1a1a1a;
+        font-weight: 900;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0;
+      }
+
+      #fold-effect {
+        width: 100%;
+      }
+
+      .marquee-stack {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1.5rem 0 2.5rem;
+      }
+
+      section:nth-of-type(4) {
+        background: transparent;
+        padding: 0;
+        z-index: 20;
+      }
+
+      @media (max-width: 820px) {
+        section {
+          padding: 4.5rem 1.75rem;
+        }
+
+        .scroll {
+          font-size: 9px;
+          padding-bottom: 3rem;
+        }
+
+        #typewriter-container {
+          max-width: 95vw;
+          transform: translate(-50%, -50%);
+          font-size: clamp(2.8rem, 9vw, 5.2rem);
+        }
+
+        .about-container {
+          max-width: 88%;
+        }
+
+        .about-headline {
+          font-size: clamp(1.95rem, 6vw, 2.4rem);
+          line-height: 1.2;
+          border-top-width: 1px;
+          border-bottom-width: 1px;
+        }
+
+        .about-body {
+          font-size: 1.02rem;
+          line-height: 1.7;
+          padding: 0 12px;
+        }
+
+        .marquee {
+          height: calc(130px + 2rem);
+        }
+
+        .process-section {
+          padding: 80px 1.75rem;
+        }
+
+        .solutions-section {
+          padding: 80px 1.75rem 96px;
+        }
+
+        .cta-headline {
+          font-size: 1.6rem;
+          margin-bottom: 1.1rem;
+        }
+
+        .cta-subhead {
+          font-size: 1rem;
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .about-container {
+          max-width: 90%;
+        }
+
+        .about-headline {
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .about-body {
+          font-size: 1rem;
+          padding: 0 24px;
+        }
+
+        .about-subtext {
+          font-size: 0.85rem;
+        }
+
+        .accent-line,
+        .code-fragment {
+          display: none;
+        }
+      }
+
+      /* Mid-size phones ≤600px: tighten Process section */
+      @media (max-width: 600px) {
+        .scroll {
+          display: none;
+        }
+
+        #typewriter-container {
+          top: 45%;
+          transform: translate(-50%, -50%);
+          font-size: clamp(2.4rem, 11vw, 4.4rem);
+        }
+
+        .process-section {
+          padding: 80px 1.85rem 64px;
+        }
+
+        .process-container {
+          max-width: 680px;
+          text-align: center;
+          padding: 0 0.5rem;
+          padding-top: 24px;
+        }
+
+        .process-headline {
+          font-size: 1.85rem;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+          text-wrap: balance;
+          hyphens: auto;
+          text-align: center;
+        }
+
+        .process-subhead {
+          font-size: 1rem;
+          line-height: 1.6;
+          margin-bottom: 1.75rem;
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .marquee {
+          height: calc(110px + 2rem);
+        }
+
+        .track {
+          padding: 1.25rem 0;
+        }
+
+        .process-grid {
+          gap: 1.75rem;
+        }
+
+        .process-step {
+          text-align: center;
+        }
+
+        .step-icon {
+          width: 42px;
+          height: 42px;
+          margin: 0 auto 0.6rem;
+        }
+
+        .step-title {
+          font-size: 1rem;
+          margin-bottom: 0.35rem;
+        }
+
+        .step-body {
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+      }
+
+      /* Mobile polish ≤420px */
+      @media (max-width: 420px) {
+        section {
+          padding: 3.5rem 1.25rem;
+          min-height: 100vh;
+        }
+
+        #typewriter-container {
+          top: 48%;
+          max-width: 96vw;
+          transform: translate(-50%, -50%);
+          font-size: clamp(2rem, 12vw, 3.5rem);
+        }
+
+        .screen {
+          min-height: 60vh;
+        }
+
+        .about-container {
+          max-width: 100%;
+        }
+
+        .about-headline {
+          font-size: clamp(1.55rem, 7vw, 1.95rem);
+          line-height: 1.18;
+          letter-spacing: -0.01em;
+          text-wrap: balance;
+          hyphens: auto;
+          border-top: 0;
+          border-bottom: 0;
+          padding: 0;
+          display: block;
+        }
+
+        h1.about-headline {
+          border-top: 0;
+          border-bottom: 0;
+        }
+
+        .about-body {
+          font-size: 0.98rem;
+          line-height: 1.65;
+          margin-bottom: 1.25rem;
+          padding: 0;
+        }
+
+        .about-subtext {
+          font-size: 0.78rem;
+        }
+
+        /* Optionally hide particles for clarity/performance */
+        #particle-layer {
+          display: none;
+        }
+
+        .process-section {
+          padding: 72px 1.6rem 56px;
+        }
+
+        .process-container {
+          padding: 0 0.5rem;
+          padding-top: 24px;
+        }
+
+        .process-headline {
+          font-size: 1.65rem;
+          margin-bottom: 0.75rem;
+          padding-top: 1rem;
+          text-align: center;
+        }
+
+        .process-subhead {
+          font-size: 0.98rem;
+          margin-bottom: 1.75rem;
+          max-width: 100%;
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .process-grid {
+          gap: 1.75rem;
+        }
+
+        .step-icon {
+          width: 44px;
+          height: 44px;
+          margin: 0 auto 0.75rem;
+        }
+
+        .step-title {
+          font-size: 0.95rem;
+          text-align: center;
+        }
+
+        .step-body {
+          font-size: 0.9rem;
+          line-height: 1.55;
+          text-align: center;
+        }
+
+        :root {
+          --step-0: clamp(2.4rem, 12vw, 3.3rem);
+        }
+
+        .marquee {
+          height: calc(90px + 2rem);
+        }
+
+        .track {
+          padding: 1rem 0;
+        }
+
+        .solutions-section {
+          padding: 56px 1.25rem 72px;
+        }
+
+        .solutions-cta {
+          margin-top: 3rem;
+          padding: 2.75rem 0 4.5rem;
+        }
+
+        .solutions-headline {
+          font-size: 1.65rem;
+        }
+
+        .solutions-subhead {
+          font-size: 0.98rem;
+          margin-bottom: 2rem;
+        }
+
+        .solutions-grid {
+          gap: 1.25rem;
+          grid-template-columns: 1fr;
+        }
+
+        .solution-card {
+          padding: 22px;
+          border-radius: 10px;
+        }
+
+        .solution-title {
+          font-size: 0.9rem;
+        }
+
+        .solution-body {
+          font-size: 0.9rem;
+          line-height: 1.6;
+        }
+
+        .solution-note {
+          font-size: 0.85rem;
+        }
+
+        .solution-price {
+          font-size: 0.85rem;
+        }
+
+        .cta-headline {
+          font-size: 1.4rem;
+          margin-bottom: 1rem;
+        }
+
+        .cta-subhead {
+          font-size: 0.95rem;
+          margin-bottom: 1.35rem;
+        }
+
+        .cta-secondary {
+          font-size: 0.8rem;
+          margin-top: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-brand">
+        <a href="/">rwx_t</a>
+      </div>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li class="nav-dropdown" onclick="toggleDropdown(event)">
+            <a>Resources</a>
+            <div class="dropdown-menu">
+              <a href="/90-day-checklist/">90-Day Tech Checklist</a>
+            </div>
+          </li>
+        </ul>
+        <a class="nav-cta" href="/book-call/">Book A Call</a>
+      </nav>
+    </header>
+
+    <script>
+      function toggleMobileMenu() {
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('.site-nav');
+        if (!toggle || !nav) return;
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+      }
+
+      function toggleDropdown(event) {
+        const dropdown = event.currentTarget;
+        if (window.innerWidth <= 900) {
+          dropdown.classList.toggle('active');
+        }
+      }
+
+      document.addEventListener('click', (event) => {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        if (!nav || !toggle) return;
+        const menuOpen = nav.classList.contains('active');
+        if (window.innerWidth <= 900 && menuOpen) {
+          if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        if (!nav || !toggle) return;
+        if (window.innerWidth > 900) {
           toggle.classList.remove('active');
           nav.classList.remove('active');
           document.body.style.overflow = '';
         }
-      }
-    });
+      });
+    </script>
 
-    window.addEventListener('resize', () => {
-      const nav = document.querySelector('.site-nav');
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      if (!nav || !toggle) return;
-      if (window.innerWidth > 900) {
-        toggle.classList.remove('active');
-        nav.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-  </script>
+    <div id="wrapper">
+      <div id="smooth-content">
+        <div id="content">
+          <!-- Global background panels and particle layer -->
+          <div id="bg-panels">
+            <!-- Section 2 off-white panel -->
+            <div class="panel s2" style="top:100vh; background:#F8F7F6;"></div>
+            <!-- Section 3 dark panel -->
+            <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
+            <!-- Section 4 process light panel -->
+            <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
+            <!-- Section 6 solutions light panel -->
+            <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
+          </div>
+          <div id="particle-layer"></div>
 
-  <div id="wrapper" style="padding-top: 80px;">
-    <div id="smooth-content">
-      <div id="content">
-        <!-- Global background panels and particle layer -->
-        <div id="bg-panels">
-          <!-- Section 2 off-white panel -->
-          <div class="panel s2" style="top:100vh; background:#F8F7F6;"></div>
-          <!-- Section 3 dark panel -->
-          <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
-          <!-- Section 4 process light panel -->
-          <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
-          <!-- Section 6 solutions light panel -->
-          <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
-        </div>
-        <div id="particle-layer"></div>
+          <!-- Sections sit above particle layer -->
 
-        <!-- Sections sit above particle layer -->
+          <!-- Content sections with scroll indicator on first section -->
+          <section>
+            <div class="scroll">
+              <span>SCROLL</span>
+              <svg viewBox="0 0 24 24">
+                <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
+                <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
+                <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+              </svg>
+            </div>
+            <div id="typewriter-container">
+              <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+            </div>
+          </section>
 
-        <!-- Content sections with scroll indicator on first section -->
-        <section>
-          <div class="scroll">
-            <span>SCROLL</span>
-            <svg viewBox="0 0 24 24">
-              <line class="st1" x1="12" y1="1" x2="12" y2="22.5" />
-              <line class="st1" x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
-              <line class="st1" x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+          <!-- About / Value Proposition Section -->
+          <section>
+            <div class="about-container">
+              <div class="about-body">
+                Production-grade digital products, shipped fast. From first commit to live release,
+                I design and code everything myself — no middlemen, no handovers. Secure, scalable,
+                and built to ship.
+              </div>
+              <div class="about-subtext">Where startups come to trade ideas for execution.</div>
+            </div>
+
+            <!-- Animated accent elements -->
+            <div class="accent-line accent-line-1"></div>
+            <div class="accent-line accent-line-2"></div>
+            <div class="code-fragment code-fragment-1">
+              const execute = () => { return ship(); }
+            </div>
+            <div class="code-fragment code-fragment-2">
+              // build → test → deploy git push origin main
+            </div>
+          </section>
+
+          <section>
+            <svg
+              class="anchorBezierSVG"
+              viewBox="0 0 800 200"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <defs>
+                <g
+                  id="anchorPopGroup"
+                  fill="none"
+                  stroke="#ededed"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-miterlimit="10"
+                >
+                  <line x1="24" y1="17.5" x2="24" y2="1.5" />
+                  <line x1="29.5" y1="25" x2="45.5" y2="25" />
+                  <line x1="23" y1="30.5" x2="23" y2="46.5" />
+                  <line x1="17.5" y1="24" x2="1.5" y2="24" />
+                </g>
+                <mask id="mainMask">
+                  <rect width="100%" height="100%" fill="#000" />
+                  <path
+                    class="mainLineMask"
+                    fill="#FFF"
+                    stroke="none"
+                    stroke-miterlimit="10"
+                    d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z"
+                  />
+                </mask>
+                <mask id="mainMaskInverse">
+                  <rect width="100%" height="100%" fill="#FFF" />
+                  <path
+                    class="mainLineMask"
+                    fill="#000"
+                    stroke="none"
+                    stroke-miterlimit="10"
+                    d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z"
+                  />
+                </mask>
+              </defs>
+              <g mask="url(#mainMask)">
+                <text class="maskText1" x="50%" y="60%" style="fill:#ededed;">I BUILD</text>
+              </g>
+              <g mask="url(#mainMaskInverse)">
+                <text class="maskText2" x="50%" y="60%" style="fill:#5783FC;">YOUR</text>
+              </g>
+              <path
+                id="mainLine"
+                fill="none"
+                stroke="none"
+                stroke-width="3"
+                stroke-miterlimit="10"
+                d="M148,122.1c133-87.1,377-87.8,504,0"
+              />
+              <path
+                class="mainLineStart"
+                stroke-linecap="round"
+                fill="none"
+                stroke="#5783FC"
+                stroke-width="2"
+                stroke-miterlimit="10"
+                d="M148,122.1 c20.7-21.9,98.7-100.2,96.7-95.5"
+              />
+              <g id="anchorGroupL">
+                <line
+                  id="anchorLineLTop"
+                  fill="none"
+                  stroke="#5783FC"
+                  stroke-width="3"
+                  stroke-miterlimit="10"
+                  x1="155.8"
+                  y1="115.1"
+                  x2="243.7"
+                  y2="27.2"
+                />
+                <line
+                  id="anchorLineLBot"
+                  fill="none"
+                  stroke="#5783FC"
+                  stroke-width="3"
+                  stroke-miterlimit="10"
+                  x1="140.8"
+                  y1="130.1"
+                  x2="52"
+                  y2="218.9"
+                />
+                <circle id="anchorDragLTop" fill="#5783FC" cx="243.7" cy="27.2" r="5.6" />
+                <circle id="anchorDragLBot" fill="#5783FC" cx="52" cy="218.9" r="5.6" />
+              </g>
+              <rect
+                id="anchorPointL"
+                x="139.7"
+                y="113.8"
+                fill="#5783FC"
+                stroke="#5783FC"
+                stroke-width="5"
+                stroke-miterlimit="10"
+                width="15.8"
+                height="15.8"
+              />
+              <g id="anchorGroupR">
+                <line
+                  id="anchorLineRTop"
+                  fill="none"
+                  stroke="#5783FC"
+                  stroke-width="3"
+                  stroke-miterlimit="10"
+                  x1="658.8"
+                  y1="115.1"
+                  x2="746.7"
+                  y2="27.2"
+                />
+                <line
+                  id="anchorLineRBot"
+                  fill="none"
+                  stroke="#5783FC"
+                  stroke-width="3"
+                  stroke-miterlimit="10"
+                  x1="643.8"
+                  y1="130.1"
+                  x2="555"
+                  y2="218.9"
+                />
+                <circle id="anchorDragRTop" fill="#5783FC" cx="746.7" cy="27.2" r="5.6" />
+                <circle id="anchorDragRBot" fill="#5783FC" cx="555" cy="218.9" r="5.6" />
+              </g>
+              <rect
+                id="anchorPointR"
+                x="643.8"
+                y="113.8"
+                fill="#5783FC"
+                stroke="#5783FC"
+                stroke-width="5"
+                stroke-miterlimit="10"
+                width="15.8"
+                height="15.8"
+              />
+              <g id="nib">
+                <g id="nibInnerGroup">
+                  <polygon
+                    fill="#1d1d1d"
+                    stroke="#ededed"
+                    stroke-width="2"
+                    stroke-miterlimit="10"
+                    points="1.7,1.8 8.7,20.9 20.7,27.5 27.5,20.8 19.9,9"
+                  />
+                  <rect
+                    x="19.7"
+                    y="23.4"
+                    transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.9343 28.0365)"
+                    fill="#1d1d1d"
+                    stroke="#ededed"
+                    stroke-width="2"
+                    stroke-miterlimit="10"
+                    width="16.4"
+                    height="10.1"
+                  />
+                  <line
+                    fill="none"
+                    stroke="#ededed"
+                    stroke-width="2"
+                    stroke-miterlimit="10"
+                    x1="24.2"
+                    y1="24.1"
+                    x2="16.6"
+                    y2="16.6"
+                  />
+                  <circle fill="#ededed" cx="16.6" cy="16.6" r="2.5" />
+                </g>
+              </g>
             </svg>
-          </div>
-          <div id="typewriter-container">
-            <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
-          </div>
-        </section>
+          </section>
 
-        <!-- About / Value Proposition Section -->
-        <section>
-          <div class="about-container">
-            <div class="about-body">
-              Production-grade digital products, shipped fast.
-              From first commit to live release, I design and code everything myself — no middlemen, no handovers.
-              Secure, scalable, and built to ship.
-            </div>
-            <div class="about-subtext">
-              Where startups come to trade ideas for execution.
-            </div>
-          </div>
+          <!-- Process / How It Works Section -->
+          <section class="process-section">
+            <div class="process-container">
+              <h2 class="process-headline">From idea to launch — no friction.</h2>
+              <p class="process-subhead">
+                Every project follows a focused, fast-moving workflow designed for clarity and
+                speed.
+              </p>
 
-          <!-- Animated accent elements -->
-          <div class="accent-line accent-line-1"></div>
-          <div class="accent-line accent-line-2"></div>
-          <div class="code-fragment code-fragment-1">const execute = () => {
-            return ship();
-            }</div>
-          <div class="code-fragment code-fragment-2">// build → test → deploy
-            git push origin main</div>
-        </section>
+              <div class="process-grid">
+                <div class="process-step">
+                  <!-- Pencil Icon -->
+                  <svg
+                    class="step-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 21l3.8-1L20 6.8a2.2 2.2 0 0 0 0-3.1l-.7-.7a2.2 2.2 0 0 0-3.1 0L3 16.2 3 21z"
+                    />
+                    <path d="M14.5 5.5l4 4" />
+                  </svg>
+                  <div class="step-title">1. Scope</div>
+                  <div class="step-body">
+                    Define the MVP. Capture what matters, cut what doesn’t. Map user journeys, set
+                    success metrics, and write clear user stories.
+                  </div>
+                </div>
 
-        <section>
-          <svg class="anchorBezierSVG" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <g id="anchorPopGroup" fill="none" stroke="#ededed" stroke-width="3" stroke-linecap="round"
-                stroke-miterlimit="10">
-                <line x1="24" y1="17.5" x2="24" y2="1.5" />
-                <line x1="29.5" y1="25" x2="45.5" y2="25" />
-                <line x1="23" y1="30.5" x2="23" y2="46.5" />
-                <line x1="17.5" y1="24" x2="1.5" y2="24" />
-              </g>
-              <mask id="mainMask">
-                <rect width="100%" height="100%" fill="#000" />
-                <path class="mainLineMask" fill="#FFF" stroke="none" stroke-miterlimit="10"
-                  d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z" />
-              </mask>
-              <mask id="mainMaskInverse">
-                <rect width="100%" height="100%" fill="#FFF" />
-                <path class="mainLineMask" fill="#000" stroke="none" stroke-miterlimit="10"
-                  d="M148,122.5c133-92.2,377-84.8,504,0C762.3,196.2,58.4,184.6,148,122.5z" />
-              </mask>
-            </defs>
-            <g mask="url(#mainMask)">
-              <text class="maskText1" x="50%" y="60%" style="fill:#ededed;">I BUILD</text>
-            </g>
-            <g mask="url(#mainMaskInverse)">
-              <text class="maskText2" x="50%" y="60%" style="fill:#5783FC;">YOUR</text>
-            </g>
-            <path id="mainLine" fill="none" stroke="none" stroke-width="3" stroke-miterlimit="10"
-              d="M148,122.1c133-87.1,377-87.8,504,0" />
-            <path class="mainLineStart" stroke-linecap="round" fill="none" stroke="#5783FC" stroke-width="2"
-              stroke-miterlimit="10" d="M148,122.1 c20.7-21.9,98.7-100.2,96.7-95.5" />
-            <g id="anchorGroupL">
-              <line id="anchorLineLTop" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="155.8"
-                y1="115.1" x2="243.7" y2="27.2" />
-              <line id="anchorLineLBot" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="140.8"
-                y1="130.1" x2="52" y2="218.9" />
-              <circle id="anchorDragLTop" fill="#5783FC" cx="243.7" cy="27.2" r="5.6" />
-              <circle id="anchorDragLBot" fill="#5783FC" cx="52" cy="218.9" r="5.6" />
-            </g>
-            <rect id="anchorPointL" x="139.7" y="113.8" fill="#5783FC" stroke="#5783FC" stroke-width="5"
-              stroke-miterlimit="10" width="15.8" height="15.8" />
-            <g id="anchorGroupR">
-              <line id="anchorLineRTop" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="658.8"
-                y1="115.1" x2="746.7" y2="27.2" />
-              <line id="anchorLineRBot" fill="none" stroke="#5783FC" stroke-width="3" stroke-miterlimit="10" x1="643.8"
-                y1="130.1" x2="555" y2="218.9" />
-              <circle id="anchorDragRTop" fill="#5783FC" cx="746.7" cy="27.2" r="5.6" />
-              <circle id="anchorDragRBot" fill="#5783FC" cx="555" cy="218.9" r="5.6" />
-            </g>
-            <rect id="anchorPointR" x="643.8" y="113.8" fill="#5783FC" stroke="#5783FC" stroke-width="5"
-              stroke-miterlimit="10" width="15.8" height="15.8" />
-            <g id="nib">
-              <g id="nibInnerGroup">
-                <polygon fill="#1d1d1d" stroke="#ededed" stroke-width="2" stroke-miterlimit="10"
-                  points="1.7,1.8 8.7,20.9 20.7,27.5 27.5,20.8 19.9,9" />
-                <rect x="19.7" y="23.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.9343 28.0365)" fill="#1d1d1d"
-                  stroke="#ededed" stroke-width="2" stroke-miterlimit="10" width="16.4" height="10.1" />
-                <line fill="none" stroke="#ededed" stroke-width="2" stroke-miterlimit="10" x1="24.2" y1="24.1" x2="16.6"
-                  y2="16.6" />
-                <circle fill="#ededed" cx="16.6" cy="16.6" r="2.5" />
-              </g>
-            </g>
-          </svg>
-        </section>
+                <div class="process-step">
+                  <!-- Terminal Icon -->
+                  <svg
+                    class="step-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 5h18v14H3z" />
+                    <path d="M7 9l3 3-3 3" />
+                    <path d="M12 15h5" />
+                  </svg>
+                  <div class="step-title">2. Build</div>
+                  <div class="step-body">
+                    Design and code move together — no silos, no waiting. Every commit moves the
+                    product toward production, not just a prototype.
+                  </div>
+                </div>
 
-        <!-- Process / How It Works Section -->
-        <section class="process-section">
-          <div class="process-container">
-            <h2 class="process-headline">From idea to launch — no friction.</h2>
-            <p class="process-subhead">Every project follows a focused, fast-moving workflow designed for clarity and
-              speed.</p>
-
-            <div class="process-grid">
-              <div class="process-step">
-                <!-- Pencil Icon -->
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M3 21l3.8-1L20 6.8a2.2 2.2 0 0 0 0-3.1l-.7-.7a2.2 2.2 0 0 0-3.1 0L3 16.2 3 21z" />
-                  <path d="M14.5 5.5l4 4" />
-                </svg>
-                <div class="step-title">1. Scope</div>
-                <div class="step-body">Define the MVP. Capture what matters, cut what doesn’t. Map user journeys, set
-                  success metrics, and write clear user stories.</div>
-              </div>
-
-              <div class="process-step">
-                <!-- Terminal Icon -->
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M3 5h18v14H3z" />
-                  <path d="M7 9l3 3-3 3" />
-                  <path d="M12 15h5" />
-                </svg>
-                <div class="step-title">2. Build</div>
-                <div class="step-body">Design and code move together — no silos, no waiting. Every commit moves the
-                  product toward production, not just a prototype.</div>
-              </div>
-
-              <div class="process-step">
-                <!-- Rocket Icon -->
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 2c3 0 6 3 6 6 0 6-6 12-6 12S6 14 6 8c0-3 3-6 6-6z" />
-                  <path d="M12 9.5v.01" />
-                  <path d="M7 20l2-2" />
-                  <path d="M15 20l-2-2" />
-                </svg>
-                <div class="step-title">3. Ship</div>
-                <div class="step-body">Deploy with security, scalability, and polish baked in. Infrastructure,
-                  analytics,
-                  and support ready from day one.</div>
-              </div>
-            </div>
-
-            <p class="process-subhead" style="margin-top:2rem; color:#555;">→ Built like an agency project, delivered
-              like
-              a startup.</p>
-          </div>
-        </section>
-
-        <section class="marquee-section">
-          <div class="screen" id="fold-effect">
-            <div class="marquee-stack">
-              <div class="marquee">
-                <div class="track">
-                  Launch.Launch.Launch.Launch.Launch.Launch.<span class="-focus">Launch.</span>Launch.Launch.
+                <div class="process-step">
+                  <!-- Rocket Icon -->
+                  <svg
+                    class="step-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2c3 0 6 3 6 6 0 6-6 12-6 12S6 14 6 8c0-3 3-6 6-6z" />
+                    <path d="M12 9.5v.01" />
+                    <path d="M7 20l2-2" />
+                    <path d="M15 20l-2-2" />
+                  </svg>
+                  <div class="step-title">3. Ship</div>
+                  <div class="step-body">
+                    Deploy with security, scalability, and polish baked in. Infrastructure,
+                    analytics, and support ready from day one.
+                  </div>
                 </div>
               </div>
-              <div class="marquee">
-                <div class="track">
-                  Fast.Fast.<span class="-focus">Fast.</span>Fast.Fast.Fast.Fast.Fast.
+
+              <p class="process-subhead" style="margin-top:2rem; color:#555;">
+                → Built like an agency project, delivered like a startup.
+              </p>
+            </div>
+          </section>
+
+          <section class="marquee-section">
+            <div class="screen" id="fold-effect">
+              <div class="marquee-stack">
+                <div class="marquee">
+                  <div class="track">
+                    Launch.Launch.Launch.Launch.Launch.Launch.<span class="-focus">Launch.</span
+                    >Launch.Launch.
+                  </div>
                 </div>
-              </div>
-              <div class="marquee">
-                <div class="track">
-                  Ship.Ship.Ship.Ship.Ship.Ship.Ship.<span class="-focus">Ship.</span>Ship.Ship.Ship.Ship.Ship.
+                <div class="marquee">
+                  <div class="track">
+                    Fast.Fast.<span class="-focus">Fast.</span>Fast.Fast.Fast.Fast.Fast.
+                  </div>
                 </div>
-              </div>
-              <div class="marquee">
-                <div class="track">
-                  Right.Right.Right.<span class="-focus">Right.</span>Right.Right.Right.Right.
+                <div class="marquee">
+                  <div class="track">
+                    Ship.Ship.Ship.Ship.Ship.Ship.Ship.<span class="-focus">Ship.</span
+                    >Ship.Ship.Ship.Ship.Ship.
+                  </div>
+                </div>
+                <div class="marquee">
+                  <div class="track">
+                    Right.Right.Right.<span class="-focus">Right.</span>Right.Right.Right.Right.
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- Solutions & Call to Action -->
-        <section class="solutions-section">
-          <div class="solutions-container">
-            <h2 class="solutions-headline">Solutions built for founders who move fast.</h2>
-            <p class="solutions-subhead">Choose the level of partnership that fits your stage — from prototype to scale.
-            </p>
+          <!-- Solutions & Call to Action -->
+          <section class="solutions-section">
+            <div class="solutions-container">
+              <h2 class="solutions-headline">Solutions built for founders who move fast.</h2>
+              <p class="solutions-subhead">
+                Choose the level of partnership that fits your stage — from prototype to scale.
+              </p>
 
-            <div class="solutions-grid">
-              <div class="solution-card">
-                <div class="solution-title">1. Spark — Prototype &amp; Validate</div>
-                <div class="solution-body">Turn ideas into clickable prototypes and investor decks. Scope your product,
-                  map the core flow, and visualise it fast.</div>
-                <div class="solution-price">From £6k</div>
-                <div class="solution-note">→ Best for early founders validating an idea.</div>
+              <div class="solutions-grid">
+                <div class="solution-card">
+                  <div class="solution-title">1. Spark — Prototype &amp; Validate</div>
+                  <div class="solution-body">
+                    Turn ideas into clickable prototypes and investor decks. Scope your product, map
+                    the core flow, and visualise it fast.
+                  </div>
+                  <div class="solution-price">From £6k</div>
+                  <div class="solution-note">→ Best for early founders validating an idea.</div>
+                </div>
+
+                <div class="solution-card">
+                  <div class="solution-title">2. Launch — MVP Build</div>
+                  <div class="solution-body">
+                    Design, code, deploy, and support your first product. Everything you need to get
+                    real users and real feedback — fast.
+                  </div>
+                  <div class="solution-price">From £18k</div>
+                  <div class="solution-note">→ Best for funded startups ready to ship.</div>
+                </div>
+
+                <div class="solution-card">
+                  <div class="solution-title">3. Partner — Fractional CTO</div>
+                  <div class="solution-body">
+                    Keep a senior engineer in your corner as you grow. Technical direction,
+                    architecture, and sprint delivery when you need it.
+                  </div>
+                  <div class="solution-price">From £3k/month</div>
+                  <div class="solution-note">
+                    → Best for scaling teams needing long-term expertise.
+                  </div>
+                </div>
               </div>
 
-              <div class="solution-card">
-                <div class="solution-title">2. Launch — MVP Build</div>
-                <div class="solution-body">Design, code, deploy, and support your first product. Everything you need to
-                  get real users and real feedback — fast.</div>
-                <div class="solution-price">From £18k</div>
-                <div class="solution-note">→ Best for funded startups ready to ship.</div>
-              </div>
-
-              <div class="solution-card">
-                <div class="solution-title">3. Partner — Fractional CTO</div>
-                <div class="solution-body">Keep a senior engineer in your corner as you grow. Technical direction,
-                  architecture, and sprint delivery when you need it.</div>
-                <div class="solution-price">From £3k/month</div>
-                <div class="solution-note">→ Best for scaling teams needing long-term expertise.</div>
+              <div class="solutions-cta">
+                <div class="cta-headline">Ready to build something real?</div>
+                <div class="cta-subhead">
+                  Book a 20-minute scoping call — no sales pitch, just straight talk about your idea
+                  and how to ship it.
+                </div>
+                <a class="cta-button" href="/book-call/">Start your build →</a>
+                <div class="cta-secondary">
+                  or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a>
+                </div>
               </div>
             </div>
+          </section>
+        </div>
 
-            <div class="solutions-cta">
-              <div class="cta-headline">Ready to build something real?</div>
-              <div class="cta-subhead">Book a 20-minute scoping call — no sales pitch, just straight talk about your
-                idea
-                and how to ship it.</div>
-              <a class="cta-button" href="/book-call/">Start your build →</a>
-              <div class="cta-secondary">or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a></div>
-            </div>
-          </div>
-        </section>
-
+        <!-- Footer -->
+        {{ partial "footer.html" . }}
       </div>
-
-      <!-- Footer -->
-      {{ partial "footer.html" . }}
     </div>
-  </div>
 
-  <!-- GSAP Typewriter Animation 
+    <!-- GSAP Typewriter Animation
        Replaces previous WebGL Three.js shader-based animation
        Uses GSAP Timeline with SteppedEase for character-by-character typing effect
        Inspired by: https://codepen.io/jonathan/pen/LbPNvK
   -->
-  <script>
-    // Words to cycle through in typewriter animation
-    const words = ['read', 'write', 'execute'];
+    <script>
+      // Words to cycle through in typewriter animation
+      const words = ['read', 'write', 'execute'];
 
-    /**
-     * Initialize and start the typewriter animation
-     * Creates a GSAP timeline that types each word, pauses, then erases it
-     */
-    function initTypewriter() {
-      const typewriterText = document.getElementById('typewriter-text');
-      if (!typewriterText) return;
+      /**
+       * Initialize and start the typewriter animation
+       * Creates a GSAP timeline that types each word, pauses, then erases it
+       */
+      function initTypewriter() {
+        const typewriterText = document.getElementById('typewriter-text');
+        if (!typewriterText) return;
 
-      function typewriterAnimation() {
-        // Create infinite looping timeline
-        const tl = gsap.timeline({
-          repeat: -1,
-          repeatDelay: 0.5
-        });
-
-        words.forEach((word, index) => {
-          const charCount = word.length;
-
-          // Type in animation - animate width from 0 to full word length
-          // Uses SteppedEase to create discrete character-by-character effect
-          tl.fromTo(typewriterText,
-            { width: '0ch' },
-            {
-              width: charCount + 'ch',
-              duration: charCount * 0.1, // 0.1s per character
-              ease: SteppedEase.config(charCount), // Creates stepped animation for typing effect
-              onStart: () => {
-                typewriterText.textContent = word;
-              }
-            }
-          );
-
-          // Pause before erasing
-          tl.to({}, { duration: 1 });
-
-          // Erase animation - animate width back to 0 (faster than typing)
-          tl.to(typewriterText, {
-            width: '0ch',
-            duration: charCount * 0.05, // Faster erase (0.05s per character)
-            ease: SteppedEase.config(charCount)
+        function typewriterAnimation() {
+          // Create infinite looping timeline
+          const tl = gsap.timeline({
+            repeat: -1,
+            repeatDelay: 0.5,
           });
 
-          // Pause before next word
-          tl.to({}, { duration: 0.3 });
-        });
+          words.forEach((word, index) => {
+            const charCount = word.length;
 
-        return tl;
+            // Type in animation - animate width from 0 to full word length
+            // Uses SteppedEase to create discrete character-by-character effect
+            tl.fromTo(
+              typewriterText,
+              { width: '0ch' },
+              {
+                width: charCount + 'ch',
+                duration: charCount * 0.1, // 0.1s per character
+                ease: SteppedEase.config(charCount), // Creates stepped animation for typing effect
+                onStart: () => {
+                  typewriterText.textContent = word;
+                },
+              }
+            );
+
+            // Pause before erasing
+            tl.to({}, { duration: 1 });
+
+            // Erase animation - animate width back to 0 (faster than typing)
+            tl.to(typewriterText, {
+              width: '0ch',
+              duration: charCount * 0.05, // Faster erase (0.05s per character)
+              ease: SteppedEase.config(charCount),
+            });
+
+            // Pause before next word
+            tl.to({}, { duration: 0.3 });
+          });
+
+          return tl;
+        }
+
+        // Set initial state
+        typewriterText.style.width = '0ch';
+        typewriterText.textContent = words[0];
+
+        // Start animation
+        typewriterAnimation();
       }
 
-      // Set initial state
-      typewriterText.style.width = '0ch';
-      typewriterText.textContent = words[0];
+      // Initialize typewriter animation when fonts are loaded OR after timeout
+      // Multiple initialization paths ensure animation works even if fonts fail to load
+      let initialized = false;
 
-      // Start animation
-      typewriterAnimation();
-    }
+      WebFont.load({
+        google: { families: ['JetBrains Mono:600'] },
+        classes: false,
+        active: () => {
+          if (!initialized) {
+            initialized = true;
+            initTypewriter();
+          }
+        },
+        inactive: () => {
+          // Initialize even if fonts fail to load
+          if (!initialized) {
+            initialized = true;
+            initTypewriter();
+          }
+        },
+      });
 
-    // Initialize typewriter animation when fonts are loaded OR after timeout
-    // Multiple initialization paths ensure animation works even if fonts fail to load
-    let initialized = false;
-
-    WebFont.load({
-      google: { families: ['JetBrains Mono:600'] },
-      classes: false,
-      active: () => {
+      // Fallback: Initialize after 1 second if fonts haven't loaded
+      // Ensures animation always starts even if WebFont loader fails
+      setTimeout(() => {
         if (!initialized) {
           initialized = true;
           initTypewriter();
         }
-      },
-      inactive: () => {
-        // Initialize even if fonts fail to load
-        if (!initialized) {
-          initialized = true;
-          initTypewriter();
-        }
-      }
-    });
+      }, 1000);
+    </script>
 
-    // Fallback: Initialize after 1 second if fonts haven't loaded
-    // Ensures animation always starts even if WebFont loader fails
-    setTimeout(() => {
-      if (!initialized) {
-        initialized = true;
-        initTypewriter();
-      }
-    }, 1000);
-  </script>
-
-  <!-- Particle System + ScrollSmoother Animation -->
-  <script>
-    window.addEventListener('load', function () {
-
-      /*------------------------------
+    <!-- Particle System + ScrollSmoother Animation -->
+    <script>
+      window.addEventListener('load', function () {
+        /*------------------------------
       Register plugins
       ------------------------------*/
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
-      const content = document.querySelector('#smooth-content')
-      const particleLayer = document.querySelector('#particle-layer')
+        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+        const content = document.querySelector('#smooth-content');
+        const particleLayer = document.querySelector('#particle-layer');
 
-      /*------------------------------
+        /*------------------------------
       Making some circles noise
       ------------------------------*/
-      const simplex = new SimplexNoise()
+        const simplex = new SimplexNoise();
 
-      // Create fragment to insert particles at the beginning
-      const fragment = document.createDocumentFragment()
+        // Create fragment to insert particles at the beginning
+        const fragment = document.createDocumentFragment();
 
-      for (let i = 0; i < 6000; i++) {
-        const div = document.createElement('div')
-        div.classList.add('circle')
-        const n1 = simplex.noise2D(i * 0.003, i * 0.0033)
-        const n2 = simplex.noise2D(i * 0.002, i * 0.001)
+        for (let i = 0; i < 6000; i++) {
+          const div = document.createElement('div');
+          div.classList.add('circle');
+          const n1 = simplex.noise2D(i * 0.003, i * 0.0033);
+          const n2 = simplex.noise2D(i * 0.002, i * 0.001);
 
-        const style = {
-          transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${(3 + n1 * 2) * 1.5}, ${(3 + n2 * 2) * 1.5})`,
-          boxShadow: `0 0 0 .3px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`
+          const style = {
+            transform: `translate(${n2 * 200}px) rotate(${n2 * 270}deg) scale(${(3 + n1 * 2) * 1.5}, ${(3 + n2 * 2) * 1.5})`,
+            boxShadow: `0 0 0 .3px hsla(${Math.floor(i * 0.3)}, 70%, 70%, .6)`,
+          };
+          Object.assign(div.style, style);
+          fragment.appendChild(div);
         }
-        Object.assign(div.style, style)
-        fragment.appendChild(div)
-      }
 
-      // Insert all circles into dedicated particle layer
-      particleLayer.appendChild(fragment)
-      const Circles = document.querySelectorAll('.circle')
+        // Insert all circles into dedicated particle layer
+        particleLayer.appendChild(fragment);
+        const Circles = document.querySelectorAll('.circle');
 
-      /*------------------------------
+        /*------------------------------
       Init ScrollSmoother
       ------------------------------*/
-      ScrollSmoother.create({
-        content: content,
-        wrapper: '#wrapper',
-        smooth: 1,
-        effects: false
-      });
+        ScrollSmoother.create({
+          content: content,
+          wrapper: '#wrapper',
+          smooth: 1,
+          effects: false,
+        });
 
-      /*------------------------------
+        /*------------------------------
       Scroll Trigger
       ------------------------------*/
-      const main = gsap.timeline({
-        scrollTrigger: {
-          scrub: .7,
-          start: "top 25%",
-          end: "bottom bottom"
-        }
-      })
-      Circles.forEach((circle) => {
-        main.to(circle, {
-          opacity: 1,
-        })
-      })
+        const main = gsap.timeline({
+          scrollTrigger: {
+            scrub: 0.7,
+            start: 'top 25%',
+            end: 'bottom bottom',
+          },
+        });
+        Circles.forEach((circle) => {
+          main.to(circle, {
+            opacity: 1,
+          });
+        });
 
-      /*------------------------------
+        /*------------------------------
       About Section Animation
       ------------------------------*/
-      gsap.to('.about-container', {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.about-container',
-          start: 'top 75%',
-          end: 'bottom 25%',
-          toggleActions: 'play none none reverse'
-        }
-      });
+        gsap.to('.about-container', {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about-container',
+            start: 'top 75%',
+            end: 'bottom 25%',
+            toggleActions: 'play none none reverse',
+          },
+        });
 
-      // Animate accent lines
-      gsap.to('.accent-line-1', {
-        x: 30,
-        opacity: 0.15,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
+        // Animate accent lines
+        gsap.to('.accent-line-1', {
+          x: 30,
+          opacity: 0.15,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
 
-      gsap.to('.accent-line-2', {
-        x: -30,
-        opacity: 0.15,
-        duration: 3.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: 0.5
-      });
+        gsap.to('.accent-line-2', {
+          x: -30,
+          opacity: 0.15,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 0.5,
+        });
 
-      // Animate code fragments
-      gsap.to('.code-fragment-1', {
-        y: -10,
-        opacity: 0.1,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
+        // Animate code fragments
+        gsap.to('.code-fragment-1', {
+          y: -10,
+          opacity: 0.1,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
 
-      gsap.to('.code-fragment-2', {
-        y: 10,
-        opacity: 0.1,
-        duration: 4.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: 1
-      });
+        gsap.to('.code-fragment-2', {
+          y: 10,
+          opacity: 0.1,
+          duration: 4.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 1,
+        });
 
-      /*------------------------------
+        /*------------------------------
       Process Section Animation
       ------------------------------*/
-      const steps = gsap.utils.toArray('.process-step')
-      gsap.set(steps, { opacity: 0, y: 20 })
-      gsap.to(steps, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: '.process-section',
-          start: 'top 75%'
-        }
-      })
+        const steps = gsap.utils.toArray('.process-step');
+        gsap.set(steps, { opacity: 0, y: 20 });
+        gsap.to(steps, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: '.process-section',
+            start: 'top 75%',
+          },
+        });
 
-      /*------------------------------
+        /*------------------------------
       Solutions Section Animation
       ------------------------------*/
-      const solutionCards = gsap.utils.toArray('.solution-card')
-      gsap.set(solutionCards, { opacity: 0, y: 20 })
-      gsap.to(solutionCards, {
-        opacity: 1,
-        y: 0,
-        duration: 0.65,
-        ease: 'power3.out',
-        stagger: 0.18,
-        scrollTrigger: {
-          trigger: '.solutions-section',
-          start: 'top 75%'
-        }
-      })
-
-    });
-  </script>
-
-  <!-- SVG Bezier Animation Script -->
-  <script>
-    window.addEventListener('load', function () {
-      gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
-
-      var a = function (a) { return document.querySelector(a) };
-      var h = a(".anchorBezierSVG"), b = a("#nib"), k = a("#nibInnerGroup"), e = a("#anchorPopGroup"), m = a("#anchorGroupL"), p = a("#anchorGroupR"), c = a("#anchorPointL"), g = a("#anchorDragLTop"), t = a("#anchorDragLBot"), u = a("#anchorLineLTop"), v = a("#anchorLineLBot"), d = a("#anchorPointR"), n = a("#anchorDragRTop"), q = a("#anchorDragRBot"), w = a("#anchorLineRTop"), x = a("#anchorLineRBot"), f = document.querySelectorAll(".mainLineStart"), l = a("#mainLine");
-      a = document.querySelectorAll(".mainLineMask");
-      l = l.getAttribute("d");
-      var y = a[0].getAttribute("d"), r = e.cloneNode(!0);
-      e = e.cloneNode(!0);
-      TweenMax.set("svg", { visibility: "visible" });
-      h.appendChild(r);
-      h.appendChild(e);
-      h = r.querySelectorAll("line");
-      e = e.querySelectorAll("line");
-      TweenMax.staggerTo([h, e], 0, { drawSVG: "0% 0%", cycle: { x: [Number(c.getAttribute("x")) - 16, Number(d.getAttribute("x")) - 16], y: [Number(c.getAttribute("y")) - 16, Number(d.getAttribute("y")) - 16] } }, 0);
-      TweenLite.defaultEase = Sine.easeInOut;
-      (new TimelineMax({ repeat: -1, delay: 1 }))
-        .timeScale(2.13)
-        .to(b, 1, { x: Number(c.getAttribute("x")) + 7 })
-        .to(b, 1.5, { y: Number(c.getAttribute("y")) + 7 }, "-=1")
-        .from(c, 1, { scale: 0, transformOrigin: "50% 50%", ease: Elastic.easeOut.config(.5, .4) })
-        .to(b, .6, { x: g.getAttribute("cx"), y: g.getAttribute("cy") })
-        .from([u, v], .6, { drawSVG: "0% 0%" }, "-=0.6")
-        .from([g, t], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(.7, .5) })
-        .from(f, 1E-4, { drawSVG: "0% 0%" })
-        .to(b, 1, { x: Number(d.getAttribute("x")) + 7, y: Number(d.getAttribute("y")) + 7 })
-        .to(f, 1, { morphSVG: l }, "-=1")
-        .from(d, 1, { scale: 0, transformOrigin: "50% 50%", ease: Elastic.easeOut.config(.5, .4) })
-        .to(f, .01, { stroke: "#ededed", strokeWidth: 3 }, "-=1")
-        .to(b, .6, { x: n.getAttribute("cx"), y: n.getAttribute("cy") })
-        .from([w, x], .6, { drawSVG: "0% 0%" }, "-=0.6")
-        .from([n, q], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(.7, .5) })
-        .to(f, .6, { morphSVG: "M148,122.1c96.1-72.8,377,56.4,504,0" }, "-=1.6")
-        .to(a, .6, { morphSVG: "M148,122.5c82.2-71.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1.6")
-        .to(b, 1, { x: g.getAttribute("cx"), y: g.getAttribute("cy") })
-        .to(m, 1, { rotation: 90, transformOrigin: "50% 50%" })
-        .to(f, 1, { morphSVG: "M148,122.1c152.9,62.6,377,56.4,504,0" }, "-=1")
-        .to(a, 1, { morphSVG: "M148,122.5c152.9,63.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1")
-        .to(b, 1, { rotation: 90, svgOrigin: c.getAttribute("x") + " " + c.getAttribute("y") }, "-=1")
-        .to(k, 1, { rotation: -90, transformOrigin: "-28% -28%" }, "-=1")
-        .to(b, 1, { x: Number(q.getAttribute("cx")) })
-        .to(p, 1, { rotation: 90, transformOrigin: "50% 50%" })
-        .to(b, 1, { rotation: 180, svgOrigin: d.getAttribute("x") + " " + d.getAttribute("y") }, "-=1")
-        .to(k, 1, { rotation: -180, transformOrigin: "-28% -28%" }, "-=1")
-        .to(f, 1, { morphSVG: "M148,122.1c152.9,62.6,377-83.1,504,0" }, "-=1")
-        .to(a, 1, { morphSVG: "M148,122.5c152.9,63.6,377-84.7,504,0C766.5,189.5,65.8,194.1,148,122.5z" }, "-=1")
-        .set(".maskText1", { textContent: "DREAMS" }, "-=1")
-        .to(b, 1, { x: g.getAttribute("cx"), y: g.getAttribute("cy"), rotation: 90 })
-        .to(k, 1, { rotation: -90, transformOrigin: "-28% -28%" }, "-=1")
-        .to(m, 1, { rotation: 0, transformOrigin: "50% 50%" })
-        .to(f, 1, { morphSVG: l }, "-=1")
-        .to(a, 1, { morphSVG: y }, "-=1")
-        .to(b, 1, { rotation: 0, svgOrigin: c.getAttribute("x") + " " + c.getAttribute("y") }, "-=1")
-        .to(k, 1, { rotation: -0, transformOrigin: "-28% -28%" }, "-=1")
-        .to(b, 1, { x: Number(d.getAttribute("x")) + 7, y: Number(d.getAttribute("y")) + 7 })
-        .to([p, d], .01, { alpha: 0 })
-        .to(e, .25, { drawSVG: "0% 50%", ease: Linear.easeNone })
-        .to(e, .75, { drawSVG: "100% 100%", ease: Power2.easeOut })
-        .set(f, { drawSVG: "0% 0%" }, "-=1")
-        .to(b, 1, { x: Number(c.getAttribute("x")) + 7, y: Number(c.getAttribute("y")) + 7, delay: .3 })
-        .to([m, c], .01, { alpha: 0 })
-        .to(h, .25, { drawSVG: "0% 50%", ease: Linear.easeNone })
-        .to(h, .75, { drawSVG: "100% 100%", ease: Power2.easeOut })
-        .to(b, 1, { x: 0, y: 0, delay: .3 })
-        .set(".maskText1", { textContent: "I DESIGN", delay: .3 });
-    });
-  </script>
-
-  <!-- Marquee Scroll Animation -->
-  <script>
-    window.addEventListener('load', function () {
-      gsap.utils.toArray('.marquee').forEach((el, index) => {
-        const w = el.querySelector('.track');
-        const [x, xEnd] = (index % 2 == 0) ? [-500, -1500] : [-500, 0];
-        gsap.fromTo(w, { x }, {
-          x: xEnd,
+        const solutionCards = gsap.utils.toArray('.solution-card');
+        gsap.set(solutionCards, { opacity: 0, y: 20 });
+        gsap.to(solutionCards, {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: 'power3.out',
+          stagger: 0.18,
           scrollTrigger: {
-            scrub: 1
-          }
+            trigger: '.solutions-section',
+            start: 'top 75%',
+          },
         });
       });
-    });
-  </script>
-</body>
+    </script>
 
+    <!-- SVG Bezier Animation Script -->
+    <script>
+      window.addEventListener('load', function () {
+        gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+
+        var a = function (a) {
+          return document.querySelector(a);
+        };
+        var h = a('.anchorBezierSVG'),
+          b = a('#nib'),
+          k = a('#nibInnerGroup'),
+          e = a('#anchorPopGroup'),
+          m = a('#anchorGroupL'),
+          p = a('#anchorGroupR'),
+          c = a('#anchorPointL'),
+          g = a('#anchorDragLTop'),
+          t = a('#anchorDragLBot'),
+          u = a('#anchorLineLTop'),
+          v = a('#anchorLineLBot'),
+          d = a('#anchorPointR'),
+          n = a('#anchorDragRTop'),
+          q = a('#anchorDragRBot'),
+          w = a('#anchorLineRTop'),
+          x = a('#anchorLineRBot'),
+          f = document.querySelectorAll('.mainLineStart'),
+          l = a('#mainLine');
+        a = document.querySelectorAll('.mainLineMask');
+        l = l.getAttribute('d');
+        var y = a[0].getAttribute('d'),
+          r = e.cloneNode(!0);
+        e = e.cloneNode(!0);
+        TweenMax.set('svg', { visibility: 'visible' });
+        h.appendChild(r);
+        h.appendChild(e);
+        h = r.querySelectorAll('line');
+        e = e.querySelectorAll('line');
+        TweenMax.staggerTo(
+          [h, e],
+          0,
+          {
+            drawSVG: '0% 0%',
+            cycle: {
+              x: [Number(c.getAttribute('x')) - 16, Number(d.getAttribute('x')) - 16],
+              y: [Number(c.getAttribute('y')) - 16, Number(d.getAttribute('y')) - 16],
+            },
+          },
+          0
+        );
+        TweenLite.defaultEase = Sine.easeInOut;
+        new TimelineMax({ repeat: -1, delay: 1 })
+          .timeScale(2.13)
+          .to(b, 1, { x: Number(c.getAttribute('x')) + 7 })
+          .to(b, 1.5, { y: Number(c.getAttribute('y')) + 7 }, '-=1')
+          .from(c, 1, {
+            scale: 0,
+            transformOrigin: '50% 50%',
+            ease: Elastic.easeOut.config(0.5, 0.4),
+          })
+          .to(b, 0.6, { x: g.getAttribute('cx'), y: g.getAttribute('cy') })
+          .from([u, v], 0.6, { drawSVG: '0% 0%' }, '-=0.6')
+          .from([g, t], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(0.7, 0.5) })
+          .from(f, 1e-4, { drawSVG: '0% 0%' })
+          .to(b, 1, { x: Number(d.getAttribute('x')) + 7, y: Number(d.getAttribute('y')) + 7 })
+          .to(f, 1, { morphSVG: l }, '-=1')
+          .from(d, 1, {
+            scale: 0,
+            transformOrigin: '50% 50%',
+            ease: Elastic.easeOut.config(0.5, 0.4),
+          })
+          .to(f, 0.01, { stroke: '#ededed', strokeWidth: 3 }, '-=1')
+          .to(b, 0.6, { x: n.getAttribute('cx'), y: n.getAttribute('cy') })
+          .from([w, x], 0.6, { drawSVG: '0% 0%' }, '-=0.6')
+          .from([n, q], 1, { attr: { r: 0 }, ease: Elastic.easeOut.config(0.7, 0.5) })
+          .to(f, 0.6, { morphSVG: 'M148,122.1c96.1-72.8,377,56.4,504,0' }, '-=1.6')
+          .to(
+            a,
+            0.6,
+            { morphSVG: 'M148,122.5c82.2-71.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z' },
+            '-=1.6'
+          )
+          .to(b, 1, { x: g.getAttribute('cx'), y: g.getAttribute('cy') })
+          .to(m, 1, { rotation: 90, transformOrigin: '50% 50%' })
+          .to(f, 1, { morphSVG: 'M148,122.1c152.9,62.6,377,56.4,504,0' }, '-=1')
+          .to(
+            a,
+            1,
+            { morphSVG: 'M148,122.5c152.9,63.6,377,53.3,504,0C766.5,189.5,65.8,194.1,148,122.5z' },
+            '-=1'
+          )
+          .to(
+            b,
+            1,
+            { rotation: 90, svgOrigin: c.getAttribute('x') + ' ' + c.getAttribute('y') },
+            '-=1'
+          )
+          .to(k, 1, { rotation: -90, transformOrigin: '-28% -28%' }, '-=1')
+          .to(b, 1, { x: Number(q.getAttribute('cx')) })
+          .to(p, 1, { rotation: 90, transformOrigin: '50% 50%' })
+          .to(
+            b,
+            1,
+            { rotation: 180, svgOrigin: d.getAttribute('x') + ' ' + d.getAttribute('y') },
+            '-=1'
+          )
+          .to(k, 1, { rotation: -180, transformOrigin: '-28% -28%' }, '-=1')
+          .to(f, 1, { morphSVG: 'M148,122.1c152.9,62.6,377-83.1,504,0' }, '-=1')
+          .to(
+            a,
+            1,
+            { morphSVG: 'M148,122.5c152.9,63.6,377-84.7,504,0C766.5,189.5,65.8,194.1,148,122.5z' },
+            '-=1'
+          )
+          .set('.maskText1', { textContent: 'DREAMS' }, '-=1')
+          .to(b, 1, { x: g.getAttribute('cx'), y: g.getAttribute('cy'), rotation: 90 })
+          .to(k, 1, { rotation: -90, transformOrigin: '-28% -28%' }, '-=1')
+          .to(m, 1, { rotation: 0, transformOrigin: '50% 50%' })
+          .to(f, 1, { morphSVG: l }, '-=1')
+          .to(a, 1, { morphSVG: y }, '-=1')
+          .to(
+            b,
+            1,
+            { rotation: 0, svgOrigin: c.getAttribute('x') + ' ' + c.getAttribute('y') },
+            '-=1'
+          )
+          .to(k, 1, { rotation: -0, transformOrigin: '-28% -28%' }, '-=1')
+          .to(b, 1, { x: Number(d.getAttribute('x')) + 7, y: Number(d.getAttribute('y')) + 7 })
+          .to([p, d], 0.01, { alpha: 0 })
+          .to(e, 0.25, { drawSVG: '0% 50%', ease: Linear.easeNone })
+          .to(e, 0.75, { drawSVG: '100% 100%', ease: Power2.easeOut })
+          .set(f, { drawSVG: '0% 0%' }, '-=1')
+          .to(b, 1, {
+            x: Number(c.getAttribute('x')) + 7,
+            y: Number(c.getAttribute('y')) + 7,
+            delay: 0.3,
+          })
+          .to([m, c], 0.01, { alpha: 0 })
+          .to(h, 0.25, { drawSVG: '0% 50%', ease: Linear.easeNone })
+          .to(h, 0.75, { drawSVG: '100% 100%', ease: Power2.easeOut })
+          .to(b, 1, { x: 0, y: 0, delay: 0.3 })
+          .set('.maskText1', { textContent: 'I DESIGN', delay: 0.3 });
+      });
+    </script>
+
+    <!-- Marquee Scroll Animation -->
+    <script>
+      window.addEventListener('load', function () {
+        gsap.utils.toArray('.marquee').forEach((el, index) => {
+          const w = el.querySelector('.track');
+          const [x, xEnd] = index % 2 == 0 ? [-500, -1500] : [-500, 0];
+          gsap.fromTo(
+            w,
+            { x },
+            {
+              x: xEnd,
+              scrollTrigger: {
+                scrub: 1,
+              },
+            }
+          );
+        });
+      });
+    </script>
+  </body>
 </html>

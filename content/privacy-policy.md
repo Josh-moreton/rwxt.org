@@ -1,5 +1,5 @@
 ---
-title: "Privacy Policy"
+title: 'Privacy Policy'
 date: 2025-05-23
 draft: false
 ---

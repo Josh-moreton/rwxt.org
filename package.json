@@ -1,0 +1,27 @@
+{
+  "name": "rwxt.org",
+  "version": "1.0.0",
+  "description": "",
+  "main": "simplex-noise.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier . --write",
+    "check-format": "prettier . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Josh-moreton/rwxt.org.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Josh-moreton/rwxt.org/issues"
+  },
+  "homepage": "https://github.com/Josh-moreton/rwxt.org#readme",
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-go-template": "^0.0.15"
+  }
+}
