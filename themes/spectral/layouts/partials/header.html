@@ -32,8 +32,16 @@
 
   {{ hugo.Generator }}
   {{ template "_internal/google_analytics.html" . }}
-  {{ template "_internal/twitter_cards.html" . }}
-  {{ template "_internal/opengraph.html" . }}
+
+  <!-- Enhanced SEO Meta Tags -->
+  {{ partial "seo.html" . }}
+
+  <!-- Structured Data / JSON-LD -->
+  {{ if .IsHome }}
+  {{ partial "schema-organization.html" . }}
+  {{ end }}
+  {{ partial "schema-article.html" . }}
+  {{ partial "schema-breadcrumb.html" . }}
 
   {{ partial "stylesheets.html" . }}
 

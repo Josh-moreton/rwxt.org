@@ -1,9 +1,23 @@
 ---
-title: "Advanced 90-Day Tech Checklist for Startup Founders"
-description: "Deep, actionable, non-technical tech checklist with example data to derisk your startup, stabilise your MVP, and get investor-ready in 90 days."
+title: "Advanced 90-Day Tech Checklist for Startup Founders | rwxt"
+description: "Deep, actionable, non-technical tech checklist with example data to derisk your startup, stabilise your MVP, and get investor-ready in 90 days. Free Notion template included."
 layout: "checklist"
 date: 2025-11-11
 draft: false
+author: "rwxt"
+keywords:
+  - 90-day technical review
+  - startup tech audit
+  - technical due diligence
+  - MVP stability checklist
+  - startup CTO checklist
+  - technical debt assessment
+  - security audit for startups
+  - delivery pipeline optimization
+  - revenue mapping
+  - tech strategy for founders
+ogImage: "/img/og-checklist.jpg"
+ogType: "article"
 ---
 
 # Advanced 90-Day Tech Checklist for Startup Founders

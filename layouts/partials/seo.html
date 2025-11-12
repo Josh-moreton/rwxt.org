@@ -1,0 +1,88 @@
+{{- $title := .Title -}}
+{{- $description := .Description -}}
+{{- $keywords := .Params.keywords -}}
+{{- $ogImage := .Params.ogImage | default "/img/og-default.jpg" -}}
+{{- $ogType := .Params.ogType | default "website" -}}
+
+{{- if .IsHome -}}
+{{- $title = .Site.Title -}}
+{{- $description = .Site.Params.descriptionParagraph | default .Site.Params.description -}}
+{{- $keywords = .Site.Params.keywords -}}
+{{- $ogImage = "/img/og-home.jpg" -}}
+{{- else if eq .Type "page" -}}
+{{- if not $title -}}
+{{- $title = printf "%s | %s" .Title .Site.Title -}}
+{{- else -}}
+{{- $title = printf "%s | %s" $title .Site.Title -}}
+{{- end -}}
+{{- if not $description -}}
+{{- $description = .Summary | plainify | truncate 160 -}}
+{{- end -}}
+{{- end -}}
+
+{{- $ogImageFull := $ogImage | absURL -}}
+
+<!-- Primary Meta Tags -->
+<title>{{ $title }}</title>
+<meta name="title" content="{{ $title }}">
+<meta name="description" content="{{ $description | plainify }}">
+{{- with $keywords }}
+<meta name="keywords" content="{{ delimit . " , " }}">
+{{- end }}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ $ogType }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description | plainify }}">
+<meta property="og:image" content="{{ $ogImageFull }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{{ .Site.Language.Lang | default " en_GB" }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+
+{{- if .IsPage }}
+{{- if not .PublishDate.IsZero }}
+<meta property="article:published_time" content="{{ .PublishDate.Format " 2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if not .Lastmod.IsZero }}
+<meta property="article:modified_time" content="{{ .Lastmod.Format " 2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- with .Params.author }}
+<meta property="article:author" content="{{ . }}">
+{{- end }}
+{{- end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="{{ .Permalink }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description | plainify }}">
+<meta name="twitter:image" content="{{ $ogImageFull }}">
+{{- with .Site.Params.social.twitter }}
+<meta name="twitter:site" content="@{{ . }}">
+<meta name="twitter:creator" content="@{{ . }}">
+{{- end }}
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="7 days">
+{{- with .Site.Params.author }}
+<meta name="author" content="{{ . }}">
+{{- end }}
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#5783FC">
+<meta name="msapplication-TileColor" content="#5783FC">

@@ -1,21 +1,49 @@
 baseURL = "https://rwxt.org"
-title = "rwxt"
-languageCode = "en-us"
+title = "rwxt | Fractional CTO & MVP Development for Startups"
+languageCode = "en-GB"
 defaultContentLanguage = "en"
 theme = 'spectral'
 googleAnalytics = "G-T5VYH6J8WD"
+enableRobotsTXT = true
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
 
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
 [params]
 fancyTitle = "rwx_t"
 copyright = "Josh Moreton"
-description = 'rwx technologies'
-descriptionParagraph = "Read, write, execute technologies builds tech stacks for driven entrepreneurs and founders."
+author = "rwxt"
+description = 'Fractional CTO and MVP development for non-technical founders. Turn ideas into production-grade products with transparent pricing and no middlemen.'
+descriptionParagraph = "Read, write, execute technologies builds tech stacks for driven entrepreneurs and founders. Solo developer specialising in MVP development, technical audits, and fractional CTO services for UK startups."
 contactEmail = "info@rwxt.org"
+keywords = [
+  "fractional CTO UK",
+  "MVP development for startups",
+  "startup technical audit",
+  "CTO for hire",
+  "tech stack consultant",
+  "90-day technical review",
+  "startup tech advisor",
+  "MVP build service",
+  "prototype to production",
+  "startup engineering consultant",
+  "technical due diligence",
+  "startup CTO services",
+  "full-stack developer for startups",
+  "security audit for startups",
+  "technical strategy consultant"
+]
+
+[params.social]
+  github = "Josh-moreton"
+  linkedin = ""
+  twitter = ""
 
 [[params.menu.main]]
 url = '/'
