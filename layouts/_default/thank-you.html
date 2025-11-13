@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ .Title }} — {{ .Site.Title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ .Description }}" />
+
+    <!-- Google Fonts - JetBrains Mono + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {{ partial "seo.html" . }}
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #fafafa;
+        color: #0f172a;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 2rem;
+      }
+
+      .thank-you-container {
+        max-width: 680px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 2rem;
+        background: rgba(87, 131, 252, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .success-icon svg {
+        width: 40px;
+        height: 40px;
+        color: #5783fc;
+      }
+
+      .thank-you-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .thank-you-message {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #475569;
+        margin-bottom: 3rem;
+      }
+
+      .next-steps {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        margin-bottom: 2.5rem;
+        text-align: left;
+      }
+
+      .next-steps h3 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #5783fc;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+      }
+
+      .next-steps ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .next-steps li {
+        font-size: 1rem;
+        color: #475569;
+        padding: 0.75rem 0;
+        padding-left: 1.75rem;
+        position: relative;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .next-steps li:last-child {
+        border-bottom: none;
+      }
+
+      .next-steps li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: #5783fc;
+        font-weight: 600;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .button-primary {
+        background: #5783fc;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(87, 131, 252, 0.25);
+      }
+
+      .button-primary:hover {
+        background: #345fe2;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(87, 131, 252, 0.35);
+      }
+
+      .button-secondary {
+        background: #fff;
+        color: #5783fc;
+        border: 2px solid #5783fc;
+      }
+
+      .button-secondary:hover {
+        background: rgba(87, 131, 252, 0.05);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 768px) {
+        .thank-you-headline {
+          font-size: 2rem;
+        }
+
+        .thank-you-message {
+          font-size: 1.05rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    {{ partial "header.html" . }}
+
+    <div class="content-wrapper">
+      <div class="thank-you-container">
+        <div class="success-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <h1 class="thank-you-headline">Application Received</h1>
+        <p class="thank-you-message">
+          Thank you for applying for an equity partnership with rwx_t. I review every application personally and will respond within 3-5 business days.
+        </p>
+
+        <div class="next-steps">
+          <h3>What happens next:</h3>
+          <ul>
+            <li>I'll review your application and reach out via email</li>
+            <li>If it's a potential fit, we'll schedule a 30-minute discovery call</li>
+            <li>We'll discuss scope, timeline, and equity structure</li>
+            <li>If aligned, we move to scoping and kick-off</li>
+          </ul>
+        </div>
+
+        <div class="action-buttons">
+          <a href="/" class="button button-primary">Back to Homepage</a>
+          <a href="/solutions/" class="button button-secondary">View Solutions</a>
+        </div>
+      </div>
+    </div>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>
