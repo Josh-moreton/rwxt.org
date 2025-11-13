@@ -13,7 +13,6 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Muli:wght@600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://use.typekit.net/vin8wlt.css" />
 
     <!-- WebFont Loader -->
     <script src="/js/webfontloader.js"></script>
@@ -390,7 +389,7 @@
         height: 20px;
         border-radius: 40%;
         opacity: 0;
-        margin: -19px auto;
+        margin: -18px auto;
         margin-left: 66.66%;
         transition: transform 1s cubic-bezier(0.14, 0.15, 0.13, 0.99);
         z-index: 0;
@@ -549,8 +548,8 @@
       .anchorBezierSVG text {
         text-anchor: middle;
         font-family:
-          'brandon-grotesque',
-          Helvetica Neue,
+          'JetBrains Mono',
+          'Helvetica Neue',
           Arial,
           sans-serif;
         font-weight: 700;
@@ -1958,7 +1957,7 @@
         // Create fragment to insert particles at the beginning
         const fragment = document.createDocumentFragment();
 
-        for (let i = 0; i < 7000; i++) {
+        for (let i = 0; i < 4000; i++) {
           const div = document.createElement('div');
           div.classList.add('circle');
           const n1 = simplex.noise2D(i * 0.003, i * 0.0033);
@@ -2130,18 +2129,16 @@
         h.appendChild(e);
         h = r.querySelectorAll('line');
         e = e.querySelectorAll('line');
-        TweenMax.staggerTo(
-          [h, e],
-          0,
-          {
-            drawSVG: '0% 0%',
-            cycle: {
-              x: [Number(c.getAttribute('x')) - 16, Number(d.getAttribute('x')) - 16],
-              y: [Number(c.getAttribute('y')) - 16, Number(d.getAttribute('y')) - 16],
-            },
-          },
-          0
-        );
+        TweenMax.set(h, {
+          drawSVG: '0% 0%',
+          x: Number(c.getAttribute('x')) - 16,
+          y: Number(c.getAttribute('y')) - 16,
+        });
+        TweenMax.set(e, {
+          drawSVG: '0% 0%',
+          x: Number(d.getAttribute('x')) - 16,
+          y: Number(d.getAttribute('y')) - 16,
+        });
         TweenLite.defaultEase = Sine.easeInOut;
         new TimelineMax({ repeat: -1, delay: 1 })
           .timeScale(2.13)
