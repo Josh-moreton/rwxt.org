@@ -253,11 +253,10 @@
         </ul>
       </div>
 
-      <form class="equity-form" name="equity-partnership" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="equity-partnership" />
-        <p style="display: none;">
-          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-        </p>
+      <form class="equity-form" name="equity-partnership" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="152c2ab8-e8db-41b9-aba0-aed76be0aedf" />
+        <input type="hidden" name="subject" value="New Equity Partnership Application" />
+        <input type="hidden" name="redirect" value="https://rwxt.org/?submitted=true" />
 
         <div class="form-group">
           <label for="company">Company Name</label>
