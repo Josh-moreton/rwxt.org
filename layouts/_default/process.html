@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ .Title }} — {{ .Site.Title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ .Description }}" />
+
+    <!-- Google Fonts - JetBrains Mono + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {{ partial "seo.html" . }}
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #fafafa;
+        color: #0f172a;
+        line-height: 1.6;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        padding: 120px 2rem 80px;
+        text-align: center;
+      }
+
+      .hero-container {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .hero-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 3rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero-subhead {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* Process Steps */
+      .process-section {
+        padding: 80px 2rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .section-intro {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 4rem;
+      }
+
+      .section-intro h2 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+
+      .section-intro p {
+        font-size: 1.05rem;
+        color: #475569;
+        line-height: 1.7;
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 4rem;
+        position: relative;
+      }
+
+      .process-grid::before {
+        content: '';
+        position: absolute;
+        top: 50px;
+        left: 15%;
+        right: 15%;
+        height: 2px;
+        background: linear-gradient(90deg, #5783fc 0%, #5783fc 50%, rgba(87, 131, 252, 0.3) 100%);
+        z-index: 0;
+      }
+
+      .process-step {
+        position: relative;
+        text-align: center;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        z-index: 1;
+      }
+
+      .step-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #5783fc;
+        opacity: 0.2;
+        margin-bottom: 1rem;
+      }
+
+      .step-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1.5rem;
+        color: #5783fc;
+      }
+
+      .step-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+
+      .step-body {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #475569;
+      }
+
+      /* Detailed Breakdown */
+      .breakdown-section {
+        background: #fff;
+        padding: 80px 2rem;
+      }
+
+      .breakdown-container {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .breakdown-phase {
+        margin-bottom: 4rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .breakdown-phase:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .phase-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .phase-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        background: #5783fc;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .phase-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      .phase-description {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #475569;
+        margin-bottom: 2rem;
+      }
+
+      .phase-deliverables {
+        background: rgba(87, 131, 252, 0.03);
+        padding: 2rem;
+        border-radius: 8px;
+        border-left: 3px solid #5783fc;
+      }
+
+      .phase-deliverables h4 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #5783fc;
+        margin-bottom: 1rem;
+      }
+
+      .phase-deliverables ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+
+      .phase-deliverables li {
+        font-size: 0.95rem;
+        color: #475569;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .phase-deliverables li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #5783fc;
+        font-weight: 700;
+      }
+
+      /* Tech Stack */
+      .tech-stack-section {
+        padding: 80px 2rem;
+        background: rgba(87, 131, 252, 0.02);
+      }
+
+      .tech-stack-container {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .tech-categories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .tech-category {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      }
+
+      .tech-category h3 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .tech-category ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tech-category li {
+        font-size: 0.95rem;
+        color: #475569;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .tech-category li:last-child {
+        border-bottom: none;
+      }
+
+      /* Difference Section */
+      .difference-section {
+        background: #fff;
+        padding: 80px 2rem;
+      }
+
+      .difference-container {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .comparison-card {
+        padding: 2rem;
+        border-radius: 12px;
+        border: 2px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .comparison-card.highlight {
+        border-color: #5783fc;
+        background: rgba(87, 131, 252, 0.02);
+      }
+
+      .comparison-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #5783fc;
+        margin-bottom: 0.5rem;
+      }
+
+      .comparison-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+
+      .comparison-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .comparison-features li {
+        font-size: 0.95rem;
+        color: #475569;
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .comparison-features li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: #5783fc;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        text-align: center;
+        padding: 80px 2rem;
+        background: #0f172a;
+        color: #fff;
+      }
+
+      .cta-container {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .cta-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .cta-subhead {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 2rem;
+      }
+
+      .cta-button {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1rem 2.5rem;
+        background: #5783fc;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(87, 131, 252, 0.4);
+      }
+
+      .cta-button:hover {
+        background: #345fe2;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(87, 131, 252, 0.5);
+      }
+
+      .cta-secondary {
+        margin-top: 1.5rem;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .cta-secondary a {
+        color: #5783fc;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .cta-secondary a:hover {
+        color: #7ba4fc;
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .process-grid,
+        .tech-categories,
+        .comparison-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .process-grid::before {
+          display: none;
+        }
+
+        .phase-deliverables ul {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-headline {
+          font-size: 2rem;
+        }
+
+        .hero-subhead {
+          font-size: 1.1rem;
+        }
+
+        .section-intro h2 {
+          font-size: 1.6rem;
+        }
+
+        .step-title {
+          font-size: 1.3rem;
+        }
+
+        .phase-title {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    {{ partial "header.html" . }}
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <h1 class="hero-headline">From idea to launch — no friction</h1>
+        <p class="hero-subhead">
+          A focused, fast-moving workflow designed for clarity and speed. Built like an agency project, delivered like a startup.
+        </p>
+      </div>
+    </section>
+
+    <!-- Process Overview -->
+    <section class="process-section">
+      <div class="section-intro">
+        <h2>Three stages. Zero handovers.</h2>
+        <p>
+          Every project follows the same proven path — scoped, built, and shipped in 8-12 weeks.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <svg
+            class="step-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 21l3.8-1L20 6.8a2.2 2.2 0 0 0 0-3.1l-.7-.7a2.2 2.2 0 0 0-3.1 0L3 16.2 3 21z" />
+            <path d="M14.5 5.5l4 4" />
+          </svg>
+          <div class="step-title">1. Scope</div>
+          <div class="step-body">
+            Define the MVP. Capture what matters, cut what doesn't. Map user journeys, set success metrics, and write clear user stories.
+          </div>
+        </div>
+
+        <div class="process-step">
+          <svg
+            class="step-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 5h18v14H3z" />
+            <path d="M7 9l3 3-3 3" />
+            <path d="M12 15h5" />
+          </svg>
+          <div class="step-title">2. Build</div>
+          <div class="step-body">
+            Design and code move together — no silos, no waiting. Every commit moves the product toward production, not just a prototype.
+          </div>
+        </div>
+
+        <div class="process-step">
+          <svg
+            class="step-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2c3 0 6 3 6 6 0 6-6 12-6 12S6 14 6 8c0-3 3-6 6-6z" />
+            <path d="M12 9.5v.01" />
+            <path d="M7 20l2-2" />
+            <path d="M15 20l-2-2" />
+          </svg>
+          <div class="step-title">3. Ship</div>
+          <div class="step-body">
+            Deploy with security, scalability, and polish baked in. Infrastructure, analytics, and support ready from day one.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Breakdown -->
+    <section class="breakdown-section">
+      <div class="breakdown-container">
+        <div class="section-intro">
+          <h2>How each phase works</h2>
+          <p>A detailed look at what happens at every stage, and what you'll receive.</p>
+        </div>
+
+        <!-- Phase 1: Scope -->
+        <div class="breakdown-phase">
+          <div class="phase-header">
+            <div class="phase-number">1</div>
+            <h3 class="phase-title">Scope — Define the MVP</h3>
+          </div>
+          <p class="phase-description">
+            We start by stripping away everything that isn't essential. You know your users, I know what's technically feasible. Together we map out the core flow, set measurable success metrics, and document clear user stories. No bloat, no guesswork.
+          </p>
+          <div class="phase-deliverables">
+            <h4>Deliverables:</h4>
+            <ul>
+              <li>Product requirements document</li>
+              <li>User flow diagrams</li>
+              <li>Technical feasibility assessment</li>
+              <li>Feature prioritization matrix</li>
+              <li>Success metrics & KPIs</li>
+              <li>Timeline & milestone plan</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 2: Build -->
+        <div class="breakdown-phase">
+          <div class="phase-header">
+            <div class="phase-number">2</div>
+            <h3 class="phase-title">Build — Design & Code in Parallel</h3>
+          </div>
+          <p class="phase-description">
+            Design and development happen side by side, not in sequence. As soon as wireframes are validated, code begins. Weekly progress updates keep you in the loop. No handovers between teams, no delays waiting for "design sign-off."
+          </p>
+          <div class="phase-deliverables">
+            <h4>Deliverables:</h4>
+            <ul>
+              <li>High-fidelity UI designs (Figma)</li>
+              <li>Responsive frontend implementation</li>
+              <li>Backend API & database architecture</li>
+              <li>User authentication & authorization</li>
+              <li>Admin dashboard (if required)</li>
+              <li>Weekly progress demos</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 3: Ship -->
+        <div class="breakdown-phase">
+          <div class="phase-header">
+            <div class="phase-number">3</div>
+            <h3 class="phase-title">Ship — Deploy & Support</h3>
+          </div>
+          <p class="phase-description">
+            Deployment isn't an afterthought. Your product goes live on secure, scalable infrastructure (AWS or GCP). Analytics are wired up, monitoring is active, and you get 30 days of post-launch support to handle edge cases and refinements.
+          </p>
+          <div class="phase-deliverables">
+            <h4>Deliverables:</h4>
+            <ul>
+              <li>Production deployment (AWS/GCP)</li>
+              <li>SSL certificates & domain setup</li>
+              <li>Database backups & monitoring</li>
+              <li>Analytics integration (Plausible/Google)</li>
+              <li>Error tracking (Sentry)</li>
+              <li>30 days post-launch support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="tech-stack-section">
+      <div class="tech-stack-container">
+        <div class="section-intro">
+          <h2>The tech we use</h2>
+          <p>Modern, proven tools that scale with your product.</p>
+        </div>
+
+        <div class="tech-categories">
+          <div class="tech-category">
+            <h3>Frontend</h3>
+            <ul>
+              <li>React / Next.js</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS</li>
+              <li>Framer Motion</li>
+            </ul>
+          </div>
+
+          <div class="tech-category">
+            <h3>Backend</h3>
+            <ul>
+              <li>Node.js / Python</li>
+              <li>PostgreSQL / MongoDB</li>
+              <li>REST / GraphQL APIs</li>
+              <li>Serverless functions</li>
+            </ul>
+          </div>
+
+          <div class="tech-category">
+            <h3>Infrastructure</h3>
+            <ul>
+              <li>AWS / Google Cloud</li>
+              <li>Vercel / Netlify</li>
+              <li>Docker containers</li>
+              <li>CI/CD pipelines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How We're Different -->
+    <section class="difference-section">
+      <div class="difference-container">
+        <div class="section-intro">
+          <h2>How this is different</h2>
+          <p>Compared to agencies, freelancers, or internal teams.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <div class="comparison-label">Agencies</div>
+            <div class="comparison-title">Slow & Expensive</div>
+            <ul class="comparison-features">
+              <li>6-12 month timelines</li>
+              <li>£50k+ minimums</li>
+              <li>Multiple handovers</li>
+              <li>Rigid processes</li>
+            </ul>
+          </div>
+
+          <div class="comparison-card highlight">
+            <div class="comparison-label">rwx_t</div>
+            <div class="comparison-title">Fast & Focused</div>
+            <ul class="comparison-features">
+              <li>8-12 week delivery</li>
+              <li>From £6k</li>
+              <li>Zero handovers</li>
+              <li>Direct communication</li>
+            </ul>
+          </div>
+
+          <div class="comparison-card">
+            <div class="comparison-label">Freelancers</div>
+            <div class="comparison-title">Risky & Fragmented</div>
+            <ul class="comparison-features">
+              <li>Inconsistent quality</li>
+              <li>Limited availability</li>
+              <li>Coordination overhead</li>
+              <li>Support gaps</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2 class="cta-headline">Ready to start building?</h2>
+        <p class="cta-subhead">
+          Book a free 30-minute call. No pitch, no pressure — just a straightforward conversation about your idea and how we can ship it.
+        </p>
+        <a href="/book-call/" class="cta-button">Schedule a call →</a>
+        <div class="cta-secondary">
+          or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a>
+        </div>
+      </div>
+    </section>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>

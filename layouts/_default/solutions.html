@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ .Title }} — {{ .Site.Title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ .Description }}" />
+
+    <!-- Google Fonts - JetBrains Mono + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {{ partial "seo.html" . }}
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #fafafa;
+        color: #0f172a;
+        line-height: 1.6;
+      }
+
+      /* Header */
+      {{ partial "header.html" . }}
+
+      .hero-section {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        padding: 120px 2rem 80px;
+        text-align: center;
+      }
+
+      .hero-container {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .hero-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 3rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero-subhead {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* Solutions Grid Section */
+      .solutions-section {
+        padding: 80px 2rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .section-intro {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 4rem;
+      }
+
+      .section-intro h2 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+
+      .section-intro p {
+        font-size: 1.05rem;
+        color: #475569;
+        line-height: 1.7;
+      }
+
+      .solutions-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 4rem;
+      }
+
+      .solution-card {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
+      }
+
+      .solution-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border-color: #5783fc;
+      }
+
+      .solution-tier {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #5783fc;
+        margin-bottom: 1rem;
+      }
+
+      .solution-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+      }
+
+      .solution-body {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #475569;
+        margin-bottom: 1.5rem;
+      }
+
+      .solution-price {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+      }
+
+      .solution-note {
+        font-size: 0.9rem;
+        color: #64748b;
+        font-style: italic;
+      }
+
+      .solution-features {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .solution-features h4 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+
+      .solution-features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .solution-features li {
+        font-size: 0.95rem;
+        color: #475569;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        position: relative;
+      }
+
+      .solution-features li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #5783fc;
+        font-weight: 700;
+      }
+
+      /* Comparison Table */
+      .comparison-section {
+        background: #fff;
+        padding: 80px 2rem;
+      }
+
+      .comparison-container {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+
+      .comparison-table thead {
+        background: #0f172a;
+        color: #fff;
+      }
+
+      .comparison-table th {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .comparison-table td {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        font-size: 0.95rem;
+        color: #475569;
+      }
+
+      .comparison-table tbody tr:hover {
+        background: rgba(87, 131, 252, 0.02);
+      }
+
+      .check-yes {
+        color: #10b981;
+        font-weight: 700;
+      }
+
+      .check-no {
+        color: #e5e7eb;
+      }
+
+      /* Social Proof */
+      .social-proof-section {
+        padding: 60px 2rem;
+        background: rgba(87, 131, 252, 0.03);
+        text-align: center;
+      }
+
+      .social-proof-container {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .social-proof-stat {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #5783fc;
+        margin-bottom: 0.5rem;
+      }
+
+      .social-proof-label {
+        font-size: 1.1rem;
+        color: #475569;
+      }
+
+      /* Equity Callout */
+      .equity-callout {
+        max-width: 720px;
+        margin: 3rem auto 0 auto;
+        padding: 0;
+        text-align: center;
+      }
+
+      .equity-callout p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #666;
+        margin: 0;
+      }
+
+      .equity-callout a {
+        color: #5783fc;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+      }
+
+      .equity-callout a:hover {
+        color: #4169e0;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        text-align: center;
+        padding: 80px 2rem;
+        background: #0f172a;
+        color: #fff;
+      }
+
+      .cta-container {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .cta-headline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .cta-subhead {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 2rem;
+      }
+
+      .cta-button {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1rem 2.5rem;
+        background: #5783fc;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(87, 131, 252, 0.4);
+      }
+
+      .cta-button:hover {
+        background: #345fe2;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(87, 131, 252, 0.5);
+      }
+
+      .cta-secondary {
+        margin-top: 1.5rem;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .cta-secondary a {
+        color: #5783fc;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .cta-secondary a:hover {
+        color: #7ba4fc;
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .solutions-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-headline {
+          font-size: 2rem;
+        }
+
+        .hero-subhead {
+          font-size: 1.1rem;
+        }
+
+        .section-intro h2 {
+          font-size: 1.6rem;
+        }
+
+        .solution-title {
+          font-size: 1.3rem;
+        }
+
+        .solution-price {
+          font-size: 1.6rem;
+        }
+
+        .comparison-table {
+          font-size: 0.85rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    {{ partial "header.html" . }}
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <h1 class="hero-headline">Solutions built for founders who move fast</h1>
+        <p class="hero-subhead">
+          From validating ideas to scaling products — choose the partnership tier that fits your stage.
+        </p>
+      </div>
+    </section>
+
+    <!-- Solutions Grid -->
+    <section class="solutions-section">
+      <div class="section-intro">
+        <h2>Three ways to work together</h2>
+        <p>
+          Whether you're validating an idea or scaling a product, there's a solution designed for your stage and budget.
+        </p>
+      </div>
+
+      <div class="solutions-grid">
+        <!-- Spark -->
+        <div class="solution-card">
+          <div class="solution-tier">Tier 1</div>
+          <div class="solution-title">Spark — Prototype & Validate</div>
+          <div class="solution-body">
+            Turn ideas into clickable prototypes and investor decks. Scope your product, map the core flow, and visualise it fast.
+          </div>
+          <div class="solution-price">From £6k</div>
+          <div class="solution-note">→ Best for early founders validating an idea</div>
+
+          <div class="solution-features">
+            <h4>What's Included:</h4>
+            <ul>
+              <li>Product scoping & user flow mapping</li>
+              <li>Clickable prototype (Figma)</li>
+              <li>Investor-ready pitch deck assets</li>
+              <li>Technical feasibility assessment</li>
+              <li>2-week turnaround</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Launch -->
+        <div class="solution-card">
+          <div class="solution-tier">Tier 2</div>
+          <div class="solution-title">Launch — MVP Build</div>
+          <div class="solution-body">
+            Design, code, deploy, and support your first product. Everything you need to get real users and real feedback — fast.
+          </div>
+          <div class="solution-price">From £18k</div>
+          <div class="solution-note">→ Best for funded startups ready to ship</div>
+
+          <div class="solution-features">
+            <h4>What's Included:</h4>
+            <ul>
+              <li>Full product design & development</li>
+              <li>Secure cloud deployment (AWS/GCP)</li>
+              <li>User authentication & database setup</li>
+              <li>Analytics integration</li>
+              <li>30 days post-launch support</li>
+              <li>8-12 week delivery</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Partner -->
+        <div class="solution-card">
+          <div class="solution-tier">Tier 3</div>
+          <div class="solution-title">Partner — Fractional CTO</div>
+          <div class="solution-body">
+            Keep a senior engineer in your corner as you grow. Technical direction, architecture, and sprint delivery when you need it.
+          </div>
+          <div class="solution-price">From £3k/month</div>
+          <div class="solution-note">→ Best for scaling teams needing long-term expertise</div>
+
+          <div class="solution-features">
+            <h4>What's Included:</h4>
+            <ul>
+              <li>Strategic technical planning</li>
+              <li>Code reviews & architecture guidance</li>
+              <li>Sprint delivery (8-16 hours/week)</li>
+              <li>Team mentorship & hiring support</li>
+              <li>Ongoing system optimization</li>
+              <li>Monthly retainer, no contracts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equity Callout -->
+      <div class="equity-callout">
+        <p>
+          Working on something exceptional but light on cash? I take on 1–3 equity partnerships a year for founders with real traction. It's selective and not right for everyone.
+          <a href="/equity-partnership/">Learn more about equity partnerships →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+      <div class="comparison-container">
+        <div class="section-intro">
+          <h2>Feature Comparison</h2>
+          <p>See what's included in each tier at a glance.</p>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Spark</th>
+              <th>Launch</th>
+              <th>Partner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product Scoping</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>UI/UX Design</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Full-Stack Development</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Cloud Deployment</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Security Audit</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Ongoing Support</td>
+              <td class="check-no">—</td>
+              <td>30 days</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Technical Strategy</td>
+              <td class="check-no">—</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Team Mentorship</td>
+              <td class="check-no">—</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof-section">
+      <div class="social-proof-container">
+        <div class="social-proof-stat">20+</div>
+        <div class="social-proof-label">Products shipped from idea to production</div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2 class="cta-headline">Ready to build something real?</h2>
+        <p class="cta-subhead">
+          Book a free 30-minute call. No pitch, no pressure — just a straightforward conversation about what you're building and whether I can help.
+        </p>
+        <a href="/book-call/" class="cta-button">Start your build →</a>
+        <div class="cta-secondary">
+          or email <a href="mailto:founder@rwxt.org">founder@rwxt.org</a>
+        </div>
+      </div>
+    </section>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>
