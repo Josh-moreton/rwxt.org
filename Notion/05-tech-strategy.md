@@ -35,7 +35,7 @@ Look for up to three high-impact improvements you can make in the next month. Th
 - Review all outstanding issues/bugs
 - Identify manual processes that waste time daily
 - Ask team: "What quick fix would make your life easier?"
-- Prioritize by: Impact / Effort ratio
+- Prioritise by: Impact / Effort ratio
 - Select 3 items achievable in 2-4 weeks each
 - Assign owners and target dates
 
@@ -140,7 +140,7 @@ Take each initiative and assign a responsible person (or yourself) and a target 
 
 ### 6. Review and adjust monthly
 
-Tech strategy isn't set in stone. Schedule a brief review every 30 days to evaluate progress on these items and whether they're still the right priorities. Maybe a new opportunity arose or a risk manifested that changes your plan - that's fine. The point is to keep the strategy alive and responsive. At week 4, 8, and 12 of your 90-day plan, revisit your lists: mark done items complete, update statuses, and possibly add new items or re-prioritize as you learn more. This ensures you remain agile and focused on what matters most over the quarter.
+Tech strategy isn't set in stone. Schedule a brief review every 30 days to evaluate progress on these items and whether they're still the right priorities. Maybe a new opportunity arose or a risk manifested that changes your plan - that's fine. The point is to keep the strategy alive and responsive. At week 4, 8, and 12 of your 90-day plan, revisit your lists: mark done items complete, update statuses, and possibly add new items or re-prioritise as you learn more. This ensures you remain agile and focused on what matters most over the quarter.
 
 **Action Items:**
 
@@ -159,7 +159,7 @@ Tech strategy isn't set in stone. Schedule a brief review every 30 days to evalu
 Think a few months out: are there scaling bottlenecks or maintenance nightmares you're aware of but haven't addressed? (E.g., "We're fine with 100 users, but at 1,000 our current server would crash.") Identifying these now means you can plan to fix them before they bite.
 
 **If we got 10× more users overnight, what would break first?**
-This question helps prioritize medium-term scalability tasks. It might reveal that your database would choke, or customer support can't handle volume (so maybe build better self-service tools). Use the answer to guide your 60-day projects.
+This question helps prioritise medium-term scalability tasks. It might reveal that your database would choke, or customer support can't handle volume (so maybe build better self-service tools). Use the answer to guide your 60-day projects.
 
 **What would impress a CTO investor?**
 Imagine a seasoned CTO examined your tech. What would they frown at (e.g. lack of tests, no devops pipeline, outdated tech stack)? Those are areas to improve in your strategy. Also, what would make them nod approvingly? Aim to have at least one initiative that is a "wow" factor (for example, "We implemented infrastructure-as-code for one-click environment setup").

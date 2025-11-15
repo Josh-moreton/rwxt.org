@@ -88,7 +88,7 @@ Audit your cloud and service accounts for things running that shouldn't be. Look
 
 ---
 
-### 5. Visualize the system
+### 5. Visualise the system
 
 Draw a simple diagram of how data and requests flow through your product, from a user action to your backend systems. Mark each external service or module along that journey. This visual map makes it easier to spot dependencies and chokepoints. Pay attention to any component that multiple things rely on-those can be bottlenecks or single points of failure. Even a basic boxes-and-arrows sketch on paper can clarify a lot.
 
@@ -101,7 +101,7 @@ Draw a simple diagram of how data and requests flow through your product, from a
 
 ---
 
-### 6. Prioritize and label risks
+### 6. Prioritise and label risks
 
 From your findings, pick the top 3 most critical dependencies or failure points in your stack. Maybe it's a third-party API that, if down, would cripple your product, or a part of the codebase only one person understands. Assign a risk level to each (for example, 🟥 high risk, 🟨 medium, 🟩 low). These are the areas you'll want to address first. By the end of 90 days, you should aim to turn those reds to yellows or greens by adding redundancies or mitigations.
 

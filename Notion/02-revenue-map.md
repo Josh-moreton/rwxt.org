@@ -73,11 +73,11 @@ Identify parts of your tech that cost a lot but aren't obviously driving revenue
 
 ### 4. Find hidden growth levers
 
-Look for one or two opportunities in your product that, if optimized, could significantly boost revenue or user growth. Perhaps a large number of users sign up but never make it to activation - improving that step could increase conversion. Or you have a referral feature that isn't highlighted - promoting it could drive new signups. Identify at least one such lever where a small tech or product tweak might yield a big uptick in revenue or engagement.
+Look for one or two opportunities in your product that, if optimised, could significantly boost revenue or user growth. Perhaps a large number of users sign up but never make it to activation - improving that step could increase conversion. Or you have a referral feature that isn't highlighted - promoting it could drive new signups. Identify at least one such lever where a small tech or product tweak might yield a big uptick in revenue or engagement.
 
 **Action Items:**
 
-- Analyze funnel drop-off points (biggest losses)
+- Analyse funnel drop-off points (biggest losses)
 - Identify underutilized features with revenue potential
 - Look for manual processes that could be automated
 - Find successful users and reverse engineer their path
@@ -101,7 +101,7 @@ Think about trust, security, and reliability features that indirectly protect re
 
 ### 6. Run "what-if" scenarios
 
-For each major feature or system in your revenue map, ask "What if we turned this off for a day?" If removing a feature doesn't meaningfully drop revenue or engagement, perhaps it's not as critical as you thought (and might be a cost centre). If shutting something down would be catastrophic, ensure you have safeguards around it. This exercise forces you to prioritize the truly important parts of your product.
+For each major feature or system in your revenue map, ask "What if we turned this off for a day?" If removing a feature doesn't meaningfully drop revenue or engagement, perhaps it's not as critical as you thought (and might be a cost centre). If shutting something down would be catastrophic, ensure you have safeguards around it. This exercise forces you to prioritise the truly important parts of your product.
 
 **Action Items:**
 
@@ -115,14 +115,14 @@ For each major feature or system in your revenue map, ask "What if we turned thi
 
 ### 7. Categorize and act
 
-Tag everything in your list as either a **revenue generator** (directly brings in money, like core features or conversion steps), a **revenue protector** (keeps revenue safe, like security/stability measures), or a **cost centre** (consumes resources without directly contributing to revenue). Once tagged, step back and review: Are you investing enough in the generators and protectors? Can you reduce or optimize the cost centres? Use these tags to guide where you spend your development time and budget in the coming weeks.
+Tag everything in your list as either a **revenue generator** (directly brings in money, like core features or conversion steps), a **revenue protector** (keeps revenue safe, like security/stability measures), or a **cost centre** (consumes resources without directly contributing to revenue). Once tagged, step back and review: Are you investing enough in the generators and protectors? Can you reduce or optimise the cost centres? Use these tags to guide where you spend your development time and budget in the coming weeks.
 
 **Action Items:**
 
 - Tag every feature and system with one of three labels
 - Calculate % of dev time spent on each category
 - Target: 60% generators, 30% protectors, 10% cost centres
-- Identify cost centres to eliminate or optimize
+- Identify cost centres to eliminate or optimise
 - Plan investments in under-resourced generators
 
 ---

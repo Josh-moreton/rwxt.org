@@ -252,7 +252,7 @@ The template constantly connects tech to business impact:
 ### Solo Founder Sanity Check
 
 - Validate you're not missing critical risks
-- Prioritize what matters most for growth
+- Prioritise what matters most for growth
 - Build confidence you're on the right track
 
 ---

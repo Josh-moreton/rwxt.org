@@ -34,7 +34,7 @@ We use the following types of cookies:
 We use cookies to:
 
 - Ensure the website functions as intended.
-- Analyze website performance and usage.
+- Analyse website performance and usage.
 - Remember your preferences and settings.
 - Deliver personalized content and advertisements.
 
@@ -56,7 +56,7 @@ Please note that disabling certain cookies may affect the functionality of our w
 
 We may use third-party cookies from trusted partners to:
 
-- Analyze website traffic (e.g., Google Analytics).
+- Analyse website traffic (e.g., Google Analytics).
 - Deliver targeted advertisements (e.g., Google Ads).
 
 These third parties have their own privacy and cookie policies, which we encourage you to review.
