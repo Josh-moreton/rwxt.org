@@ -1,14 +1,12 @@
-# 🚀 Pillar 3: Delivery Review
+# Pillar 3: Delivery Review
 
 ## Overview
 
-Audit your entire software delivery pipeline. Move from reactive firefighting to proactive building. Ship faster, safer, and with confidence.
-
-**Timeline:** Weeks 5-6 | **Focus:** Delivery Speed & Stability
+Work out why shipping code feels like defusing a bomb. Audit your deployment process, count how much time you waste firefighting, and fix the obvious bottlenecks. Takes two weeks.
 
 ---
 
-## 📋 Action Checklist
+## Action Checklist
 
 _[Insert Linked Database: Master Task Database, Filtered by Pillar = "Delivery Review"]_
 
@@ -29,154 +27,136 @@ _[Insert Linked Database: Master Task Database, Filtered by Pillar = "Delivery R
 
 ---
 
-## 📋 How to Do It
+## How to Do It
 
-### 1. Gauge your release pace
+### 1. Count how often you ship
 
-Determine how often you actually deploy new code to production. Is it daily, weekly, bi-weekly, or just whenever things accumulate? Look at your commit history or ask your dev team for an average. This gives you a baseline. If it's "not often" or erratic, set a goal (e.g. "ship at least one small improvement or fix every week") to create a more predictable cadence.
+Check how often you actually ship code. Look at your git history. If you're deploying less than weekly, something's broken in your process. Erratic shipping means unstable releases—fix the cadence first. Daily deployments should feel boring, not terrifying.
 
-**Action Items:**
-
-- Review git commit history for last 3 months
-- Count production deployments per week
-- Identify longest gaps between deploys
-- Calculate average time from code complete to production
-- Set target deployment frequency
+**What to do:** Review git history for last 3 months. Count deploys per week. Find the longest gaps. Calculate average time from "code done" to "code live." If it's more than a few days, you've got a bottleneck. Set a target: weekly minimum.
 
 ---
 
-### 2. Map the delivery process
+### 2. Map every manual step
 
-Write down every step between having a new idea and seeing it live for users. Include things like coding, code review, testing (QA), approval steps, deployment, and verification. Any step that is manual or overly ad-hoc is a potential delay or failure point. For example, if deploying involves a developer running commands from their laptop, that's a risk. By mapping this out, you can spot which parts of your pipeline need automation or clearer process.
+Write down every step from "idea" to "live." Code → review → test → deploy → verify. If any step involves "run this command from my laptop" or "remember to check," you've found your bottleneck. Manual steps break. Automate them.
 
-**Action Items:**
-
-- Document every step in your release process
-- Identify manual steps that could be automated
-- Note who is required for each step (bus factors)
-- Measure time spent at each stage
-- Highlight bottlenecks and pain points
+**What to do:** Document your release process. List manual steps. Note who's required for each (single points of failure). Measure how long each stage takes. The bits that take hours or need specific people? Those are your priorities.
 
 ---
 
-### 3. Set up a proper staging environment
+### 3. Build a staging environment
 
-If you don't have a staging environment (a clone of production for testing), make this a priority to create. Being able to test in a production-like setting catches bugs _before_ they reach customers. Work with your dev to spin up a staging site or app - it could be as simple as a separate branch deployment (services like Vercel or Heroku make this easy) or a small clone of your infrastructure. This will immediately give you more confidence in each release.
+If you don't have somewhere to test before production, build one this week. Vercel and Heroku make this trivially easy. Testing in production is how you discover bugs when customers are screaming—not ideal. Staging catches disasters before they reach users.
 
-**Action Items:**
-
-- Audit current testing environments
-- Create staging environment if missing
-- Document staging environment setup
-- Establish testing checklist for staging
-- Make staging environment easily accessible to team
+**What to do:** Audit current testing setups. If you don't have staging, create it now. Document how to use it. Make it easy for the team to access. Create a testing checklist. Actually use it before every deploy.
 
 ---
 
-### 4. Establish a rollback plan
+### 4. Document the rollback plan
 
-Ensure there is a quick way to undo or mitigate a bad deployment. Options include the ability to instantly revert to an older version of the code, using feature flags to turn off a new feature, or maintaining backups/snapshots of databases before releases. Document this plan. The next time a deployment causes a serious bug, you don't want to be scrambling; you should know "Alright, if it all goes wrong, we flip off Feature X or redeploy version Y and we're back to stable."
+Write down how to undo a bad deploy in under 5 minutes. Feature flags to disable features. Git revert to previous version. Database snapshot to restore. Write it down. Test it. Don't wait until 3am when everything's on fire.
 
-**Action Items:**
+**What to do:** Document rollback steps. Test them on staging (actually run through it). Add feature flags to risky new features. Set up pre-deploy database backups. Assign who can execute rollbacks. Make sure it's not just one person.
 
-- Document rollback procedure (step-by-step)
-- Test rollback process on staging
-- Implement feature flags for major features
-- Set up database backup before deployments
-- Assign rollback responsibility (who can execute)
+---
+
+### 5. Add proper testing
+
+Ask your devs how they test changes. If the answer is "I click around a bit," you need proper tests. Start with the critical paths: login, signup, payment. Even basic automated tests catch 80% of disasters before users see them.
+
+**What to do:** Count existing tests. Find the gaps in critical paths. Create a manual testing checklist at minimum. Implement code review if you're not doing it. Set up tests to run automatically in CI/CD. Don't ship code that hasn't been reviewed.
+
+---
+
+### 6. Make deployments visible
+
+Set up a Slack notification for every deploy. Include what changed and who shipped it. When a bug appears, you'll immediately know which deploy caused it instead of guessing. Bonus: team accountability.
+
+**What to do:** Configure deployment notifications in Slack. Include a changelog. Log deployments somewhere visible. Tag with version numbers. When deploys go well, acknowledge it. When they go badly, you'll know exactly when things broke.
+
+---
+
+### 7. Measure the firefighting
+
+For one week, log how much dev time goes to unplanned emergencies vs planned work. Tag tickets as "bug" or "feature." If more than 30% is firefighting, your technical debt is killing productivity. Fix the root causes, not the symptoms.
+
+**What to do:** Track one week of work. Categorise each ticket. Calculate the ratio. If it's over 30% firefighting, you're in trouble. Identify the repeat offenders—the bugs that keep coming back. Fix those properly instead of patching them.
 
 ---
 
 ### 5. Improve testing and validation
 
-Take stock of how new code is verified. If currently a developer just tests things manually on their machine, introduce more rigor. This could mean adding some automated tests (even a few critical ones for login, signup, payments - the things that _must_ work), or at least a standard checklist for manual testing that every release must pass. Also consider peer code reviews if you're not doing them - a second pair of eyes often catches issues early.
+How are you verifying new code right now? If it's "dev tests it on their laptop and we hope for the best," that's not good enough. Add some automated tests - even just a handful covering the critical stuff like login, signup, and payments. The things that absolutely cannot break. Or at minimum, create a proper checklist that has to be ticked before anything ships. And for God's sake, implement code reviews if you're not already doing them. A second pair of eyes catches half the stupid mistakes.
 
-**Action Items:**
-
-- Count existing automated tests (unit, integration, e2e)
-- Identify critical paths that need test coverage
-- Create manual testing checklist
-- Implement code review requirement
-- Set up automated test running in CI/CD
+Count your current automated tests. If the answer is "none" or "not sure," that's embarrassing. Identify the critical user paths that need coverage. Write a manual testing checklist for everything else. Make code review mandatory - no solo cowboy commits to production. Get tests running automatically in your CI/CD pipeline.
 
 ---
 
 ### 6. Increase visibility of deployments
 
-Set up notifications (via Slack, email, etc.) to announce when code is deployed and what changes were included. This way, everyone on the team knows what's going out and can quickly connect the dots if a user reports a new bug ("Oh, we just changed the upload function, that might be why…"). It also helps create a culture of accountability and celebration around shipping. If you use a tool like GitHub, you can tie this into push or CI notifications easily.
+Set up notifications - Slack, email, carrier pigeon - to announce when code goes live and what changed. When a user reports a bug five minutes after deployment, you'll immediately know "oh right, we just touched that bit." It also creates accountability: everyone sees what shipped, who shipped it, and whether it's working. GitHub Actions makes this trivial to wire up.
 
-**Action Items:**
-
-- Set up deployment notifications in Slack/email
-- Include changelog in each notification
-- Create deployment dashboard or log
-- Tag deployments with version numbers
-- Celebrate successful releases
+Configure deployment notifications in your team chat. Include a proper changelog in each announcement, not just "deployed stuff." Create a deployment log or dashboard where you can see what went out and when. Tag everything with version numbers. When a release goes well, acknowledge it - shipping should feel like an achievement, not a nerve-wracking gamble.
 
 ---
 
 ### 7. Track firefighting vs planned work
 
-For one week (or sprint), log how much time the team spends on unplanned "firefighting" tasks (bug fixes, urgent issues) versus planned project work. You can do this by having a daily standup where each dev says if they worked on any surprise issues, or by tagging tickets as "bug" vs "feature" in your tracker. After the week, calculate the rough ratio. If you discover, say, 50% of time is going to emergencies, that's a sign your tech debt or quality issues are forcing too much reactive work. Over the 90 days, aim to drive that down (e.g. to 20% or less), by fixing root causes of frequent bugs or automating repetitive fixes.
+For one week, track how much time goes to firefighting versus actual planned work. Tag every ticket as "Bug," "Feature," "Tech Debt," or "Urgent" - be honest about it. At the end of the week, do the maths. If 50% of your time is spent on emergencies, you've got a serious problem with tech debt or quality. That's half your capacity pissed away on reactive nonsense.
 
-**Action Items:**
-
-- Track time spent on planned vs unplanned work for 1 week
-- Tag all tickets as "Bug", "Feature", "Tech Debt", "Urgent"
-- Calculate percentage in each category
-- Identify top 3 sources of firefighting
-- Create plan to reduce urgent interruptions
+Log a full week of work, categorising everything. Calculate the percentages. If firefighting is eating more than 20% of your time, you need to fix the underlying issues causing all these fires. Identify the top three sources of chaos - maybe it's a dodgy database query, maybe it's lack of proper error handling, maybe it's technical debt from three years ago finally catching up. Make a plan to eliminate them.
 
 ---
 
-## 💭 Questions to Ask
+## Questions to Ask
 
 **Could we deploy on a Friday afternoon?**
-This question probes confidence. If deploying right before the weekend sounds terrifying, you likely lack safety nets (tests, monitoring, rollback). Why are you afraid, and which parts of the process need improvement so that deployments aren't scary?
+If the answer is "absolutely not" or triggers visible panic, you've identified your problem. Friday deployments should be boring, not terrifying. The fear comes from missing safety nets - no tests, no monitoring, no rollback plan. Fix those, and Fridays stop being deployment danger zone.
 
 **What's our single biggest bottleneck to shipping faster?**
-Identify the step in your development pipeline that consistently slows things down. Is it waiting for manual QA? Code review backlogs? Deployment pain? Once you name it, you can target it for improvement (e.g. invest in automated tests to ease the QA bottleneck).
+There's always one step that murders your velocity. Manual QA holding everything up? Code review backlog? Deployment process that requires blood sacrifice? Name it, then kill it. If QA is the problem, automate the tests. If code review is backed up, fix your team process or hire another senior dev.
 
 **How do we know if a release breaks something?**
-Do you have any alarms or dashboards that would catch a major issue post-deploy (in case users don't report it immediately)? If the answer is essentially "we wouldn't know until users email us," that's a problem - it suggests you need better monitoring or testing in place.
+If your honest answer is "we wait for users to complain," that's embarrassing. You need monitoring and alerts that scream at you the moment something's wrong. Dashboards, error tracking, health checks - basic stuff that tells you there's a problem before your customers do.
 
 **Are we fixing the same bugs repeatedly?**
-Think about whether you've encountered the _"didn't we patch this before?"_ situation. Recurring bugs or firefights indicate underlying issues not fully resolved. Those areas likely need a strategic fix (maybe a rewrite or more tests) rather than band-aids.
+If you're seeing déjà vu with bug reports, you're slapping band-aids on broken bones. Recurring issues mean you've never properly fixed the underlying cause. Stop patching and start rewriting or testing the hell out of those problem areas.
 
 **What keeps the team from planning ahead?**
-If you're always in reactive mode, ask why. Are outages or urgent customer issues eating all your time? Or are priorities shifting too often? Understanding this will help you either stabilize the tech or adjust workflow so you can be proactive, not just reactive.
+If you're perpetually in firefighting mode, figure out why. Is it constant outages? Customer emergencies? Or just chaotic priorities that change every five minutes? You need to either stabilise your tech or fix your planning process. Being reactive all the time is exhausting and expensive.
 
 ---
 
-## 🔍 Where to Look
+## Where to Look
 
 ### Git repository (commit history)
 
-Check how frequently code is being committed and merged. Do you see daily commits? Weekly big drops? This can hint at whether work is happening continuously or in big risky batches. Also look at release tags or deployment notes to see actual production deploy frequency.
+Check your commit frequency and patterns. Daily commits? Weekly mega-drops? The pattern tells you whether work is happening continuously or in terrifying big-bang releases. Look at release tags and deployment notes to see how often code actually hits production, not just how often it gets committed.
 
 ### CI/CD pipeline
 
-If you have continuous integration set up (Jenkins, GitHub Actions, etc.), review the build logs and test results. Frequent failing tests or pipelines can indicate unstable code or poor test coverage. If you don't have CI, that's a sign to implement at least a basic one (even just running the app's build process and some linters).
+If you've got CI set up (Jenkins, GitHub Actions, whatever), check the build logs and test results. Constantly failing pipelines signal unstable code or rubbish test coverage. If you don't have CI at all, that's your first problem - even a basic build-and-lint pipeline is better than nothing.
 
 ### Issue tracker or Kanban board
 
-Look at your JIRA, Trello, or whatever you use for tasks. Count how many bug fix cards vs. feature cards were done in the last few weeks. Also, check how many tasks get carried over multiple sprints due to firefighting interruptions. This will quantify the proactive vs reactive work ratio.
+Dig through JIRA, Trello, or whatever system you're pretending to use. Count bug fixes versus features over the last few weeks. Check how many tasks get dragged across multiple sprints because firefighting keeps interrupting. This gives you the hard numbers on reactive versus proactive work.
 
 ### Error monitoring and logs
 
-Use tools like Sentry, Rollbar, or even your server logs to see how many errors are happening in production. If there's a lot of noise (many errors, even if minor), it means things are slipping through testing. Also, if you set up alerts (e.g. when the error rate jumps or when response time slows), check how often those alerts fire - that's a measure of system stability after deployments.
+Sentry, Rollbar, server logs - check what's actually happening in production. Lots of errors, even minor ones, means your testing is letting things through. If you've set up alerts for error spikes or slow response times, look at how often they fire. Frequent alerts mean deployments are destabilising your system.
 
 ### Staging site or testing workflow
 
-If a staging environment exists, observe how it's being used. Are new features actually tested there, or is it neglected? If it doesn't exist, look at whatever process substitutes for it (maybe a "dev" environment or just local testing) and note its shortcomings. Improving this will directly improve delivery confidence.
+If you've got a staging environment, check whether anyone's actually using it or if it's just digital decoration. If staging doesn't exist, audit whatever substitute you're using - local testing, a "dev" environment - and note what's missing. Fixing your staging setup directly improves deployment confidence.
 
 ### Team communications
 
-Scroll through Slack or team emails for the past incidents. Do you see a pattern like "Hotfix deployed" or "Production issue - investigating now" happening often? That record will highlight common trouble spots (e.g. always the database, or always after deploying the mobile app) that you should focus on stabilizing in the 90-day plan.
+Scroll back through Slack or email. Count how many "hotfix deployed" or "production issue" messages appear. Frequent fire alarms indicate recurring problem areas - maybe it's always the database, maybe it's always the mobile app. Whatever keeps catching fire is where you need to focus your stabilisation efforts.
 
 ---
 
-## ✅ Week 5-6 Success Criteria
+## Week 5-6 Success Criteria
 
 By the end of Week 6, you should have:
 
@@ -190,7 +170,7 @@ By the end of Week 6, you should have:
 
 ---
 
-## 📊 Score This Pillar
+## Score This Pillar
 
 **Week 0 Baseline:** [1-5] _Rate your delivery process maturity_
 **Week 13 Target:** [1-5] _Where do you want to be?_
