@@ -667,13 +667,47 @@
       .solutions-section {
         background: transparent;
         padding: 30px 2rem 110px;
-        /* reclaimed vertical space */
+        /* make last section taller than a single viewport */
+        min-height: 130vh;
       }
 
       .solutions-container {
         max-width: 1280px;
         margin: 0 auto;
         width: 100%;
+      }
+
+      /* Logo banner inside Solutions */
+      .logo-banner-section {
+        margin-bottom: 3rem;
+      }
+
+      .logo-banner-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .logo-banner-heading {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #666;
+        margin-bottom: 1.5rem;
+      }
+
+      .logo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem 3rem;
+        align-items: center;
+      }
+
+      .logo-grid img {
+        max-height: 40px;
+        width: auto;
+        height: auto;
       }
 
       .solutions-headline {
@@ -822,9 +856,65 @@
         color: #4169e0;
       }
 
+      /* Logo Banner Section */
+      .logo-banner-section {
+        padding: 80px 2rem;
+        background: transparent;
+      }
+
+      .logo-banner-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .logo-banner-heading {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #666;
+        margin-bottom: 3rem;
+      }
+
+      .logo-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+        align-items: center;
+        justify-items: center;
+        opacity: 0;
+      }
+
+      .logo-grid img {
+        max-width: 160px;
+        max-height: 80px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      .logo-grid img:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
       @media (max-width: 1024px) {
         .solutions-grid {
           grid-template-columns: 1fr;
+        }
+
+        .logo-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2.5rem;
+        }
+
+        .logo-grid img {
+          max-width: 140px;
+          max-height: 70px;
         }
       }
 
@@ -1144,6 +1234,23 @@
           padding: 1.25rem 0;
         }
 
+        .logo-banner-section {
+          padding: 60px 1.5rem;
+        }
+
+        .logo-banner-heading {
+          font-size: 0.88rem;
+          margin-bottom: 2rem;
+        }
+
+        .logo-grid {
+          gap: 2rem;
+        }
+
+        .logo-grid img {
+          max-width: 130px;
+        }
+
         .process-grid {
           gap: 1.75rem;
         }
@@ -1280,6 +1387,24 @@
 
         .track {
           padding: 1rem 0;
+        }
+
+        .logo-banner-section {
+          padding: 50px 1.25rem;
+        }
+
+        .logo-banner-heading {
+          font-size: 0.82rem;
+          margin-bottom: 1.75rem;
+        }
+
+        .logo-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .logo-grid img {
+          max-width: 140px;
         }
 
         .solutions-section {
@@ -1429,7 +1554,7 @@
 
     <div id="wrapper">
       <div id="smooth-content">
-        <div id="content">
+        <div id="content" style="min-height: 650vh;">
           <!-- Global background panels and particle layer -->
           <div id="bg-panels">
             <!-- Section 2 off-white panel -->
@@ -1438,8 +1563,10 @@
             <div class="panel s3" style="top:200vh; background:#1d1d1d;"></div>
             <!-- Section 4 process light panel -->
             <div class="panel s4" style="top:300vh; background:#FAFAFA;"></div>
-            <!-- Section 6 solutions light panel -->
-            <div class="panel s6" style="top:500vh; background:#F8F7F6;"></div>
+            <!-- Section 6 logo banner light panel -->
+            <div class="panel s6" style="top:500vh; background:#FAFAFA;"></div>
+            <!-- Section 7 solutions light panel -->
+            <div class="panel s7" style="top:600vh; background:#F8F7F6;"></div>
           </div>
           <div id="particle-layer"></div>
 
@@ -1777,6 +1904,19 @@
           <!-- Solutions & Call to Action -->
           <section class="solutions-section">
             <div class="solutions-container">
+              <!-- Logo Banner Section (inline within Solutions page) -->
+              <div class="logo-banner-section">
+                <div class="logo-banner-container">
+                  <h3 class="logo-banner-heading">Trusted by these Companies</h3>
+                  <div class="logo-grid">
+                    <img src="/logos/Need_a_Tradesman_Logo_TEAL.svg" alt="Need a Tradesman" />
+                    <img src="/logos/logo-orange-on-white.svg" alt="Client Logo" />
+                    <img src="/logos/spectinga-white-DqQuY-mg.svg" alt="Spectinga" />
+                    <img src="/logos/wagamama.png" alt="Client Logo" />
+                  </div>
+                </div>
+              </div>
+
               <h2 class="solutions-headline">Solutions built for founders who move fast.</h2>
               <p class="solutions-subhead">
                 Choose the level of partnership that fits your stage — from prototype to scale.
@@ -2071,6 +2211,19 @@
           scrollTrigger: {
             trigger: '.process-section',
             start: 'top 75%',
+          },
+        });
+
+        /*------------------------------
+      Logo Banner Animation
+      ------------------------------*/
+        gsap.to('.logo-grid', {
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.logo-banner-section',
+            start: 'top 80%',
           },
         });
 
