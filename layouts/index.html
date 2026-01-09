@@ -310,6 +310,21 @@
           font-size: 0.95rem;
           letter-spacing: 0.16em;
         }
+
+        /* Footer responsive - mobile */
+        .footer-section .footer-container {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-section .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-section .footer-legal {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
       }
 
       #wrapper {
@@ -324,7 +339,7 @@
       #content {
         overflow: visible;
         width: 100%;
-        min-height: 600vh;
+        min-height: 700vh;
         position: relative;
       }
 
@@ -430,6 +445,148 @@
 
       section:nth-of-type(6) {
         top: 500vh;
+      }
+
+      /* Footer section - positioned after solutions section */
+      .footer-section {
+        top: 630vh;
+        min-height: auto;
+        padding: 0;
+        display: block;
+      }
+
+      .footer-section .site-footer {
+        background: #0f172a;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 4rem 2rem 2rem;
+        font-family: 'Inter', 'IBM Plex Sans', -apple-system, sans-serif;
+        position: relative;
+        z-index: 25;
+        width: 100%;
+      }
+
+      .footer-section .footer-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .footer-section .footer-brand .footer-logo {
+        height: 80px;
+        width: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section .footer-brand p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        max-width: 320px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-section .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .footer-section .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .footer-section .social-links a:hover {
+        background: #5783FC;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      .footer-section .social-links svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .footer-section .footer-column h4 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #fff;
+        margin-bottom: 1.25rem;
+      }
+
+      .footer-section .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .footer-section .footer-column a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.2s ease;
+      }
+
+      .footer-section .footer-column a:hover {
+        color: #5783FC;
+      }
+
+      .footer-section .footer-bottom {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-section .footer-bottom p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .footer-section .footer-legal {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .footer-section .footer-legal a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-section .footer-legal a:hover {
+        color: #5783FC;
       }
 
       .content-inner {
@@ -1161,6 +1318,24 @@
         .equity-callout {
           margin-bottom: 6rem;
         }
+
+        /* Footer responsive - tablet */
+        .footer-section {
+          top: 700vh;
+        }
+
+        #content {
+          min-height: 780vh;
+        }
+
+        .footer-section .footer-container {
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+
+        .footer-section .footer-brand {
+          grid-column: 1 / -1;
+        }
       }
 
       /* Responsive adjustments */
@@ -1484,6 +1659,23 @@
         .equity-body {
           font-size: 0.92rem;
         }
+
+        /* Footer responsive - small mobile */
+        .footer-section {
+          top: 850vh;
+        }
+
+        #content {
+          min-height: 930vh;
+        }
+
+        .footer-section .site-footer {
+          padding: 3rem 1.25rem 1.5rem;
+        }
+
+        .footer-section .footer-brand .footer-logo {
+          height: 60px;
+        }
       }
     </style>
   </head>
@@ -1558,7 +1750,7 @@
 
     <div id="wrapper">
       <div id="smooth-content">
-        <div id="content" style="min-height: 650vh;">
+        <div id="content">
           <!-- Global background panels and particle layer -->
           <div id="bg-panels">
             <!-- Section 2 off-white panel -->
@@ -1977,10 +2169,64 @@
               </div>
             </div>
           </section>
+
+          <!-- Section 7: Footer (inline for scroll compatibility) -->
+          <section class="footer-section">
+            <footer class="site-footer">
+              <div class="footer-container">
+                <div class="footer-brand">
+                  <img src="{{ "/img/Logo-black-transparent-background.svg" | relURL }}" alt="rwxt logo" class="footer-logo" />
+                  <p>Production-grade digital products, shipped fast. From first commit to live release.</p>
+                  <div class="social-links">
+                    <a href="https://github.com/Josh-moreton" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                      <i data-lucide="github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/joshua-stuart-moreton/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <i data-lucide="linkedin"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="footer-column">
+                  <h4>Product</h4>
+                  <ul>
+                    <li><a href="/solutions/">Solutions</a></li>
+                    <li><a href="/process/">How it Works</a></li>
+                    <li><a href="/book-call/">Book a Call</a></li>
+                  </ul>
+                </div>
+
+                <div class="footer-column">
+                  <h4>Resources</h4>
+                  <ul>
+                    <li><a href="/90-day-checklist/">90-Day Tech Checklist</a></li>
+                  </ul>
+                </div>
+
+                <div class="footer-column">
+                  <h4>Contact</h4>
+                  <ul>
+                    {{ with .Site.Params.contact.email }}
+                    <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+                    {{ else }}
+                    <li><a href="mailto:founder@rwxt.org">founder@rwxt.org</a></li>
+                    {{ end }}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="footer-bottom">
+                <p>&copy; <span>{{ now.Year }}</span> {{ .Site.Params.copyright | default "rwx_t. All rights reserved." | safeHTML }}</p>
+                <div class="footer-legal">
+                  <a href="/privacy-policy/">Privacy Policy</a>
+                  <a href="/cookie-policy/">Cookie Policy</a>
+                </div>
+              </div>
+            </footer>
+          </section>
         </div>
 
-        <!-- Footer -->
-        {{ partial "footer.html" . }}
+        <!-- Footer partial removed - now inline above -->
       </div>
     </div>
 
@@ -2409,6 +2655,12 @@
           );
         });
       });
+    </script>
+
+    <!-- Lucide Icons for inline footer -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
     </script>
   </body>
 </html>
